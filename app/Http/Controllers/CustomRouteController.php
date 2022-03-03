@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RequestResource;
 use App\Http\Resources\RouteResource;
 use App\Models\CustomRoute;
 use App\Models\State;
@@ -44,10 +45,26 @@ class CustomRouteController extends Controller
    */
   public function index()
   {
-    $routes = auth('companies')->user()->routes()->paginate(20);
+    // $routes = auth('companies')->user()->routes()->paginate(20);
+      if (auth("companies")->user()->type == "company") {
+        $routes = RequestResource::collection(
+         auth('companies')->user()->routes() 
+            ->orWhere("company_id", null)
+            ->where('car_body', '!=', '')
+            ->paginate(20)
+        );
+      } 
+      else {
+        $routes = RequestResource::collection(
+         auth('companies')->user()->routes() 
+            ->where("car_body", '')
+            ->paginate(20)
+        );
+      }
     return response()->json([
       'success' => 'true',
-      'data' => RouteResource::collection($routes),
+      'data' => $routes,
+      // 'data' => RouteResource::collection($routes),
       'message' => null
     ]);
   }
@@ -65,7 +82,7 @@ class CustomRouteController extends Controller
     $rules = array(
       "date1"       => 'required',
       "date2"       => 'required',
-      "car_body"       => 'required',
+      // "car_body"       => 'required',
       "note"       => 'required',
       "source"       => 'required',
       "destination"       => 'required',
@@ -85,7 +102,7 @@ class CustomRouteController extends Controller
       $customRoute = auth('companies')->user()->routes()->create([
         'date1' => $request->date1,
         'date2' => $request->date2,
-        'car_body' => $request->car_body,
+        'car_body' => $request->car_body ?: '',
         'note' => $request->note,
         'source' => State::where("title", $request->source)->first()->id,
         'destination' => State::where("title", $request->destination)->first()->id,
