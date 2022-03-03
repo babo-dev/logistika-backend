@@ -120,7 +120,7 @@ class RequestAnswersController extends Controller
       // change request status to '1' 
       $answer->request->status = '1';
       // request's company to that company
-      $answer->request->company = $answer->company->id;
+      $answer->request->company_id = $answer->company->id;
       // change answer's status to 1 tayyarlanyar
       $answer->status = 1;
 
