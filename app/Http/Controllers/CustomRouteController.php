@@ -33,7 +33,7 @@ class CustomRouteController extends Controller
 
     return response()->json([
       'success' => 'true',
-      'data' => RouteResource::collection($routes),
+      'data' => RouteResource::collection($routes)->response()->getData(True),
       'message' => null
     ]);
   }
@@ -52,14 +52,14 @@ class CustomRouteController extends Controller
             ->orWhere("company_id", null)
             ->where('car_body', '!=', '')
             ->paginate(20)
-        );
+        )->response()->getData(True);
       } 
       else {
         $routes = RequestResource::collection(
          auth('companies')->user()->routes() 
             ->where("car_body", '')
             ->paginate(20)
-        );
+        )->response()->getData(True);
       }
     return response()->json([
       'success' => 'true',

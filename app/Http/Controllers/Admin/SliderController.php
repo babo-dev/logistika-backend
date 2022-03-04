@@ -29,7 +29,7 @@ class SliderController extends Controller
   {
     return response()->json([
       'success' => 'true',
-      'data' => SliderResource::collection(Slider::paginate(20)),
+      'data' => SliderResource::collection(Slider::paginate(20))->response()->getData(True),
       'message' => null
     ]);
   }
@@ -140,7 +140,7 @@ class SliderController extends Controller
   {
     $sliders = Slider::where('id', $id);
     if ($sliders->exists()) {
-      $slider = $sliders->first(); 
+      $slider = $sliders->first();
       if (file_exists(storage_path() . "/app/public/images/slider/" . $slider->url)) {
         if ($slider->url) unlink(storage_path() . "/app/public/images/slider/" . $slider->url);
       }

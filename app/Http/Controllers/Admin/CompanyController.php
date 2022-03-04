@@ -22,7 +22,7 @@ class CompanyController extends Controller
   {
     $companies = Company::paginate(20);
 
-    $companies = CompanyResource::collection($companies);
+    $companies = CompanyResource::collection($companies)->response()->getData(True);
 
     return response()->json([
       'success' => 'true',

@@ -22,7 +22,7 @@ class UserController extends Controller
   {
     $users = User::paginate(20);
 
-    $users = UserResource::collection($users);
+    $users = UserResource::collection($users)->response()->getData(True);
 
     return response()->json([
       'success' => 'true',

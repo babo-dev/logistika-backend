@@ -29,7 +29,7 @@ class TechniqueController extends Controller
    */
   public function all()
   {
-    $techniques = TechniqueResource::collection(Technique::paginate(20));
+    $techniques = TechniqueResource::collection(Technique::paginate(20))->response()->getData(True);
     return response()->json([
       'success' => 'true',
       'data' => $techniques,
@@ -44,7 +44,8 @@ class TechniqueController extends Controller
    */
   public function index()
   {
-    $techniques = TechniqueResource::collection(auth('companies')->user()->techniques()->paginate(20));
+    $techniques = TechniqueResource::collection(auth('companies')->user()->techniques()->paginate(20))
+    ->response()->getData(True);
     return response()->json([
       'success' => 'true',
       'data' => $techniques,

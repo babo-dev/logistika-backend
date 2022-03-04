@@ -34,7 +34,7 @@ class RequestAnswersController extends Controller
 
     return response()->json([
       'success' => 'true',
-      'data' => RequestAnswersResource::collection($answers),
+      'data' => RequestAnswersResource::collection($answers)->response()->getData(True),
       'message' => null
     ]);
   }
@@ -50,7 +50,7 @@ class RequestAnswersController extends Controller
     // return $answers->first()->request;
     return response()->json([
       'success' => 'true',
-      'data' => RequestAnswersResource::collection($answers),
+      'data' => RequestAnswersResource::collection($answers)->response()->getData(True),
       'message' => null
     ]);
   }

@@ -95,7 +95,7 @@ class CustomRequestController extends Controller
   public function index()
   {
     if (auth('users')->check()) {
-      $custom_requests = RequestResource::collection(auth('users')->user()->requests()->paginate(20));
+      $custom_requests = RequestResource::collection(auth('users')->user()->requests()->paginate(20))->response()->getData(True);
     } 
     else {
       // $custom_requests = RequestResource::collection(auth('companies')->user()->requests()->paginate(20));
@@ -131,7 +131,7 @@ class CustomRequestController extends Controller
     if ($custom_request->count()) {
       return response()->json([
         'success' => 'true',
-        'data' => RequestAnswersResource::collection($custom_request->first()->offers()->paginate(20)),
+        'data' => RequestAnswersResource::collection($custom_request->first()->offers()->paginate(20))->response()->getData(True),
         'message' => null,
       ]);
     } else {
@@ -290,7 +290,7 @@ class CustomRequestController extends Controller
   public function statusWaiting()
   {
     $custom_requests = CustomRequest::where("status", "0")->paginate(20);
-    $custom_requests = RequestResource::collection($custom_requests);
+    $custom_requests = RequestResource::collection($custom_requests)->response()->getData(True);
 
     return response()->json([
       'success' => 'true',
