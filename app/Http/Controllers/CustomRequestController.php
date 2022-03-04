@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CustomRequestResource;
 use App\Http\Resources\RequestAnswersResource;
 use App\Models\CustomRequest;
 use Illuminate\Http\Request;
@@ -302,8 +303,8 @@ class CustomRequestController extends Controller
   public function statusAnswered()
   {
     // $custom_requests = CustomRequest::where("status", "1")->paginate(20);
-    $answers = auth("companies")->user()->request_answers()->where("status", "1")->paginate(20);
-    $answers = RequestAnswersResource::collection($answers);
+    $answers = auth("companies")->user()->requests()->where("status", "1")->paginate(20);
+    $answers = RequestResource::collection($answers);
 
     return response()->json([
       'success' => 'true',
