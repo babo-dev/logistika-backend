@@ -105,7 +105,7 @@ class CustomRequestController extends Controller
             ->orWhere("company_id", null)
             ->where('car_body', '!=', '')
             ->paginate(20)
-        );
+        )->response()->getData(True);
       } 
       else {
         $custom_requests = RequestResource::collection(
@@ -113,7 +113,7 @@ class CustomRequestController extends Controller
             ->orWhere("company_id", null)
             ->where("car_body", '')
             ->paginate(20)
-        );
+        )->response()->getData(True);
       }
     }
 

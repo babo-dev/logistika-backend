@@ -6,7 +6,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class RequestResource extends JsonResource
 {
-  public static $wrap = "requests";
+  public static $wrap = 'requests';
+
+  // public function __construct()
+  // {
+    // $this->wrap("requests");
+    // $this->response()->getData(True);
+  // }
+
   /**
    * Transform the resource into an array.
    *
@@ -20,8 +27,8 @@ class RequestResource extends JsonResource
    */
   public function toArray($request)
   {
-    /* return parent::toArray($request); */
     return [
+      // 'requests' => [
       'id' => $this->id,
       'user' => new UserResource($this->user),
       'date1' => $this->date1,
@@ -39,11 +46,12 @@ class RequestResource extends JsonResource
       'status' => $this->status,
       'source' => new StateResource($this->source_state->first()),
       'destination' => new StateResource($this->destination_state->first()),
+      // ]
     ];
   }
 
-  public function toResponse($request)
-  {
-    return JsonResource::toResponse($request);
-  }
+  // public function toResponse($request)
+  // {
+  //   return JsonResource::toResponse($request);
+  // }
 }
