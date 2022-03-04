@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CustomRequestResource;
 use App\Http\Resources\RequestAnswersResource;
 use App\Models\CustomRequest;
 use Illuminate\Http\Request;
@@ -38,7 +37,7 @@ class CustomRequestController extends Controller
    */
   public function all()
   {
-    $custom_requests = RequestResource::collection(CustomRequest::paginate(20));
+    $custom_requests = RequestResource::collection(CustomRequest::paginate(20))->response()->getData(True);
 
     return response()->json([
       'success' => 'true',
@@ -110,7 +109,8 @@ class CustomRequestController extends Controller
       } 
       else {
         $custom_requests = RequestResource::collection(
-          CustomRequest::where("company_id", null)
+          CustomRequest::where("company_id", auth("companies")->user()->id)
+            ->orWhere("company_id", null)
             ->where("car_body", '')
             ->paginate(20)
         );
@@ -304,7 +304,8 @@ class CustomRequestController extends Controller
   {
     // $custom_requests = CustomRequest::where("status", "1")->paginate(20);
     $answers = auth("companies")->user()->requests()->where("status", "1")->paginate(20);
-    $answers = RequestResource::collection($answers);
+    // add response()->getData() method to enable pagination links
+    $answers = RequestResource::collection($answers)->response()->getData(True);
 
     return response()->json([
       'success' => 'true',

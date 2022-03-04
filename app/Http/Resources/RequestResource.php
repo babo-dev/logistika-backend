@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class RequestResource extends JsonResource
 {
-  // public static $wrap = 'techniques';
+  public static $wrap = "requests";
   /**
    * Transform the resource into an array.
    *
@@ -32,13 +32,18 @@ class RequestResource extends JsonResource
       'cubm_max' => $this->cubm_max,
       'budget_min' => $this->budget_min,
       'budget_max' => $this->budget_max,
-      'cargo_type' => $this->cargo_type=="null" ? "" : $this->cargo_type,
-      'car_body' => $this->car_body=="null" ? "" : $this->car_body,
+      'cargo_type' => $this->cargo_type == "null" ? "" : $this->cargo_type,
+      'car_body' => $this->car_body == "null" ? "" : $this->car_body,
       'company' => $this->company ? $this->company : 0,
       'note' => $this->note,
       'status' => $this->status,
       'source' => new StateResource($this->source_state->first()),
       'destination' => new StateResource($this->destination_state->first()),
     ];
+  }
+
+  public function toResponse($request)
+  {
+    return JsonResource::toResponse($request);
   }
 }

@@ -29,7 +29,7 @@ class CountryController extends Controller
   {
     return response()->json([
       'success' => 'true',
-      'data' => CountryResource::collection(Country::paginate(20)),
+      'data' => CountryResource::collection(Country::paginate(20))->response()->getData(True),
       'message' => null
     ]);
   }
