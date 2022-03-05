@@ -182,6 +182,13 @@ class CustomRequestController extends Controller
       // store
       $customRequest = auth('users')->user()->requests()->create(
         array_merge($request->all(), [
+          'weight_min' => $request->weight_min ?: '',
+          'weight_max' => $request->weight_max ?: '',
+          'cubm_min' => $request->cubm_min ?: '',
+          'cubm_max' => $request->cubm_max ?: '',
+          'budget_min' => $request->budget_min ?: '',
+          'budget_max' => $request->budget_max ?: '',
+          'note' => $request->note ?: '',
           'cargo_type' => $request->cargo_type ?: '',
           'car_body' => $request->car_body ?: ''
         ])

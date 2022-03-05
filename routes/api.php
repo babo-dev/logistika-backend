@@ -17,4 +17,4 @@ Route::delete("images", [ImageController::class, "destroy"]);
 Route::put("images/{id}", [ImageController::class, "update"]);
 
 Route::get("home", [HomeController::class, "index"]);
-Route::get("search", [HomeController::class, "search"]);
+Route::post("search", [HomeController::class, "search"]);
