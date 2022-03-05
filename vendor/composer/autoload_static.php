@@ -86,6 +86,7 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
+            'Spatie\\Translatable\\' => 20,
         ),
         'R' => 
         array (
@@ -316,6 +317,10 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
+        'Spatie\\Translatable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-translatable/src',
+        ),
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -545,7 +550,9 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CustomRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomRequestController.php',
         'App\\Http\\Controllers\\CustomRouteController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomRouteController.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ImageController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImageController.php',
+        'App\\Http\\Controllers\\PagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/PagesController.php',
         'App\\Http\\Controllers\\RequestAnswersController' => __DIR__ . '/../..' . '/app/Http/Controllers/RequestAnswersController.php',
         'App\\Http\\Controllers\\TechniqueController' => __DIR__ . '/../..' . '/app/Http/Controllers/TechniqueController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -575,6 +582,7 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
         'App\\Models\\CustomRequest' => __DIR__ . '/../..' . '/app/Models/CustomRequest.php',
         'App\\Models\\CustomRoute' => __DIR__ . '/../..' . '/app/Models/CustomRoute.php',
         'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
+        'App\\Models\\Pages' => __DIR__ . '/../..' . '/app/Models/Pages.php',
         'App\\Models\\RequestAnswers' => __DIR__ . '/../..' . '/app/Models/RequestAnswers.php',
         'App\\Models\\Slider' => __DIR__ . '/../..' . '/app/Models/Slider.php',
         'App\\Models\\State' => __DIR__ . '/../..' . '/app/Models/State.php',
@@ -4745,6 +4753,10 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Spatie\\Translatable\\Events\\TranslationHasBeenSet' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/Events/TranslationHasBeenSet.php',
+        'Spatie\\Translatable\\Exceptions\\AttributeIsNotTranslatable' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/Exceptions/AttributeIsNotTranslatable.php',
+        'Spatie\\Translatable\\HasTranslations' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/HasTranslations.php',
+        'Spatie\\Translatable\\TranslatableServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/TranslatableServiceProvider.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\Attribute\\AsCommand' => __DIR__ . '/..' . '/symfony/console/Attribute/AsCommand.php',

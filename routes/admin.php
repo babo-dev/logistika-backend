@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TechniqueTypeController;
 use App\Http\Controllers\Admin\StateController;
+use App\Http\Controllers\Admin\PageController;
 /* use Illuminate\Http\Request; */
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,13 @@ Route::post('sliders/', [SliderController::class, 'store']);
 Route::post('sliders/update/{id}', [SliderController::class, 'update']);
 Route::get('sliders/{id}', [SliderController::class, 'show']);
 Route::delete('sliders/{id}', [SliderController::class, 'destroy']);
+
+// Page routes
+Route::get('pages/', [PageController::class, 'index']);
+Route::post('pages/', [PageController::class, 'store']);
+Route::put('pages/{id}', [PageController::class, 'update']);
+Route::get('pages/{id}', [PageController::class, 'show']);
+Route::delete('pages/{id}', [PageController::class, 'destroy']);
 
 // State routes
 Route::get('state/', [StateController::class, 'index']);
