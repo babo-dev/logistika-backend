@@ -164,7 +164,7 @@ class CustomRequestController extends Controller
       // "budget_max"       => 'required',
       // "cargo_type"       => 'required',
       // "car_body"       => 'required',
-      "note"       => 'required',
+      // "note"       => 'required',
       "source"       => 'required',
       "destination"       => 'required',
     );

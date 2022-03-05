@@ -40,6 +40,7 @@ class HomeController extends Controller
 
   public function search(Request $request)
   {
+    return $request->all();
     // $techniquetype = DB::table("technique_types")->where("title", "like", $request->q)->get();
     $techniquetype = TechniqueType::where('title', 'LIKE','%'.$request->q.'%')->get();
 
