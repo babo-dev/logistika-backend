@@ -21,6 +21,7 @@ class CustomRequest extends Model
   ];
 
   protected $fillable = [
+    'title',
     'date1',
     'date2',
     'weight_min',

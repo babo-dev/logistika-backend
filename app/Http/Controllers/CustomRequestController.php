@@ -153,14 +153,15 @@ class CustomRequestController extends Controller
     // return $request->all();
 
     $rules = array(
+      "title" => "required",
       "date1"       => 'required',
       "date2"       => 'required',
-      "weight_min"       => 'required',
-      "weight_max"       => 'required',
-      "cubm_min"       => 'required',
-      "cubm_max"       => 'required',
-      "budget_min"       => 'required',
-      "budget_max"       => 'required',
+      // "weight_min"       => 'required',
+      // "weight_max"       => 'required',
+      // "cubm_min"       => 'required',
+      // "cubm_max"       => 'required',
+      // "budget_min"       => 'required',
+      // "budget_max"       => 'required',
       // "cargo_type"       => 'required',
       // "car_body"       => 'required',
       "note"       => 'required',
@@ -233,6 +234,7 @@ class CustomRequestController extends Controller
     $custom_requests = auth('users')->user()->requests()->findOrFail($id);
     $custom_requests->update([
       // $request->all()
+      'title' => $request->title ?: $custom_requests->title,
       'weight_min' => $request->weight_min ?: $custom_requests->weight_min,
       'weight_max' => $request->weight_max ?: $custom_requests->weight_max,
       'date1' => $request->date1 ?: $custom_requests->date1,

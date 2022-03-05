@@ -31,6 +31,7 @@ class RequestResource extends JsonResource
       // 'requests' => [
       'id' => $this->id,
       'user' => new UserResource($this->user),
+      'title' => $this->title,
       'date1' => $this->date1,
       'date2' => $this->date2,
       'weight_min' => $this->weight_min,

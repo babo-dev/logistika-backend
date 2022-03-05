@@ -12,6 +12,8 @@ use App\Models\Page;
 use App\Models\Slider;
 use App\Models\State;
 use App\Models\TechniqueType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -32,6 +34,18 @@ class HomeController extends Controller
       'companies' => $companies,
       'techniquetype' => $techniquetype,
       'pages' => $pages,
+      'message' => null
+    ]);
+  }
+
+  public function search(Request $request)
+  {
+    // $techniquetype = DB::table("technique_types")->where("title", "like", $request->q)->get();
+    $techniquetype = TechniqueType::where('title', 'LIKE','%'.$request->q.'%')->get();
+
+    return response()->json([
+      'success' => "true",
+      'data' => $techniquetype,
       'message' => null
     ]);
   }
