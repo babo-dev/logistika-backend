@@ -6,6 +6,7 @@ use App\Http\Resources\CompanyResource;
 use App\Http\Resources\RouteResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\StateResource;
+use App\Http\Resources\StateRouteResource;
 use App\Models\Company;
 use App\Models\CustomRoute;
 use App\Models\Page;
@@ -13,7 +14,7 @@ use App\Models\Slider;
 use App\Models\State;
 use App\Models\TechniqueType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -40,12 +41,38 @@ class HomeController extends Controller
 
   public function search(Request $request)
   {
-    // $techniquetype = DB::table("technique_types")->where("title", "like", $request->q)->get();
-    $techniquetype = TechniqueType::where('title', 'LIKE','%'.$request->q.'%')->get();
+    $rules = array(
+      "type"       => 'required',
+      "q"       => 'required',
+    );
+
+    $validator = Validator::make($request->all(), $rules);
+
+    // process the login
+    if ($validator->fails()) {
+      return response()->json([
+        'success' => 'false',
+        'data' => $validator->errors(),
+        'message' => null
+      ], 422);
+    }
+
+    // return State::where('title', 'LIKE','%'.$request->q.'%')->first();
+    // return array_merge(State::find(2)->requests_source->toArray(), State::find(2)->requests_destination->toArray());
+    if ($request->type == "technique") $data = TechniqueType::where('title', 'LIKE', '%' . $request->q . '%')->get();
+    if ($request->type == "company") $data = Company::where('name', 'LIKE', '%' . $request->q . '%')->get();
+    if ($request->type == "route") {
+      // $data = array_merge(
+      //   State::where('title', 'LIKE','%'.$request->q.'%')->get()->requests_source->toArray(),
+      //   State::where('title', 'LIKE','%'.$request->q.'%')->get()->requests_destination->toArray()
+      // );
+      $data = StateRouteResource::collection(State::where('title', 'LIKE', '%' . $request->q . '%')->get());
+      return response()->json($data);
+    }
 
     return response()->json([
       'success' => "true",
-      'data' => $techniquetype,
+      'data' => $data,
       'message' => null
     ]);
   }

@@ -14,4 +14,14 @@ class State extends Model
   {
     return $this->belongsTo("App\Models\Country");
   }
+
+  public function requests_source()
+  {
+    return $this->hasMany("App\Models\CustomRequest", "source");
+  }
+
+  public function requests_destination()
+  {
+    return $this->hasMany("App\Models\CustomRequest", "destination");
+  }
 }
