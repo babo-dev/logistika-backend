@@ -29,7 +29,7 @@ class CustomRouteController extends Controller
    */
   public function all()
   {
-    $routes = RouteResource::collection(CustomRoute::paginate(20));
+    $routes = CustomRoute::paginate(20);
 
     return response()->json([
       'success' => 'true',
