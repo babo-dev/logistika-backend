@@ -42,7 +42,7 @@ class RequestResource extends JsonResource
       'budget_max' => $this->budget_max,
       'cargo_type' => $this->cargo_type == "null" ? "" : $this->cargo_type,
       'car_body' => $this->car_body == "null" ? "" : $this->car_body,
-      'company' => $this->company ? $this->company : 0,
+      'company' => $this->company ? new CompanyResource($this->company) : 0,
       'note' => $this->note,
       'status' => $this->status,
       'source' => new StateResource($this->source_state->first()),
