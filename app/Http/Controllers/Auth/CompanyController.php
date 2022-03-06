@@ -127,7 +127,12 @@ class CompanyController extends Controller
     $company->email = $request->email ? $request->email : $company->email;
     // $company->password = Hash::make($request->password);
     $company->phone = $request->phone ? $request->phone : $company->phone;
-    $company->country_id = Country::where('title', $request->country)->first()->id ?:  $company->country_id;
+    try {
+      $company->country_id = Country::where('title', $request->country)->first()->id;
+    } catch (\Throwable $th) {
+      $company->country_id = $company->country_id;
+    }
+    // $company->country_id = Country::where('title', $request->country)->first()->id ?:  $company->country_id;
     $company->type = $request->type ? $request->type : $company->type;
     $company->short_description = $request->short_description ? $request->short_description : $company->short_description;
     $company->description = $request->description ? $request->description : $company->description;
@@ -135,6 +140,11 @@ class CompanyController extends Controller
     $company->status = $request->status ? $request->status : $company->status;
     $company->car_year = $request->car_year ? $request->car_year : $company->car_year;
     $company->owner = $request->owner ? $request->owner : $request->owner;
+    
+    if ($request->has('password')) {
+      $company->password = Hash::make($request->password);
+    }
+    
     if ($request->has('avatar')) {
       if (file_exists(storage_path() . "/app/public/images/company/" . $company->avatar)) {
         if ($company->avatar) unlink(storage_path() . "/app/public/images/company/" . $company->avatar);

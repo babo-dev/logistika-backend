@@ -151,6 +151,12 @@ class UserController extends Controller
     $user->address = $request->address ? $request->address : $user->address;
 
     $user->passport_no = $request->passport_no ? $request->passport_no : $user->passport_no;
+    //
+    // change password
+    if ($request->has('password')) {
+      $user->password = Hash::make($request->password);
+    }
+    
     if ($request->has('avatar')) {
       if (file_exists(storage_path() . "/app/public/images/" . $user->avatar)) {
         if ($user->avatar)unlink(storage_path() . "/app/public/images/" . $user->avatar);
