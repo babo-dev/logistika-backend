@@ -121,7 +121,8 @@ class TechniqueController extends Controller
    */
   public function show($id)
   {
-    $technique = auth('companies')->user()->techniques->where('id', $id);
+    // $technique = auth('companies')->user()->techniques->where('id', $id);
+    $technique = Technique::where('id', $id);
     /* $technique = new TechniqueResource(auth('companies')->user()->techniques()->findOrFail($id)); */
     if ($technique->count()) {
       return response()->json([
