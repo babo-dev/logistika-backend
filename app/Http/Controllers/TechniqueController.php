@@ -128,6 +128,7 @@ class TechniqueController extends Controller
       return response()->json([
         'success' => 'true',
         'data' => new TechniqueResource($technique->first()),
+        'similars' => TechniqueResource::collection(Technique::inRandomOrder()->limit(6)->get()),
         'message' => null,
       ]);
     } else {
