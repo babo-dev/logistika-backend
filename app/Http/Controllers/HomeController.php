@@ -7,6 +7,7 @@ use App\Http\Resources\RouteResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\StateResource;
 use App\Http\Resources\StateRouteResource;
+use App\Http\Resources\TechniqueResource;
 use App\Models\Company;
 use App\Models\CustomRoute;
 use App\Models\Page;
@@ -60,7 +61,7 @@ class HomeController extends Controller
 
     // return State::where('title', 'LIKE','%'.$request->q.'%')->first();
     // return array_merge(State::find(2)->requests_source->toArray(), State::find(2)->requests_destination->toArray());
-    if ($request->type == "technique") $data = Technique::where('title', 'LIKE', '%' . $request->q . '%')->get();
+    if ($request->type == "technique") $data = TechniqueResource::collection(Technique::where('title', 'LIKE', '%' . $request->q . '%')->get());
     if ($request->type == "company") $data = CompanyResource::collection(Company::where('name', 'LIKE', '%' . $request->q . '%')->get());
     if ($request->type == "route") {
       // $data = array_merge(
