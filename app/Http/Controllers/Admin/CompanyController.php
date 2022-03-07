@@ -20,7 +20,7 @@ class CompanyController extends Controller
   }
   public function index()
   {
-    $companies = Company::paginate(20);
+    $companies = Company::where('type', 'company')->paginate(20);
 
     $companies = CompanyResource::collection($companies)->response()->getData(True);
 
