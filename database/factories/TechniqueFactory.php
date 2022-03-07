@@ -21,6 +21,7 @@ class TechniqueFactory extends Factory
             "technique_type_id" => TechniqueType::inRandomOrder()->first(),//->create()->id,
             "state_id" => State::inRandomOrder()->first(),//->create()->id,
             "title" => $this->faker->word(),
+            "owner" => $this->faker->word(),
             "price" => $this->faker->numerify("#### man"),
             "description" => $this->faker->sentence(),
         ];

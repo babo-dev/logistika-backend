@@ -12,6 +12,7 @@ use App\Models\CustomRoute;
 use App\Models\Page;
 use App\Models\Slider;
 use App\Models\State;
+use App\Models\Technique;
 use App\Models\TechniqueType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -59,8 +60,8 @@ class HomeController extends Controller
 
     // return State::where('title', 'LIKE','%'.$request->q.'%')->first();
     // return array_merge(State::find(2)->requests_source->toArray(), State::find(2)->requests_destination->toArray());
-    if ($request->type == "technique") $data = TechniqueType::where('title', 'LIKE', '%' . $request->q . '%')->get();
-    if ($request->type == "company") $data = Company::where('name', 'LIKE', '%' . $request->q . '%')->get();
+    if ($request->type == "technique") $data = Technique::where('title', 'LIKE', '%' . $request->q . '%')->get();
+    if ($request->type == "company") $data = CompanyResource::collection(Company::where('name', 'LIKE', '%' . $request->q . '%')->get());
     if ($request->type == "route") {
       // $data = array_merge(
       //   State::where('title', 'LIKE','%'.$request->q.'%')->get()->requests_source->toArray(),
