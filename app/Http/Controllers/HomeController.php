@@ -16,6 +16,7 @@ use App\Models\Technique;
 use App\Models\TechniqueType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
@@ -75,10 +76,11 @@ class HomeController extends Controller
       $states = State::where('title', 'LIKE', '%' . $request->q . '%')->get();
       // create initial collection for all routes
       $data = new Collection();
+      $now = Carbon::now();
       foreach ($states as $state) {
         // mergen source states and destination states
-        $stateRoutes = $state->routes_source->merge(
-          $state->routes_destination
+        $stateRoutes = $state->routes_source()->whereDate('date1', '>', $now)->get()->merge(
+          $state->routes_destination()->whereDate('date1', '>', $now)->get()
         );
         // add them to initial collection
         $data = $data->merge($stateRoutes);
