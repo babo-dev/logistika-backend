@@ -44,8 +44,12 @@ class SliderController extends Controller
   {
     // return $request->url->getClientOriginalName();
     $rules = array(
-      "title"     => 'required',
-      "description"     => 'required',
+      "title_tm"     => 'required',
+      "title_ru"     => 'required',
+      "title_en"     => 'required',
+      "description_tm"     => 'required',
+      "description_ru"     => 'required',
+      "description_en"     => 'required',
       "url"     => 'required',
     );
 
@@ -61,8 +65,14 @@ class SliderController extends Controller
     }
     // store
     $slider = new Slider();
-    $slider->title = $request->title;
-    $slider->description = $request->description;
+    $slider
+      ->setTranslation('title', 'tm', $request->title_tm)
+      ->setTranslation('title', 'ru', $request->title_ru)
+      ->setTranslation('title', 'en', $request->title_en)
+      ->setTranslation('description', 'tm', $request->description_tm)
+      ->setTranslation('description', 'ru', $request->description_ru)
+      ->setTranslation('description', 'en', $request->description_en);
+    
     if ($request->has('url_redirect')) $slider->url_redirect = $request->url_redirect;
 
     $file = $request->file('url');
@@ -84,8 +94,14 @@ class SliderController extends Controller
   {
     $slider = Slider::where('id', $id)->first();
 
-    $slider->title = $request->title ?: $slider->title;
-    $slider->description = $request->description ?: $slider->description;
+    $slider
+      ->setTranslation('title', 'tm', $request->title_tm ?: $slider->getTranslation('title', 'tm'))
+      ->setTranslation('title', 'ru', $request->title_ru ?: $slider->getTranslation('title', 'ru'))
+      ->setTranslation('title', 'en', $request->title_en ?:  $slider->getTranslation('title', 'en'))
+      ->setTranslation('description', 'tm', $request->description_tm ?: $slider->getTranslation('description', 'tm'))
+      ->setTranslation('description', 'ru', $request->description_ru ?: $slider->getTranslation('description', 'ru'))
+      ->setTranslation('description', 'en', $request->description_en ?: $slider->getTranslation('description', 'en'));
+    
     if ($request->has('url_redirect')) $slider->url_redirect = $request->url_redirect;
     if ($request->has('url')) {
       if (file_exists(storage_path() . "/app/public/images/slider/" . $slider->url)) {

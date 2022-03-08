@@ -15,13 +15,13 @@ class State extends Model
     return $this->belongsTo("App\Models\Country");
   }
 
-  public function requests_source()
+  public function routes_source()
   {
-    return $this->hasMany("App\Models\CustomRequest", "source");
+    return $this->hasMany("App\Models\CustomRoute", "source", "id");
   }
 
-  public function requests_destination()
+  public function routes_destination()
   {
-    return $this->hasMany("App\Models\CustomRequest", "destination");
+    return $this->hasMany("App\Models\CustomRoute", "destination", "id");
   }
 }

@@ -16,8 +16,8 @@ class SliderResource extends JsonResource
   {
     return [
       'id' => $this->id,
-      'title' => $this->title,
-      'description' => $this->description,
+      'title' => $this->getTranslations("title"),
+      'description' => $this->getTranslations("description"),
       'url' => $this->url ? url('/storage/images/slider/' . $this->url) : null,
       'url_redirect' => $this->url_redirect,
     ];

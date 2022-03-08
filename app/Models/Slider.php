@@ -3,18 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class Slider extends Model
 {
-  use HasFactory;
+  use HasFactory, HasTranslations;
 
-  public $fillable = [
-    'title',
-    'description',
-    'url',
-    'url_redirect',
-  ];
+  public $translatable = ["title", "description"];
 
   public $timestamps = false;
 }

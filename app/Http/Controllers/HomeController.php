@@ -15,6 +15,7 @@ use App\Models\Slider;
 use App\Models\State;
 use App\Models\Technique;
 use App\Models\TechniqueType;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -50,7 +51,6 @@ class HomeController extends Controller
 
     $validator = Validator::make($request->all(), $rules);
 
-    // process the login
     if ($validator->fails()) {
       return response()->json([
         'success' => 'false',
@@ -59,17 +59,33 @@ class HomeController extends Controller
       ], 422);
     }
 
-    // return State::where('title', 'LIKE','%'.$request->q.'%')->first();
-    // return array_merge(State::find(2)->requests_source->toArray(), State::find(2)->requests_destination->toArray());
-    if ($request->type == "technique") $data = TechniqueResource::collection(Technique::where('title', 'LIKE', '%' . $request->q . '%')->get());
-    if ($request->type == "company") $data = CompanyResource::collection(Company::where('name', 'LIKE', '%' . $request->q . '%')->get());
+    if ($request->type == "technique") {
+      $data = TechniqueResource::collection(
+        Technique::where('title', 'LIKE', '%' . $request->q . '%')->get()
+      );
+    }
+
+    if ($request->type == "company") {
+      $data = CompanyResource::collection(
+        Company::where('name', 'LIKE', '%' . $request->q . '%')->get()
+      );
+    }
+
     if ($request->type == "route") {
-      // $data = array_merge(
-      //   State::where('title', 'LIKE','%'.$request->q.'%')->get()->requests_source->toArray(),
-      //   State::where('title', 'LIKE','%'.$request->q.'%')->get()->requests_destination->toArray()
-      // );
-      $data = StateRouteResource::collection(State::where('title', 'LIKE', '%' . $request->q . '%')->get());
-      return response()->json($data);
+      // get all states
+      $states = State::where('title', 'LIKE', '%' . $request->q . '%')->get();
+      // create initial collection for all routes
+      $data = new Collection();
+      foreach ($states as $state) {
+        // mergen source states and destination states
+        $stateRoutes = $state->routes_source->merge(
+          $state->routes_destination
+        );
+        // add them to initial collection
+        $data = $data->merge($stateRoutes);
+      }
+      // convert data to resource
+      $data = RouteResource::collection($data);
     }
 
     return response()->json([
