@@ -45,7 +45,7 @@ class TechniqueController extends Controller
   public function index()
   {
     $techniques = TechniqueResource::collection(auth('companies')->user()->techniques()->paginate(20))
-    ->response()->getData(True);
+      ->response()->getData(True);
     return response()->json([
       'success' => 'true',
       'data' => $techniques,
@@ -122,19 +122,22 @@ class TechniqueController extends Controller
   public function show($id)
   {
     // $technique = auth('companies')->user()->techniques->where('id', $id);
-    $technique = Technique::where('id', $id);
+    $techniques = Technique::where('id', $id);
     /* $technique = new TechniqueResource(auth('companies')->user()->techniques()->findOrFail($id)); */
-    if ($technique->count()) {
+    if ($techniques->count()) {
+      $technique = $techniques->first();
       return response()->json([
         'success' => 'true',
-        'data' => new TechniqueResource($technique->first()),
-        'similars' => TechniqueResource::collection(Technique::inRandomOrder()->limit(6)->get()),
+        'data' => new TechniqueResource($technique),
+        'similars' => TechniqueResource::collection(
+          Technique::whereNotIn('id', [$technique->id])->inRandomOrder()->limit(6)->get()
+        ),
         'message' => null,
       ]);
     } else {
       return response()->json([
         'success' => 'false',
-        'data' => $technique,
+        'data' => [],
         'message' => "Not found"
       ]);
     }
