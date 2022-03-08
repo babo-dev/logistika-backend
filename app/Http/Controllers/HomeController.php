@@ -6,7 +6,6 @@ use App\Http\Resources\CompanyResource;
 use App\Http\Resources\RouteResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\StateResource;
-use App\Http\Resources\StateRouteResource;
 use App\Http\Resources\TechniqueResource;
 use App\Models\Company;
 use App\Models\CustomRoute;
@@ -26,7 +25,7 @@ class HomeController extends Controller
     $routes = RouteResource::collection(CustomRoute::paginate(20))->response()->getData(True);
     $sliders = SliderResource::collection(Slider::paginate(20))->response()->getData(True);
     $states = StateResource::collection(State::paginate(20))->response()->getData(True);
-    $companies = CompanyResource::collection(Company::paginate(20))->response()->getData(True);
+    $companies = CompanyResource::collection(Company::where('type', 'company')->paginate(20))->response()->getData(True);
     $techniquetype = TechniqueType::paginate(20);
     $pages = Page::paginate(20);
 
