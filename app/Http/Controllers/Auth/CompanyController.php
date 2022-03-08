@@ -61,6 +61,7 @@ class CompanyController extends Controller
     $company->status = $request->status ? $request->status : '';
     $company->short_description = $request->short_description ? $request->short_description : '';
     $company->description = $request->description ? $request->description : '';
+    $company->car_number = $request->car_number ? $request->car_number : '';
     if ($request->has('avatar')) {
       $file = $request->file('avatar');
       $filename = date('YmdHi') . $file->getClientOriginalName();
@@ -140,6 +141,7 @@ class CompanyController extends Controller
     $company->status = $request->status ? $request->status : $company->status;
     $company->car_year = $request->car_year ? $request->car_year : $company->car_year;
     $company->owner = $request->owner ? $request->owner : $request->owner;
+    $company->car_number = $request->car_number ? $request->car_number : '';
     
     if ($request->has('password')) {
       $company->password = Hash::make($request->password);
