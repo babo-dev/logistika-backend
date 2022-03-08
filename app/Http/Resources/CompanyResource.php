@@ -27,6 +27,7 @@ class CompanyResource extends JsonResource
       'avatar' => $this->avatar ? url('/storage/images/company/'.$this->avatar) : null,
       'auto_model' => $this->auto_model,
       'car_year' => $this->car_year,
+      'car_number' => $this->car_number,
       'owner' => $this->owner,
     ];
   }
