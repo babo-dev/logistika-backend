@@ -48,6 +48,7 @@ class CompanyController extends Controller
       ], 422);
     }
 
+
     $company = new Company();
     $company->name = $request->name;
     $company->email = $request->email;
@@ -58,7 +59,11 @@ class CompanyController extends Controller
     $company->car_year = $request->car_year ? $request->car_year : '';
     $company->owner = $request->owner ? $request->owner : '';
     $company->type = $request->type ? $request->type : '';
-    $company->status = $request->status ? $request->status : '';
+    if (!$request->has('status')) {
+      $company->status = '';
+    } else {
+      $company->status = $request->status;
+    }
     $company->short_description = $request->short_description ? $request->short_description : '';
     $company->description = $request->description ? $request->description : '';
     $company->car_number = $request->car_number ? $request->car_number : '';
@@ -142,11 +147,11 @@ class CompanyController extends Controller
     $company->car_year = $request->car_year ? $request->car_year : $company->car_year;
     $company->owner = $request->owner ? $request->owner : $request->owner;
     $company->car_number = $request->car_number ? $request->car_number : '';
-    
+
     if ($request->has('password')) {
       $company->password = Hash::make($request->password);
     }
-    
+
     if ($request->has('avatar')) {
       if (file_exists(storage_path() . "/app/public/images/company/" . $company->avatar)) {
         if ($company->avatar) unlink(storage_path() . "/app/public/images/company/" . $company->avatar);
