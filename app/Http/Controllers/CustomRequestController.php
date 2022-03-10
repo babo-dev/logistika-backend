@@ -97,8 +97,7 @@ class CustomRequestController extends Controller
   {
     if (auth('users')->check()) {
       $custom_requests = RequestResource::collection(auth('users')->user()->requests()->paginate(20))->response()->getData(True);
-    } 
-    else {
+    } else {
       // $custom_requests = RequestResource::collection(auth('companies')->user()->requests()->paginate(20));
       if (auth("companies")->user()->type == "company") {
         $custom_requests = RequestResource::collection(
@@ -107,8 +106,7 @@ class CustomRequestController extends Controller
             ->where('car_body', '!=', '')
             ->paginate(20)
         )->response()->getData(True);
-      } 
-      else {
+      } else {
         $custom_requests = RequestResource::collection(
           CustomRequest::where("company_id", auth("companies")->user()->id)
             ->orWhere("company_id", null)
@@ -181,15 +179,13 @@ class CustomRequestController extends Controller
       ], 422);
     } else {
       // store
-      $customRequest = auth('users')->user()->requests()->create([
-        'title' => $request->title,
-        'date1' => $request->date1,
-        'date2' => $request->date2,
-        'source' => State::where('title', $request->title)->first(),
-        'destination' => State::where('title', $request->destination)->first(),
-        
-      ]
-        array_merge($request->all(), [
+      $customRequest = auth('users')->user()->requests()->create(
+        [
+          'title' => $request->title,
+          'date1' => $request->date1,
+          'date2' => $request->date2,
+          'source' => State::where('title', $request->source)->first()->id,
+          'destination' => State::where('title', $request->destination)->first()->id,
           'weight_min' => $request->weight_min ?: '',
           'weight_max' => $request->weight_max ?: '',
           'cubm_min' => $request->cubm_min ?: '',
@@ -199,7 +195,7 @@ class CustomRequestController extends Controller
           'note' => $request->note ?: '',
           'cargo_type' => $request->cargo_type ?: '',
           'car_body' => $request->car_body ?: ''
-        ])
+        ]
       );
 
       return response()->json([
