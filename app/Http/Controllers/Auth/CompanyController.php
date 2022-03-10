@@ -33,7 +33,7 @@ class CompanyController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'name' => 'required|string|between:2,100',
-      'email' => 'required|string|email|max:100|unique:companies',
+      'email' => 'required|string|email|max:100|unique:companies|unique:users',
       'password' => 'required|string|min:6', //|confirmed',
       /* 'status' => 'required', */
       'phone' => 'required',
