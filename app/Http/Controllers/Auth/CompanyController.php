@@ -76,23 +76,15 @@ class CompanyController extends Controller
     }
     $company->save();
     /* $table->string("avatar")->nullable(); */
+    $token = Auth::guard('companies')->attempt($validator->validated());
 
     return response()->json([
       'success' => 'true',
-      'data' => new CompanyResource($company),
+      'data' => [
+        'token' => auth()
+      ],
       'message' => 'Successfully registered a company',
     ], 201);
-    return response()->json([
-      'success' => 'true',
-      'data' => [
-        'access_token' => $token,
-        'token_type' => 'bearer',
-        'expires_in' => auth()->factory()->getTTL() * 60,
-        'admin' => Auth::guard('admins')->user(),
-        'account_type' => 'admin'
-      ],
-      'message' => null
-    ]);
   }
 
 
@@ -220,8 +212,8 @@ class CompanyController extends Controller
       'data' => [
         'access_token' => $token,
         'token_type' => 'bearer',
-        'expires_in' => auth('companies')->factory()->getTTL() * 60,
-        'type' => 'company'
+        'expires_in' => auth()->factory()->getTTL() * 60,
+        'company' => Auth::guard('companies')->user()
       ],
       'message' => null
     ]);

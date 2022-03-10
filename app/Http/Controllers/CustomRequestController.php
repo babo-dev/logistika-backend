@@ -6,6 +6,7 @@ use App\Http\Resources\RequestAnswersResource;
 use App\Models\CustomRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\RequestResource;
+use App\Models\State;
 use Illuminate\Support\Facades\Validator;
 
 class CustomRequestController extends Controller
@@ -180,7 +181,14 @@ class CustomRequestController extends Controller
       ], 422);
     } else {
       // store
-      $customRequest = auth('users')->user()->requests()->create(
+      $customRequest = auth('users')->user()->requests()->create([
+        'title' => $request->title,
+        'date1' => $request->date1,
+        'date2' => $request->date2,
+        'source' => State::where('title', $request->title)->first(),
+        'destination' => State::where('title', $request->destination)->first(),
+        
+      ]
         array_merge($request->all(), [
           'weight_min' => $request->weight_min ?: '',
           'weight_max' => $request->weight_max ?: '',
