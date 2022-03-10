@@ -82,6 +82,17 @@ class CompanyController extends Controller
       'data' => new CompanyResource($company),
       'message' => 'Successfully registered a company',
     ], 201);
+    return response()->json([
+      'success' => 'true',
+      'data' => [
+        'access_token' => $token,
+        'token_type' => 'bearer',
+        'expires_in' => auth()->factory()->getTTL() * 60,
+        'admin' => Auth::guard('admins')->user(),
+        'account_type' => 'admin'
+      ],
+      'message' => null
+    ]);
   }
 
 
@@ -209,8 +220,8 @@ class CompanyController extends Controller
       'data' => [
         'access_token' => $token,
         'token_type' => 'bearer',
-        'expires_in' => auth()->factory()->getTTL() * 60,
-        'company' => Auth::guard('companies')->user()
+        'expires_in' => auth('companies')->factory()->getTTL() * 60,
+        'type' => 'company'
       ],
       'message' => null
     ]);

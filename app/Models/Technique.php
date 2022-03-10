@@ -16,7 +16,7 @@ class Technique extends Model
       "state_id",
       "title",
       "price", 
-      "description"
+      "description",
       "owner"
   ];
 
