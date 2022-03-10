@@ -84,6 +84,7 @@ class CompanyController extends Controller
     return response()->json([
       'success' => 'true',
       'data' => [
+        'data' => new CompanyResource($company),
         'access_token' => $token,
         'account_type' => "company"
       ],

@@ -121,6 +121,7 @@ class UserController extends Controller
     return response()->json([
       'success' => 'true',
       'data' => [
+        'data' => new UserResource($user),
         'access_token' => $token,
         'account_type' => "user"
       ],
