@@ -76,12 +76,16 @@ class CompanyController extends Controller
     }
     $company->save();
     /* $table->string("avatar")->nullable(); */
-    $token = Auth::guard('companies')->attempt($validator->validated());
+    $token = Auth::guard('companies')->attempt([
+      'email' => $company->email,
+      'password' => $request->password
+    ]);
 
     return response()->json([
       'success' => 'true',
       'data' => [
-        'token' => auth()
+        'token' => $token,
+        'account_type' => "company"
       ],
       'message' => 'Successfully registered a company',
     ], 201);

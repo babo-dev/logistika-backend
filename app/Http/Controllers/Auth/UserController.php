@@ -113,10 +113,18 @@ class UserController extends Controller
     $user->save();
     /* $table->string('avatar')->nullabe()->default("######"); */
 
+    $token = Auth::guard('users')->attempt([
+      'email' => $user->email,
+      'password' => $request->password
+    ]);
+
     return response()->json([
       'success' => 'true',
-      'data' => new UserResource($user),
-      'message' => 'Successfully registered a user',
+      'data' => [
+        'token' => $token,
+        'account_type' => "user"
+      ],
+      'message' => 'Successfully registered a company',
     ], 201);
   }
 
