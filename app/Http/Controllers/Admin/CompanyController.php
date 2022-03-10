@@ -98,7 +98,7 @@ class CompanyController extends Controller
     $company = Company::where('id', $id);
     if ($company->exists()) {
       $first_company = $company->get()->first();
-      $first_company->accepted = $first_company->accepted == 'false' ? 'true' : 'false';
+      $first_company->accepted = $first_company->accepted == false ? true : false;
       $first_company->save();
       return response()->json([
         'success' => 'true',

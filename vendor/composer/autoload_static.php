@@ -575,7 +575,6 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
         'App\\Http\\Resources\\RouteResource' => __DIR__ . '/../..' . '/app/Http/Resources/RouteResource.php',
         'App\\Http\\Resources\\SliderResource' => __DIR__ . '/../..' . '/app/Http/Resources/SliderResource.php',
         'App\\Http\\Resources\\StateResource' => __DIR__ . '/../..' . '/app/Http/Resources/StateResource.php',
-        'App\\Http\\Resources\\StateRouteResource' => __DIR__ . '/../..' . '/app/Http/Resources/StateRouteResource.php',
         'App\\Http\\Resources\\TechniqueResource' => __DIR__ . '/../..' . '/app/Http/Resources/TechniqueResource.php',
         'App\\Http\\Resources\\UserResource' => __DIR__ . '/../..' . '/app/Http/Resources/UserResource.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',

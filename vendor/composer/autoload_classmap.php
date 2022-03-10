@@ -45,7 +45,6 @@ return array(
     'App\\Http\\Resources\\RouteResource' => $baseDir . '/app/Http/Resources/RouteResource.php',
     'App\\Http\\Resources\\SliderResource' => $baseDir . '/app/Http/Resources/SliderResource.php',
     'App\\Http\\Resources\\StateResource' => $baseDir . '/app/Http/Resources/StateResource.php',
-    'App\\Http\\Resources\\StateRouteResource' => $baseDir . '/app/Http/Resources/StateRouteResource.php',
     'App\\Http\\Resources\\TechniqueResource' => $baseDir . '/app/Http/Resources/TechniqueResource.php',
     'App\\Http\\Resources\\UserResource' => $baseDir . '/app/Http/Resources/UserResource.php',
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
