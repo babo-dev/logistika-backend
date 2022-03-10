@@ -121,7 +121,7 @@ class UserController extends Controller
     return response()->json([
       'success' => 'true',
       'data' => [
-        'token' => $token,
+        'access_token' => $token,
         'account_type' => "user"
       ],
       'message' => 'Successfully registered a company',
