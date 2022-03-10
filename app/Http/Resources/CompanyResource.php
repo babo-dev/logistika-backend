@@ -26,6 +26,7 @@ class CompanyResource extends JsonResource
       'description' => $this->description,
       'avatar' => $this->avatar ? url('/storage/images/company/'.$this->avatar) : '',
       'auto_model' => $this->auto_model,
+      'accepted' => intval($this->accepted),
       'car_year' => $this->car_year,
       'car_number' => $this->car_number,
       'owner' => $this->owner,

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TechniqueTypeController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\TechniqueController;
 /* use Illuminate\Http\Request; */
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::delete('/users/{id}', [AdminUserController::class, 'destroy']);
 Route::get('/companies', [AdminCompanyController::class, 'index']);
 Route::get('/companies/{id}', [AdminCompanyController::class, 'show']);
 Route::get('/companies/company-accept/{id}', [AdminCompanyController::class, 'company_accept']);
+Route::get('/techniques/technique-accept/{id}', [TechniqueController::class, 'technique_accept']);
 Route::post('/companies/{id}', [AdminCompanyController::class, 'update']);
 Route::delete('/companies/{id}', [AdminCompanyController::class, 'destroy']);
 // Admin company routes end

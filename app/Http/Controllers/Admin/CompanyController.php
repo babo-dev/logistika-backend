@@ -70,7 +70,9 @@ class CompanyController extends Controller
     $company->short_description = $request->short_description ? $request->short_description : $company->short_description;
     $company->description = $request->description ? $request->description : $company->description;
     $company->auto_model = $request->auto_model ? $request->auto_model : $company->auto_model;
-    $company->status = $request->status ? $request->status : $company->status;
+    if ($request->has('status')) {
+      $company->status = $request->status;
+    }
     $company->car_year = $request->car_year ? $request->car_year : $company->car_year;
     $company->owner = $request->owner ? $request->owner : $request->owner;
     if ($request->has('avatar')) {

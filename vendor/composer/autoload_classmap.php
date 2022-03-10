@@ -13,6 +13,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\PageController' => $baseDir . '/app/Http/Controllers/Admin/PageController.php',
     'App\\Http\\Controllers\\Admin\\SliderController' => $baseDir . '/app/Http/Controllers/Admin/SliderController.php',
     'App\\Http\\Controllers\\Admin\\StateController' => $baseDir . '/app/Http/Controllers/Admin/StateController.php',
+    'App\\Http\\Controllers\\Admin\\TechniqueController' => $baseDir . '/app/Http/Controllers/Admin/TechniqueController.php',
     'App\\Http\\Controllers\\Admin\\TechniqueTypeController' => $baseDir . '/app/Http/Controllers/Admin/TechniqueTypeController.php',
     'App\\Http\\Controllers\\Admin\\UserController' => $baseDir . '/app/Http/Controllers/Admin/UserController.php',
     'App\\Http\\Controllers\\Auth\\AdminController' => $baseDir . '/app/Http/Controllers/Auth/AdminController.php',

@@ -543,6 +543,7 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
         'App\\Http\\Controllers\\Admin\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PageController.php',
         'App\\Http\\Controllers\\Admin\\SliderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SliderController.php',
         'App\\Http\\Controllers\\Admin\\StateController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/StateController.php',
+        'App\\Http\\Controllers\\Admin\\TechniqueController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TechniqueController.php',
         'App\\Http\\Controllers\\Admin\\TechniqueTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TechniqueTypeController.php',
         'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
         'App\\Http\\Controllers\\Auth\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AdminController.php',
