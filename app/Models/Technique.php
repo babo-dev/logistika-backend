@@ -17,6 +17,7 @@ class Technique extends Model
       "title",
       "price", 
       "description"
+      "owner"
   ];
 
   public function company()
