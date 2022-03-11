@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DriverController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TechniqueTypeController;
 use App\Http\Controllers\Admin\StateController;
@@ -27,6 +28,9 @@ Route::post('/users/{id}', [AdminUserController::class, 'update']);
 Route::delete('/users/{id}', [AdminUserController::class, 'destroy']);
 // Admin user routes end
 
+// Admin driver routes start
+Route::get('/drivers', [DriverController::class, 'index']);
+// Admin driver routes end
 
 // Admin company routes start
 Route::get('/companies', [AdminCompanyController::class, 'index']);
