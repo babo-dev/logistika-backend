@@ -96,8 +96,9 @@ class UserController extends Controller
    */
   public function destroy($id)
   {
-    $user = User::where('id', $id);
-    if ($user->exists()) {
+    $users = User::where('id', $id);
+    if ($users->exists()) {
+      $user = $users->first(); 
       if ($user->avatar) unlink(storage_path() . "/app/public/images/" . $user->avatar);
       $user->delete();
       return response()->json([

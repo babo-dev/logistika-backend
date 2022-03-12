@@ -300,6 +300,12 @@ class CustomRequestController extends Controller
   //status filter 
   // api/requests/status/0 - garasylyanlar
   // api/requests/status/1 - jogaplananlar
+  /*
+  *
+  * if user is authenticated return user's requests which are status=0
+  * if company is authenticated return company's requests which are status=0
+  * else return all status = 0
+  * */
   public function statusWaiting()
   {
     if (auth('users')->check()) {
@@ -308,13 +314,13 @@ class CustomRequestController extends Controller
           ->where('status', "0")
           ->paginate(20)
       )->response()->getData(True);
-    } elseif (auth("companies")->check()) {
-        $custom_requests = RequestResource::collection(
-          CustomRequest::where("company_id", auth("companies")->user()->id)
-            ->orWhere("company_id", null)
-            ->where('status', "0")
-            ->paginate(20)
-        )->response()->getData(True);
+    }  elseif (auth("companies")->check()) {
+      $custom_requests = RequestResource::collection(
+        CustomRequest::where("company_id", auth("companies")->user()->id)
+          ->orWhere("company_id", null)
+          ->where('status', "0")
+          ->paginate(20)
+      )->response()->getData(True);
     } else {
       $custom_requests = CustomRequest::where("status", "0")->paginate(20);
       $custom_requests = RequestResource::collection($custom_requests)->response()->getData(True);
@@ -331,7 +337,9 @@ class CustomRequestController extends Controller
   public function statusAnswered()
   {
     // $custom_requests = CustomRequest::where("status", "1")->paginate(20);
-    $answers = auth("companies")->user()->requests()->where("status", "1")->paginate(20);
+    $answers = auth("companies")->user()->requests()
+                                        ->where("status", "1") 
+                                        ->paginate(20);
     // add response()->getData() method to enable pagination links
     $answers = RequestResource::collection($answers)->response()->getData(True);
 
