@@ -302,8 +302,23 @@ class CustomRequestController extends Controller
   // api/requests/status/1 - jogaplananlar
   public function statusWaiting()
   {
-    $custom_requests = CustomRequest::where("status", "0")->paginate(20);
-    $custom_requests = RequestResource::collection($custom_requests)->response()->getData(True);
+    if (auth('users')->check()) {
+      $custom_requests = RequestResource::collection(
+        auth('users')->user()->requests()
+          ->where('status', "0")
+          ->paginate(20)
+      )->response()->getData(True);
+    } elseif (auth("companies")->check()) {
+        $custom_requests = RequestResource::collection(
+          CustomRequest::where("company_id", auth("companies")->user()->id)
+            ->orWhere("company_id", null)
+            ->where('status', "0")
+            ->paginate(20)
+        )->response()->getData(True);
+    } else {
+      $custom_requests = CustomRequest::where("status", "0")->paginate(20);
+      $custom_requests = RequestResource::collection($custom_requests)->response()->getData(True);
+    }
 
     return response()->json([
       'success' => 'true',
