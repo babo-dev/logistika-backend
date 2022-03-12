@@ -314,10 +314,10 @@ class CustomRequestController extends Controller
           ->where('status', "0")
           ->paginate(20)
       )->response()->getData(True);
-    }  elseif (auth("companies")->check()) {
+    } elseif (auth("companies")->check()) {
       $custom_requests = RequestResource::collection(
-        CustomRequest::where("company_id", auth("companies")->user()->id)
-          ->where('status', "0")
+        CustomRequest::where('status', "0")
+          ->where("company_id", auth("companies")->user()->id)
           ->orWhere("company_id", null)
           ->paginate(20)
       )->response()->getData(True);
@@ -338,8 +338,8 @@ class CustomRequestController extends Controller
   {
     // $custom_requests = CustomRequest::where("status", "1")->paginate(20);
     $answers = auth("companies")->user()->requests()
-                                        ->where("status", "1") 
-                                        ->paginate(20);
+      ->where("status", "1")
+      ->paginate(20);
     // add response()->getData() method to enable pagination links
     $answers = RequestResource::collection($answers)->response()->getData(True);
 
