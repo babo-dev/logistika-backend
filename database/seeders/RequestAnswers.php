@@ -13,6 +13,6 @@ class RequestAnswers extends Seeder
    */
   public function run()
   {
-    \App\Models\RequestAnswers::factory(20)->create();
+    \App\Models\RequestAnswers::factory(50)->create();
   }
 }
