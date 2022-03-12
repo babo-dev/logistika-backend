@@ -98,8 +98,10 @@ class UserController extends Controller
   {
     $users = User::where('id', $id);
     if ($users->exists()) {
-      $user = $users->first(); 
-      if ($user->avatar) unlink(storage_path() . "/app/public/images/" . $user->avatar);
+      $user = $users->first();
+      if ($user->avatar && file_exists(storage_path() . "/app/public/images/" . $user->avatar)) {
+        unlink(storage_path() . "/app/public/images/" . $user->avatar);
+      }
       $user->delete();
       return response()->json([
         'success' => 'true',
