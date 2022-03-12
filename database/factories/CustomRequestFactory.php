@@ -38,7 +38,7 @@ class CustomRequestFactory extends Factory
       "note" => $this->faker->sentence(),
       "source" => State::inRandomOrder()->first(),
       "destination" => State::inRandomOrder()->first(),
-      "status" => "0"
+      "status" => "1"
     ];
   }
 }

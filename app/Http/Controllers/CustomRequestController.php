@@ -317,8 +317,8 @@ class CustomRequestController extends Controller
     }  elseif (auth("companies")->check()) {
       $custom_requests = RequestResource::collection(
         CustomRequest::where("company_id", auth("companies")->user()->id)
-          ->orWhere("company_id", null)
           ->where('status', "0")
+          ->orWhere("company_id", null)
           ->paginate(20)
       )->response()->getData(True);
     } else {
