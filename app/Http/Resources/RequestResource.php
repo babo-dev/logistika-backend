@@ -49,7 +49,7 @@ class RequestResource extends JsonResource
     ];
 
     if (auth('users')->check()) {
-      $result['request_answers'] = $this->offers->count();
+      $result['request_answers'] = $this->offers()->where('status',0)->count();
     }   
     
     return $result;
