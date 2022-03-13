@@ -319,6 +319,7 @@ class CustomRequestController extends Controller
         CustomRequest::where('status', "0")
           ->where("company_id", auth("companies")->user()->id)
           ->orWhere("company_id", null)
+          ->orderBy('id', 'desc')
           ->paginate(20)
       )->response()->getData(True);
     } else {
@@ -339,6 +340,7 @@ class CustomRequestController extends Controller
     // $custom_requests = CustomRequest::where("status", "1")->paginate(20);
     $answers = auth("companies")->user()->requests()
       ->where("status", "1")
+      ->orderBy('id', 'desc')
       ->paginate(20);
     // add response()->getData() method to enable pagination links
     $answers = RequestResource::collection($answers)->response()->getData(True);
