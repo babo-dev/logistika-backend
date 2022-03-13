@@ -63,7 +63,7 @@ class UserController extends Controller
             ['password is incorrect']
           ],
           'message' => "Unauthorized"
-        ], 401);
+        ], 422);
       } else {
         return response()->json([
           'success' => 'false',
@@ -72,7 +72,7 @@ class UserController extends Controller
             ['user not found']
           ],
           'message' => "Unauthorized"
-        ], 401);
+        ], 422);
       }
     } else {
       return response()->json([
