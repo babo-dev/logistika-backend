@@ -44,7 +44,7 @@ class HomeController extends Controller
       'companies' => $companies,
       'techniquetype' => $techniquetype,
       'pages' => $pages,
-      'requests' => $requests_count,
+      'new_requests' => $requests_count,
       'message' => null
     ]);
     }
