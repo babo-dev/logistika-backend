@@ -27,8 +27,7 @@ class RequestResource extends JsonResource
    */
   public function toArray($request)
   {
-    return [
-      // 'requests' => [
+    $result =  [
       'id' => $this->id,
       'user' => new UserResource($this->user),
       'title' => $this->title,
@@ -47,8 +46,13 @@ class RequestResource extends JsonResource
       'status' => $this->status,
       'source' => new StateResource($this->source_state->first()),
       'destination' => new StateResource($this->destination_state->first()),
-      // ]
     ];
+
+    if (auth('users')->check()) {
+      $result['request_answers'] = $this->offers->count();
+    }   
+    
+    return $result;
   }
 
   // public function toResponse($request)
