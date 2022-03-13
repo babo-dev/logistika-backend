@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CompanyResource;
 use App\Http\Resources\ImageResource;
 use App\Http\Resources\UserResource;
+use App\Models\Admin;
+use App\Models\Company;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -52,11 +54,20 @@ class UserController extends Controller
       return $this->createNewToken($token, 'company');
     }
     if (!$token = Auth::guard('admins')->attempt($validator->validated())) {
-      return response()->json([
-        'success' => 'false',
-        'data' => [],
-        'message' => "Unauthorized"
-      ], 401);
+      $user = User::where('email', $request->email)->first() || Company::where('email', $request->email)->first() || Admin::where('email', $request->email)->first();
+      if ($user) {
+        return response()->json([
+          'success' => 'false',
+          'data' => ['password is incorrect'],
+          'message' => "Unauthorized"
+        ], 401);
+      } else {
+        return response()->json([
+          'success' => 'false',
+          'data' => ['user not found'],
+          'message' => "Unauthorized"
+        ], 401);
+      }
     } else {
       return response()->json([
         'success' => 'true',
@@ -165,10 +176,10 @@ class UserController extends Controller
     if ($request->has('password')) {
       $user->password = Hash::make($request->password);
     }
-    
+
     if ($request->has('avatar')) {
       if (file_exists(storage_path() . "/app/public/images/" . $user->avatar)) {
-        if ($user->avatar)unlink(storage_path() . "/app/public/images/" . $user->avatar);
+        if ($user->avatar) unlink(storage_path() . "/app/public/images/" . $user->avatar);
       }
       $file = $request->file('avatar');
       $filename = date('YmdHi') . $file->getClientOriginalName();
