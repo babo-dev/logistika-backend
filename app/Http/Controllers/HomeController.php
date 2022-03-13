@@ -8,6 +8,7 @@ use App\Http\Resources\SliderResource;
 use App\Http\Resources\StateResource;
 use App\Http\Resources\TechniqueResource;
 use App\Models\Company;
+use App\Models\CustomRequest;
 use App\Models\CustomRoute;
 use App\Models\Page;
 use App\Models\Slider;
@@ -29,6 +30,24 @@ class HomeController extends Controller
     $companies = CompanyResource::collection(Company::where('type', 'company')->paginate(20))->response()->getData(True);
     $techniquetype = TechniqueType::paginate(20);
     $pages = Page::paginate(20);
+
+    if (auth('companies')->check()) {
+        $requests_count = CustomRequest::where('status', "0")
+          ->where("company_id", auth("companies")->user()->id)
+          ->orWhere("company_id", null)->count();
+      
+    return response()->json([
+      'success' => "true",
+      'routes' => $routes,
+      'sliders' => $sliders,
+      'states' => $states,
+      'companies' => $companies,
+      'techniquetype' => $techniquetype,
+      'pages' => $pages,
+      'requests' => $requests_count,
+      'message' => null
+    ]);
+    }
 
     return response()->json([
       'success' => "true",
