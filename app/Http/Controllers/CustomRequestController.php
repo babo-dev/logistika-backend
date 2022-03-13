@@ -28,8 +28,7 @@ class CustomRequestController extends Controller
     $this->middleware(['auth:users', 'jwt.auth'])->except([
       'all', 'index', 'show', 'offers', 'statusWaiting', 'statusAnswered'
     ]);
-    $this->middleware(['auth:users,companies', 'jwt.auth'])->only('index');
-    $this->middleware(['auth:companies', 'jwt.auth'])->only('statusAnswered');
+    $this->middleware(['auth:users,companies', 'jwt.auth'])->only(['index', 'statusAnswered']);
   }
   /**
    * Display a listing of the resource.
@@ -309,11 +308,16 @@ class CustomRequestController extends Controller
   public function statusWaiting()
   {
     if (auth('users')->check()) {
-      $custom_requests = RequestResource::collection(
-        auth('users')->user()->requests()
-          ->where('status', "0")
-          ->paginate(20)
-      )->response()->getData(True);
+      $custom_requests = auth('users')->user()->requests()->where('status', "0");
+      $custom_requests_count = $custom_requests->count();
+      $custom_requests = RequestResource::collection($custom_requests)->response()->getData(True);
+
+      return response()->json([
+        'success' => 'true',
+        'data' => $custom_requests,
+        'new_request_answers' => $custom_requests_count,
+        'message' => null
+      ]);
     } elseif (auth("companies")->check()) {
       $custom_requests = RequestResource::collection(
         CustomRequest::where('status', "0")
@@ -338,10 +342,18 @@ class CustomRequestController extends Controller
   public function statusAnswered()
   {
     // $custom_requests = CustomRequest::where("status", "1")->paginate(20);
-    $answers = auth("companies")->user()->requests()
-      ->where("status", "1")
-      ->orderBy('id', 'desc')
-      ->paginate(20);
+    if (auth('users')->check()) {
+      $answers = auth("users")->user()->requests()
+        ->where("status", "1")
+        ->orderBy('id', 'desc')
+        ->paginate(20);
+    } else {
+      $answers = auth("companies")->user()->requests()
+        ->where("status", "1")
+        ->orderBy('id', 'desc')
+        ->paginate(20);
+    }
+    
     // add response()->getData() method to enable pagination links
     $answers = RequestResource::collection($answers)->response()->getData(True);
 
