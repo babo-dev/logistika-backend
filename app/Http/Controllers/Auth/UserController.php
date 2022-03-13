@@ -58,13 +58,19 @@ class UserController extends Controller
       if ($user) {
         return response()->json([
           'success' => 'false',
-          'data' => ['password is incorrect'],
+          'data' => [
+            'password' =>
+            ['password is incorrect']
+          ],
           'message' => "Unauthorized"
         ], 401);
       } else {
         return response()->json([
           'success' => 'false',
-          'data' => ['user not found'],
+          'data' => [
+            'email' =>
+            ['user not found']
+          ],
           'message' => "Unauthorized"
         ], 401);
       }
