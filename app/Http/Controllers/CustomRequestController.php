@@ -319,13 +319,28 @@ class CustomRequestController extends Controller
         'message' => null
       ]);
     } elseif (auth("companies")->check()) {
-      $custom_requests = RequestResource::collection(
-        CustomRequest::where('status', "0")
-          ->where("company_id", auth("companies")->user()->id)
-          ->orWhere("company_id", null)
-          ->orderBy('id', 'desc')
-          ->paginate(20)
-      )->response()->getData(True);
+      // company authenticated
+      if (auth("companies")->user()->type == "company") {
+        // authenticated is company type
+        // return those that are car_body!=''
+        $custom_requests = RequestResource::collection(
+          CustomRequest::where("company_id", auth("companies")->user()->id)
+            ->orWhere("company_id", null)
+            ->where("status", 0)
+            ->where('car_body', '!=', '')
+            ->orderBy('id', 'desc')->paginate(20)
+        )->response()->getData(True);
+      } else {
+        // authenticated is driver type
+        // return those that are car_body==''
+        $custom_requests = RequestResource::collection(
+          CustomRequest::where("company_id", auth("companies")->user()->id)
+            ->orWhere("company_id", null)
+            ->where("status", 0)
+            ->where("car_body", '')
+            ->orderBy('id', 'desc')->paginate(20)
+        )->response()->getData(True);
+      }
     } else {
       $custom_requests = CustomRequest::where("status", "0")->paginate(20);
       $custom_requests = RequestResource::collection($custom_requests)->response()->getData(True);
@@ -348,12 +363,22 @@ class CustomRequestController extends Controller
         ->orderBy('id', 'desc')
         ->paginate(20);
     } else {
-      $answers = auth("companies")->user()->requests()
-        ->where("status", "1")
-        ->orderBy('id', 'desc')
-        ->paginate(20);
+      // check if authenticated is company type or driver type
+      if (auth("companies")->user()->type == "company") {
+        $answers = auth("companies")->user()->requests()
+          ->where("status", "1")
+          ->where('car_body', '!=', '')
+          ->orderBy('id', 'desc')
+          ->paginate(20);
+      } else {
+        $answers = auth("companies")->user()->requests()
+          ->where("status", "1")
+          ->where('car_body','')
+          ->orderBy('id', 'desc')
+          ->paginate(20);
+      }
     }
-    
+
     // add response()->getData() method to enable pagination links
     $answers = RequestResource::collection($answers)->response()->getData(True);
 
