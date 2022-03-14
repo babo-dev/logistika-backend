@@ -43,6 +43,7 @@ class RequestResource extends JsonResource
       'car_body' => $this->car_body == "null" ? "" : $this->car_body,
       'company' => $this->company ? new CompanyResource($this->company) : 0,
       'note' => $this->note,
+      'type' => $this->type,
       'status' => $this->status,
       'source' => new StateResource($this->source_state->first()),
       'destination' => new StateResource($this->destination_state->first()),

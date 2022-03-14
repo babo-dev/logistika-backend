@@ -201,7 +201,7 @@ class RequestAnswersController extends Controller
     // return $custom_request->first();
       return response()->json([
         'success' => 'true',
-        'data' => new RequestAnswersResource($custom_request->get()),//->offers),
+        'data' => new RequestAnswersResource($custom_request->first()),//->offers),
         'message' => null,
       ]);
     } else {
