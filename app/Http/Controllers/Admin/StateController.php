@@ -30,7 +30,7 @@ class StateController extends Controller
   {
     return response()->json([
       'success' => 'true',
-      'data' => StateResource::collection(State::paginate(20))->response()->getData(True),
+      'data' => StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
       'message' => null
     ]);
   }

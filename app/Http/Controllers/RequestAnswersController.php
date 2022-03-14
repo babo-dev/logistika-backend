@@ -30,7 +30,7 @@ class RequestAnswersController extends Controller
    */
   public function all()
   {
-    $answers = RequestAnswers::paginate(20);
+    $answers = RequestAnswers::orderBy('id', 'desc')->paginate(20);
 
     return response()->json([
       'success' => 'true',
@@ -46,7 +46,7 @@ class RequestAnswersController extends Controller
    */
   public function index()
   {
-    $answers = auth('companies')->user()->request_answers()->paginate(20);
+    $answers = auth('companies')->user()->request_answers()->orderBy('id', 'desc')->paginate(20);
     // return $answers->first()->request;
     return response()->json([
       'success' => 'true',

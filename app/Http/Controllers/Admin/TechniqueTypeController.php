@@ -29,7 +29,7 @@ class TechniqueTypeController extends Controller
   {
     return response()->json([
       'success' => 'true',
-      'data' => TechniqueType::paginate(20),
+      'data' => TechniqueType::orderBy('id', 'desc')->paginate(20),
       'message' => null
     ]);
   }

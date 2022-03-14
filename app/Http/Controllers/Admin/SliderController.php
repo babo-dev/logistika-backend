@@ -29,7 +29,7 @@ class SliderController extends Controller
   {
     return response()->json([
       'success' => 'true',
-      'data' => SliderResource::collection(Slider::paginate(20))->response()->getData(True),
+      'data' => SliderResource::collection(Slider::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
       'message' => null
     ]);
   }

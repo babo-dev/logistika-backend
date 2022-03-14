@@ -28,7 +28,7 @@ class PageController extends Controller
   {
     return response()->json([
       'success' => 'true',
-      'data' => Page::paginate(20),
+      'data' => Page::orderBy('id', 'desc')->paginate(20),
       'message' => null
     ]);
   }

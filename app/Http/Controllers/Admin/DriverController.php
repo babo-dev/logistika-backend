@@ -10,7 +10,7 @@ class DriverController extends Controller
 {
   public function index()
   {
-    $companies = Company::where('type', 'driver')->paginate(20);
+    $companies = Company::where('type', 'driver')->orderBy('id', 'desc')->paginate(20);
 
     $companies = CompanyResource::collection($companies)->response()->getData(True);
 

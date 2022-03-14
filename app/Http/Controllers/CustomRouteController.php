@@ -29,7 +29,7 @@ class CustomRouteController extends Controller
    */
   public function all()
   {
-    $routes = CustomRoute::paginate(20);
+    $routes = CustomRoute::orderBy('id', 'desc')->paginate(20);
 
     return response()->json([
       'success' => 'true',
@@ -51,14 +51,14 @@ class CustomRouteController extends Controller
          auth('companies')->user()->routes() 
             ->orWhere("company_id", null)
             ->where('car_body', '!=', '')
-            ->paginate(20)
+            ->orderBy('id', 'desc')->paginate(20)
         )->response()->getData(True);
       } 
       else {
         $routes = RequestResource::collection(
          auth('companies')->user()->routes() 
             ->where("car_body", '')
-            ->paginate(20)
+            ->orderBy('id', 'desc')->paginate(20)
         )->response()->getData(True);
       }
     return response()->json([

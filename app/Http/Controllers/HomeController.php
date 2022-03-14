@@ -24,17 +24,17 @@ class HomeController extends Controller
 {
   public function index()
   {
-    $routes = RouteResource::collection(CustomRoute::paginate(20))->response()->getData(True);
-    $sliders = SliderResource::collection(Slider::paginate(20))->response()->getData(True);
-    $states = StateResource::collection(State::paginate(20))->response()->getData(True);
-    $companies = CompanyResource::collection(Company::where('type', 'company')->paginate(20))->response()->getData(True);
-    $techniquetype = TechniqueType::paginate(20);
-    $pages = Page::paginate(20);
+    $routes = RouteResource::collection(CustomRoute::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    $sliders = SliderResource::collection(Slider::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    $states = StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    $companies = CompanyResource::collection(Company::orderBy('id', 'desc')->where('type', 'company')->paginate(20))->response()->getData(True);
+    $techniquetype = TechniqueType::orderBy('id', 'desc')->paginate(20);
+    $pages = Page::orderBy('id', 'desc')->paginate(20);
 
     if (auth('companies')->check()) {
         $requests_count = CustomRequest::where('status', "0")
           ->where("company_id", auth("companies")->user()->id)
-          ->orWhere("company_id", null)->count();
+          ->orWhere("company_id", null)->orderBy('id', 'desc')->count();
       
     return response()->json([
       'success' => "true",
@@ -80,26 +80,26 @@ class HomeController extends Controller
 
     if ($request->type == "technique") {
       $data = TechniqueResource::collection(
-        Technique::where('title', 'LIKE', '%' . $request->q . '%')->get()
+        Technique::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->get()
       );
     }
 
     if ($request->type == "company") {
       $data = CompanyResource::collection(
-        Company::where('name', 'LIKE', '%' . $request->q . '%')->get()
+        Company::orderBy('id', 'desc')->where('name', 'LIKE', '%' . $request->q . '%')->get()
       );
     }
 
     if ($request->type == "route") {
       // get all states
-      $states = State::where('title', 'LIKE', '%' . $request->q . '%')->get();
+      $states = State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->get();
       // create initial collection for all routes
       $data = new Collection();
       $now = Carbon::now();
       foreach ($states as $state) {
         // mergen source states and destination states
-        $stateRoutes = $state->routes_source()->whereDate('date1', '>', $now)->get()->merge(
-          $state->routes_destination()->whereDate('date1', '>', $now)->get()
+        $stateRoutes = $state->routes_source()->whereDate('date1', '>', $now)->orderBy('id', 'desc')->get()->merge(
+          $state->routes_destination()->whereDate('date1', '>', $now)->orderBy('id', 'desc')->get()
         );
         // add them to initial collection
         $data = $data->merge($stateRoutes);

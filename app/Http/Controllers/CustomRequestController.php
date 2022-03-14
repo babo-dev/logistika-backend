@@ -37,7 +37,7 @@ class CustomRequestController extends Controller
    */
   public function all()
   {
-    $custom_requests = RequestResource::collection(CustomRequest::paginate(20))->response()->getData(True);
+    $custom_requests = RequestResource::collection(CustomRequest::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
 
     return response()->json([
       'success' => 'true',
@@ -95,7 +95,7 @@ class CustomRequestController extends Controller
   public function index()
   {
     if (auth('users')->check()) {
-      $custom_requests = RequestResource::collection(auth('users')->user()->requests()->paginate(20))->response()->getData(True);
+      $custom_requests = RequestResource::collection(auth('users')->user()->requests()->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     } else {
       // $custom_requests = RequestResource::collection(auth('companies')->user()->requests()->paginate(20));
       if (auth("companies")->user()->type == "company") {
@@ -103,14 +103,14 @@ class CustomRequestController extends Controller
           CustomRequest::where("company_id", auth("companies")->user()->id)
             ->orWhere("company_id", null)
             ->where('car_body', '!=', '')
-            ->paginate(20)
+            ->orderBy('id', 'desc')->paginate(20)
         )->response()->getData(True);
       } else {
         $custom_requests = RequestResource::collection(
           CustomRequest::where("company_id", auth("companies")->user()->id)
             ->orWhere("company_id", null)
             ->where("car_body", '')
-            ->paginate(20)
+            ->orderBy('id', 'desc')->paginate(20)
         )->response()->getData(True);
       }
     }
