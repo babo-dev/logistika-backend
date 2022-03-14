@@ -323,27 +323,14 @@ class CustomRequestController extends Controller
       ]);
     } elseif (auth("companies")->check()) {
       // company authenticated
-      if (auth("companies")->user()->type == "company") {
         // authenticated is company type
         // return those that are car_body!=''
         $custom_requests = RequestResource::collection(
-          CustomRequest::where("company_id", auth("companies")->user()->id)
-            ->orWhere("company_id", null)
-            ->where("status", 0)
-            ->where('type', 'company')
-            ->orderBy('id', 'desc')->paginate(20)
+          CustomRequest::where("status", 0)
+            ->where('type', auth("companies")->user()->type)
+            ->orderBy('id', 'desc')
+            ->paginate(20)
         )->response()->getData(True);
-      } else {
-        // authenticated is driver type
-        // return those that are car_body==''
-        $custom_requests = RequestResource::collection(
-          CustomRequest::where("company_id", auth("companies")->user()->id)
-            ->orWhere("company_id", null)
-            ->where("status", 0)
-            ->where('type', 'driver')
-            ->orderBy('id', 'desc')->paginate(20)
-        )->response()->getData(True);
-      }
     } else {
       $custom_requests = CustomRequest::where("status", "0")->paginate(20);
       $custom_requests = RequestResource::collection($custom_requests)->response()->getData(True);
