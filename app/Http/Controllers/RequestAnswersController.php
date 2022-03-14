@@ -241,7 +241,7 @@ class RequestAnswersController extends Controller
       'request_id' => $request->request_id ?: $answer->request_id,
       'price' => $request->price ?: $answer->price,
       'note' => $request->note ?: $answer->note,
-      'status' => $request->status ?: $answer->status,
+      'status' => $request->has("status") ? $request->status : $answer->status,
       'status_note' => $request->status_note ?: $answer->status_note,
     ]);
 
