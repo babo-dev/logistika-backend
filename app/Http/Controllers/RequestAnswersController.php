@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RequestAnswersResource;
-use App\Models\CustomRequest;
 use App\Models\RequestAnswers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

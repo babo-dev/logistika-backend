@@ -311,7 +311,7 @@ class CustomRequestController extends Controller
   public function statusWaiting()
   {
     if (auth('users')->check()) {
-      $custom_requests = auth('users')->user()->requests()->where('status', "0");
+      $custom_requests = auth('users')->user()->requests()->where('status', "0")->orderBy('id', 'desc');
       $custom_requests_count = $custom_requests->count();
       $custom_requests = RequestResource::collection($custom_requests->paginate(20))->response()->getData(True);
 
