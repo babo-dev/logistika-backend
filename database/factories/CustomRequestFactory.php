@@ -25,6 +25,7 @@ class CustomRequestFactory extends Factory
       "date1" => $this->faker->dateTimeThisMonth($max = "now"),
       "date2" => $this->faker->dateTimeThisMonth($max = "now"),
       "title" => $this->faker->word(),
+      "type" => $this->faker->randomElement(['company', 'driver']),
       "weight_min" => $this->faker->numerify("###kg"),
       "weight_max" => $this->faker->numerify("###kg"),
       "cubm_min" => $this->faker->word,

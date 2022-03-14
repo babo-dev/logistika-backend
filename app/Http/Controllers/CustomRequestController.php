@@ -154,6 +154,7 @@ class CustomRequestController extends Controller
       "title" => "required",
       "date1"       => 'required',
       "date2"       => 'required',
+      "type"       => 'required',
       // "weight_min"       => 'required',
       // "weight_max"       => 'required',
       // "cubm_min"       => 'required',
@@ -183,6 +184,7 @@ class CustomRequestController extends Controller
           'title' => $request->title,
           'date1' => $request->date1,
           'date2' => $request->date2,
+          'type' => $request->type,
           'source' => State::where('title', $request->source)->first()->id,
           'destination' => State::where('title', $request->destination)->first()->id,
           'weight_min' => $request->weight_min ?: '',
@@ -258,6 +260,7 @@ class CustomRequestController extends Controller
       'note' => $request->note ?: $custom_requests->note,
       'source' => $request->source ?: $custom_requests->source,
       'destination' => $request->destination ?: $custom_requests->destination,
+      'type' => $request->type ?: $custom_requests->type,
     ]);
     if ($request->has('company_id')) {
       $custom_requests->company_id = $request->company_id;

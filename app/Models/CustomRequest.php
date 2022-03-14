@@ -37,6 +37,7 @@ class CustomRequest extends Model
     'destination',
     'status',
     'company_id',
+    'type',
   ];
 
   protected $table = "requests";
