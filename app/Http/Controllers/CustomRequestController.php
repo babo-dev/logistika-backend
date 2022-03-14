@@ -330,7 +330,7 @@ class CustomRequestController extends Controller
           CustomRequest::where("company_id", auth("companies")->user()->id)
             ->orWhere("company_id", null)
             ->where("status", 0)
-            ->where('car_body', '!=', '')
+            ->where('type', 'company')
             ->orderBy('id', 'desc')->paginate(20)
         )->response()->getData(True);
       } else {
@@ -340,7 +340,7 @@ class CustomRequestController extends Controller
           CustomRequest::where("company_id", auth("companies")->user()->id)
             ->orWhere("company_id", null)
             ->where("status", 0)
-            ->where("car_body", '')
+            ->where('type', 'driver')
             ->orderBy('id', 'desc')->paginate(20)
         )->response()->getData(True);
       }
@@ -370,13 +370,13 @@ class CustomRequestController extends Controller
       if (auth("companies")->user()->type == "company") {
         $answers = auth("companies")->user()->requests()
           ->where("status", "1")
-          ->where('car_body', '!=', '')
+          ->where('type', 'company')
           ->orderBy('id', 'desc')
           ->paginate(20);
       } else {
         $answers = auth("companies")->user()->requests()
           ->where("status", "1")
-          ->where('car_body','')
+          ->where('type', 'driver')
           ->orderBy('id', 'desc')
           ->paginate(20);
       }
