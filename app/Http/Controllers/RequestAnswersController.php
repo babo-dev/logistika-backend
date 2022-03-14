@@ -193,7 +193,9 @@ class RequestAnswersController extends Controller
    */
   public function show($id)
   {
-    $custom_request = RequestAnswers::where('request_id', $id);
+    $custom_request = RequestAnswers::where('request_id', $id)
+          ->where("company_id", auth("companies")->user()->id)
+          ->orWhere("company_id", null);
     // $custom_request = auth('companies')->user()->request_answers()->where('id', $id);
     if ($custom_request->count()) {
     // return $custom_request->first();
