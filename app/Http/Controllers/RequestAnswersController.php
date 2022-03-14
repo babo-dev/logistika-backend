@@ -193,14 +193,13 @@ class RequestAnswersController extends Controller
    */
   public function show($id)
   {
-    $custom_request = RequestAnswers::where('company_id', auth('companies')->user()->id)
-      ->where('request_id', $id);
+    $custom_request = RequestAnswers::where('request_id', $id);
     // $custom_request = auth('companies')->user()->request_answers()->where('id', $id);
     if ($custom_request->count()) {
     // return $custom_request->first();
       return response()->json([
         'success' => 'true',
-        'data' => new RequestAnswersResource($custom_request->first()),//->offers),
+        'data' => RequestAnswersResource::collection($custom_request->get()),//->offers),
         'message' => null,
       ]);
     } else {
