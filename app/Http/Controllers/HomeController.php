@@ -32,21 +32,23 @@ class HomeController extends Controller
     $pages = Page::orderBy('id', 'desc')->paginate(20);
 
     if (auth('companies')->check()) {
-        $requests_count = CustomRequest::where('status', "0")
-          ->where("company_id", auth("companies")->user()->id)
-          ->orWhere("company_id", null)->orderBy('id', 'desc')->count();
-      
-    return response()->json([
-      'success' => "true",
-      'routes' => $routes,
-      'sliders' => $sliders,
-      'states' => $states,
-      'companies' => $companies,
-      'techniquetype' => $techniquetype,
-      'pages' => $pages,
-      'new_requests' => $requests_count,
-      'message' => null
-    ]);
+      $requests_count = CustomRequest::where('status', "0")
+        ->where("company_id", auth("companies")->user()->id)
+        ->orWhere("company_id", null)
+        ->where('type', auth("companies")->user()->type)
+        ->count();
+
+      return response()->json([
+        'success' => "true",
+        'routes' => $routes,
+        'sliders' => $sliders,
+        'states' => $states,
+        'companies' => $companies,
+        'techniquetype' => $techniquetype,
+        'pages' => $pages,
+        'new_requests' => $requests_count,
+        'message' => null
+      ]);
     }
 
     return response()->json([
