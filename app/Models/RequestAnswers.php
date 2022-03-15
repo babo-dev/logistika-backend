@@ -16,6 +16,7 @@ class RequestAnswers extends Model
    */
   protected $attributes = [
     'status' => '0',
+    'note' => ''
   ];
 
   protected $fillable = [

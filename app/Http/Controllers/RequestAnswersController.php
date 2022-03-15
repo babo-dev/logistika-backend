@@ -66,7 +66,7 @@ class RequestAnswersController extends Controller
     $rules = array(
       "request_id"       => 'required',
       "price"       => 'required',
-      "note"       => 'required',
+      // "note"       => 'required',
     );
 
     $validator = Validator::make($request->all(), $rules);
