@@ -60,10 +60,13 @@ class StateController extends Controller
     } else {
       // store
       /* return $request->title; */
-      $state = State::create([
-        'title' => $request->title,
-        'country_id' => Country::where('title', $request->country)->first()->id
-      ]);
+      $titles = explode(',', $request->title);
+      foreach ($titles as $title) {
+        $state = State::create([
+          'title' => $title,
+          'country_id' => Country::where('title', $request->country)->first()->id
+        ]);
+      }
 
       return response()->json([
         'success' => 'true',
