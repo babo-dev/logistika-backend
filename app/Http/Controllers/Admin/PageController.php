@@ -46,9 +46,9 @@ class PageController extends Controller
       "title_tm"     => 'required',
       "title_ru"     => 'required',
       "title_en"     => 'required',
-      "description_tm"     => 'required',
-      "description_ru"     => 'required',
-      "description_en"     => 'required',
+      // "description_tm"     => 'required',
+      // "description_ru"     => 'required',
+      // "description_en"     => 'required',
       "content_tm"     => 'required',
       "content_ru"     => 'required',
       "content_en"     => 'required',
@@ -74,9 +74,9 @@ class PageController extends Controller
       ->setTranslation('title', 'tm', $request->title_tm)
       ->setTranslation('title', 'ru', $request->title_ru)
       ->setTranslation('title', 'en', $request->title_en)
-      ->setTranslation('description', 'tm', $request->description_tm)
-      ->setTranslation('description', 'ru', $request->description_ru)
-      ->setTranslation('description', 'en', $request->description_en)
+      ->setTranslation('description', 'tm', $request->description_tm || '')
+      ->setTranslation('description', 'ru', $request->description_ru || '')
+      ->setTranslation('description', 'en', $request->description_en || '')
       ->setTranslation('content', 'tm', $request->content_tm)
       ->setTranslation('content', 'ru', $request->content_ru)
       ->setTranslation('content', 'en', $request->content_en)
