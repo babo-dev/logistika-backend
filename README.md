@@ -518,7 +518,9 @@ DB_PASSWORD=password
 
 
 Commands to run at root directory
+
 ```docker compose build app```
+
 ```docker compose up -d```
 
 #### *Optional to see running containers
@@ -526,5 +528,6 @@ Commands to run at root directory
 ```docker compose ps```
 
 ```docker compose exec app php artisan migrate```
+
 ```docker compose exec app php artisan storage:link```
 
