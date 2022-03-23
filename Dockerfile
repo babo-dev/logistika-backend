@@ -28,9 +28,4 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www/logistika-backend
 
-# Assign permissions of the working directory to the www-data user
-RUN chown -R www-data:www-data \
-        /var/www/logistika-backend/storage \
-        /var/www/logistika-backend/bootstrap/cache
-
 USER $user

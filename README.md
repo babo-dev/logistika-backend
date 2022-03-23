@@ -504,3 +504,27 @@ cancel all answers for specific request
 ```http
 guard:users  GET  api/requests/{id}/answersCancel
 ```
+
+### Database part of .env file should be like this
+
+```
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=database_name
+DB_USERNAME=username
+DB_PASSWORD=password
+```
+
+
+Commands to run at root directory
+```docker compose build app```
+```docker compose up -d```
+
+#### *Optional to see running containers
+
+```docker compose ps```
+
+```docker compose exec app php artisan migrate```
+```docker compose exec app php artisan storage:link```
+
