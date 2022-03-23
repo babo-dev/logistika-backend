@@ -1,28 +1,49 @@
-version: "3"
-
+version: "3.7"
 services:
-  nginx:
+  app:
     build:
-      context: .
-      dockerfile: docker/Nginx.Dockerfile
-    ports:
-      - 8098:88
-    links:
-      - fpm
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: logistika
+    container_name: logistika-app
+    restart: unless-stopped
+    working_dir: /var/www/logistika-backend
     volumes:
-      - ./:/var/www/logistika-docker
-  fpm:
-    build:
-      context: .
-      dockerfile: docker/fpm.Dockerfile
-    volumes:
-      - ./:/var/www/logistika-docker
-    links:
-      - mysql
-  mysql:
+      - ./:/var/www/logistika-backend
+    networks:
+      - logistika
+
+  db:
     image: mysql:5.7
-    ports:
-      - 33061:3306
+    container_name: logistika-db
+    restart: unless-stopped
+    tty: true
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=logistika
+      MYSQL_DATABASE: logistika
+      MYSQL_ROOT_PASSWORD: password
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - logistika
+
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: logistika-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www/logistika-backend
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    networks:
+      - logistika
+
+
+networks:
+  logistika:
+    driver: bridge
