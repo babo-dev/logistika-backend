@@ -28,7 +28,7 @@ class HomeController extends Controller
   {
     $routes = RouteResource::collection(CustomRoute::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $sliders = SliderResource::collection(Slider::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
-    $states = StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    // $states = StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $countries = CountryResource::collection(Country::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $companies = CompanyResource::collection(Company::orderBy('id', 'desc')->where('type', 'company')->paginate(20))->response()->getData(True);
     $techniquetype = TechniqueType::orderBy('id', 'desc')->paginate(20);
@@ -45,7 +45,7 @@ class HomeController extends Controller
         'success' => "true",
         'routes' => $routes,
         'sliders' => $sliders,
-        'states' => $states,
+        // 'states' => $states,
         'countries' => $countries,
         'companies' => $companies,
         'techniquetype' => $techniquetype,
@@ -59,7 +59,7 @@ class HomeController extends Controller
       'success' => "true",
       'routes' => $routes,
       'sliders' => $sliders,
-      'states' => $states,
+      // 'states' => $states,
       'countries' => $countries,
       'companies' => CountryResource::collection(Country::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
       'techniquetype' => $techniquetype,
