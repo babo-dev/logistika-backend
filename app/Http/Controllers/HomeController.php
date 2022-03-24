@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CompanyResource;
+use App\Http\Resources\CountryResource;
 use App\Http\Resources\RouteResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\StateResource;
 use App\Http\Resources\TechniqueResource;
 use App\Models\Company;
+use App\Models\Country;
 use App\Models\CustomRequest;
 use App\Models\CustomRoute;
 use App\Models\Page;
@@ -27,6 +29,7 @@ class HomeController extends Controller
     $routes = RouteResource::collection(CustomRoute::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $sliders = SliderResource::collection(Slider::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $states = StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    $countries = CountryResource::collection(Country::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $companies = CompanyResource::collection(Company::orderBy('id', 'desc')->where('type', 'company')->paginate(20))->response()->getData(True);
     $techniquetype = TechniqueType::orderBy('id', 'desc')->paginate(20);
     $pages = Page::orderBy('id', 'desc')->paginate(20);
@@ -43,6 +46,7 @@ class HomeController extends Controller
         'routes' => $routes,
         'sliders' => $sliders,
         'states' => $states,
+        'countries' => $countries,
         'companies' => $companies,
         'techniquetype' => $techniquetype,
         'pages' => $pages,
