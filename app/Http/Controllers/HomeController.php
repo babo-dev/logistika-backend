@@ -81,26 +81,24 @@ class HomeController extends Controller
     }
 
     if ($request->type == "state") {
-      $data = StateResource::collection(
-        State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get()
-      );
+      $data = State::select('title')->orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get();
     }
 
     if ($request->type == "technique") {
       $data = TechniqueResource::collection(
-        Technique::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->get()
+        Technique::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get()
       );
     }
 
     if ($request->type == "company") {
       $data = CompanyResource::collection(
-        Company::orderBy('id', 'desc')->where('name', 'LIKE', '%' . $request->q . '%')->get()
+        Company::orderBy('id', 'desc')->where('name', 'LIKE', '%' . $request->q . '%')->limit(20)->get()
       );
     }
 
     if ($request->type == "route") {
       // get all states
-      $states = State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->get();
+      $states = State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get();
       // create initial collection for all routes
       $data = new Collection();
       $now = Carbon::now();
