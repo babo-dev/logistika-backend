@@ -82,7 +82,7 @@ class HomeController extends Controller
 
     if ($request->type == "state") {
       $data = StateResource::collection(
-        State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->get()
+        State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get()
       );
     }
 
