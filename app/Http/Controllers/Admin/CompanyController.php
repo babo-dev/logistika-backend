@@ -123,8 +123,9 @@ class CompanyController extends Controller
    */
   public function destroy($id)
   {
-    $company = Company::where('id', $id);
-    if ($company->exists()) {
+    $companies = Company::where('id', $id);
+    if ($companies->exists()) {
+      $company = $companies->first();
       if ($company->avatar) unlink(storage_path() . "/app/public/images/company/" . $company->avatar);
       $company->delete();
       return response()->json([
