@@ -80,6 +80,12 @@ class HomeController extends Controller
       ], 422);
     }
 
+    if ($request->type == "state") {
+      $data = StateResource::collection(
+        State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->get()
+      );
+    }
+
     if ($request->type == "technique") {
       $data = TechniqueResource::collection(
         Technique::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->get()
