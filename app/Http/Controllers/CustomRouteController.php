@@ -104,8 +104,8 @@ class CustomRouteController extends Controller
         'date2' => $request->date2,
         'car_body' => $request->car_body ?: '',
         'note' => $request->note,
-        'source' => State::where("title", $request->source)->first()->id,
-        'destination' => State::where("title", $request->destination)->first()->id,
+        'source' => $request->source,
+        'destination' => $request->destination,
       ]);
 
       return response()->json([
@@ -175,8 +175,8 @@ class CustomRouteController extends Controller
       'date2' => $request->date2 ?: $customRoute->date2,
       'car_body' => $request->car_body ?: $customRoute->car_body,
       'note' => $request->note ?: $customRoute->note,
-      'source' => $request->source ? State::where("title", $request->source)->first()->id : $customRoute->source->id,
-      'destination' => $request->destination ? State::where("title", $request->destination)->first()->id : $customRoute->destination->id,
+      'source' => $request->source ? $request->source : $customRoute->source,
+      'destination' => $request->destination ? $request->destination : $customRoute->destination,
     ]);
 
     return response()->json([

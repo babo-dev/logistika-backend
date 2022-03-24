@@ -45,8 +45,8 @@ class RequestResource extends JsonResource
       'note' => $this->note,
       'type' => $this->type,
       'status' => $this->status,
-      'source' => new StateResource($this->source_state->first()),
-      'destination' => new StateResource($this->destination_state->first()),
+      'source' => $this->source,
+      'destination' => $this->source,
     ];
 
     if (auth('users')->check()) {

@@ -56,14 +56,4 @@ class CustomRequest extends Model
   {
     return $this->hasMany("App\Models\RequestAnswers", "request_id");
   }
-
-  public function source_state()
-  {
-    return $this->hasMany("App\Models\State", 'id', 'source');
-  }
-
-  public function destination_state()
-  {
-    return $this->hasMany("App\Models\State", 'id', 'destination');
-  }
 }

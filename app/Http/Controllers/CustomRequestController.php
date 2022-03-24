@@ -185,8 +185,8 @@ class CustomRequestController extends Controller
           'date1' => $request->date1,
           'date2' => $request->date2,
           'type' => $request->type,
-          'source' => State::where('title', $request->source)->first()->id,
-          'destination' => State::where('title', $request->destination)->first()->id,
+          'source' => $request->source,
+          'destination' => $request->destination,
           'weight_min' => $request->weight_min ?: '',
           'weight_max' => $request->weight_max ?: '',
           'cubm_min' => $request->cubm_min ?: '',
@@ -199,6 +199,7 @@ class CustomRequestController extends Controller
         ]
       );
 
+      return $customRequest;
       return response()->json([
         'success' => 'true',
         'data' => new RequestResource($customRequest),

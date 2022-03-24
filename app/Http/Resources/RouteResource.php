@@ -23,8 +23,8 @@ class RouteResource extends JsonResource
            'car_body' => $this->car_body, 
            'company' => new CompanyResource($this->company), 
            'note' => $this->note,
-           'source' => $this->source_state->first(),
-           'destination' => $this->destination_state->first(),
+           'source' => $this->source,
+           'destination' => $this->destination,
            /* 'destination' => $this->state->title, */
         ];
     }

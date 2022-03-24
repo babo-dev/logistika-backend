@@ -26,14 +26,4 @@ class CustomRoute extends Model
   {
     return $this->belongsTo("App\Models\Company");
   }
-
-  public function source_state()
-  {
-    return $this->hasMany("App\Models\State", 'id', 'source');
-  }
-
-  public function destination_state()
-  {
-    return $this->hasMany("App\Models\State", 'id', 'destination');
-  }
 }
