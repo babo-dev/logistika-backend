@@ -81,7 +81,7 @@ class HomeController extends Controller
     }
 
     if ($request->type == "state") {
-      $data = State::select('title')->orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get();
+      $data = State::select('title')->orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->pluck('title')->toArray();
     }
 
     if ($request->type == "technique") {
