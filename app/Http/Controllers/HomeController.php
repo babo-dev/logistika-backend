@@ -60,6 +60,7 @@ class HomeController extends Controller
       'routes' => $routes,
       'sliders' => $sliders,
       'states' => $states,
+      'companies' => $companies,
       'companies' => CountryResource::collection(Country::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
       'techniquetype' => $techniquetype,
       'pages' => $pages,
