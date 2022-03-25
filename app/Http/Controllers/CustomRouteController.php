@@ -62,8 +62,8 @@ class CustomRouteController extends Controller
       }
     return response()->json([
       'success' => 'true',
-      // 'data' => $routes,
-      'data' => RouteResource::collection($routes),
+      'data' => $routes,
+      // 'data' => RouteResource::collection($routes),
       'message' => null
     ]);
   }
