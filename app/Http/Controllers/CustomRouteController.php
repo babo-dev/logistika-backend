@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\RequestResource;
 use App\Http\Resources\RouteResource;
 use App\Models\CustomRoute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class CustomRouteController extends Controller
@@ -98,9 +98,13 @@ class CustomRouteController extends Controller
       ], 422);
     } else {
       // store
+      // return explode('.', $request->date1);
+      $date1 = explode('.', $request->date1);
+      $date2 = explode('.', $request->date2);
       $customRoute = auth('companies')->user()->routes()->create([
-        'date1' => $request->date1,
-        'date2' => $request->date2,
+        'date1' => Carbon::create($date1[2], $date1[1], $date1[0], '1'),
+        'date2' => Carbon::create($date2[2], $date2[1], $date2[0], '1'),
+        // 'date2' => $request->date2,
         'car_body' => $request->car_body ?: '',
         'note' => $request->note,
         'source' => $request->source,
