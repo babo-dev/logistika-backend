@@ -6,7 +6,6 @@ use App\Http\Resources\CompanyResource;
 use App\Http\Resources\CountryResource;
 use App\Http\Resources\RouteResource;
 use App\Http\Resources\SliderResource;
-use App\Http\Resources\StateResource;
 use App\Http\Resources\TechniqueResource;
 use App\Models\Company;
 use App\Models\Country;
@@ -26,7 +25,8 @@ class HomeController extends Controller
 {
   public function index()
   {
-    $routes = RouteResource::collection(CustomRoute::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    $now = Carbon::now();
+    $routes = RouteResource::collection(CustomRoute::whereDate('date1', '>', $now)->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $sliders = SliderResource::collection(Slider::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     // $states = StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $countries = CountryResource::collection(Country::orderBy('title')->get())->response()->getData(True);
