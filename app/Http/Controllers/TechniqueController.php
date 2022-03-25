@@ -87,7 +87,7 @@ class TechniqueController extends Controller
       // return $request->all();
       $technique = auth('companies')->user()->techniques()->create([
         'technique_type_id' => $request->technique_type_id,
-        'state_id' => State::where("title", $request->state)->first()->id,
+        'state' => $request->state,
         'owner' => $request->owner,
         'title' => $request->title,
         'price' => $request->price,
@@ -199,7 +199,7 @@ class TechniqueController extends Controller
 
     $technique->update([
       'technique_type_id' => $request->technique_type_id ?: $technique->technique_type_id,
-      'state_id' => $request->state ? State::where("title", $request->state)->first()->id : $technique->state->id,
+      'state' => $request->state ? $request->state : $technique->state,
       'owner' => $request->owner ?: $technique->owner,
       'title' => $request->title ?: $technique->title,
       'price' => $request->price ?: $technique->price,

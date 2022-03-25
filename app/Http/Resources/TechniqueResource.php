@@ -26,7 +26,7 @@ class TechniqueResource extends JsonResource
       'id' => $this->id,
       'company' => $this->company,
       'owner' => $this->company->owner,
-      'state' => $this->state->title,
+      'state' => $this->state,
       'technique_type' => $this->technique_type->title,
       'accepted' => intval($this->accepted),
       'title' => $this->title,

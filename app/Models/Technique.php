@@ -13,7 +13,7 @@ class Technique extends Model
 
   protected $fillable = [
       "technique_type_id",
-      "state_id",
+      "state",
       "title",
       "price", 
       "description",
@@ -23,11 +23,6 @@ class Technique extends Model
   public function company()
   {
     return $this->belongsTo("App\Models\Company");
-  }
-
-  public function state()
-  {
-    return $this->belongsTo("App\Models\State");
   }
 
   public function technique_type()
