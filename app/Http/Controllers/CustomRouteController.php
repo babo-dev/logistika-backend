@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\RequestResource;
 use App\Http\Resources\RouteResource;
 use App\Models\CustomRoute;
-use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -63,8 +62,8 @@ class CustomRouteController extends Controller
       }
     return response()->json([
       'success' => 'true',
-      'data' => $routes,
-      // 'data' => RouteResource::collection($routes),
+      // 'data' => $routes,
+      'data' => RouteResource::collection($routes),
       'message' => null
     ]);
   }
