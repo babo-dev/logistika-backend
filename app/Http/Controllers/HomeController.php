@@ -103,17 +103,20 @@ class HomeController extends Controller
 
     if ($request->type == "route") {
       // get all states
-      $states = State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get();
+      // $states = State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get();
+      $states = CustomRoute::orderBy('id', 'desc')
+        ->where('source', 'LIKE', '%' . $request->q . '%')
+        ->orWhere('destination', 'LIKE', '%' . $request->q . '%')->limit(20)->get();
+      // return $states;
+
       // create initial collection for all routes
       $data = new Collection();
       $now = Carbon::now();
       foreach ($states as $state) {
-        // mergen source states and destination states
-        $stateRoutes = $state->routes_source()->whereDate('date1', '>', $now)->orderBy('id', 'desc')->get()->merge(
-          $state->routes_destination()->whereDate('date1', '>', $now)->orderBy('id', 'desc')->get()
-        );
-        // add them to initial collection
-        $data = $data->merge($stateRoutes);
+        if ($state->date1 > $now) {
+          // add them to initial collection
+          $data = $data->push($state);
+        }
       }
       // convert data to resource
       $data = RouteResource::collection($data);

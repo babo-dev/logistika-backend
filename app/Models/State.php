@@ -14,14 +14,4 @@ class State extends Model
   {
     return $this->belongsTo("App\Models\Country");
   }
-
-  public function routes_source()
-  {
-    return $this->hasMany("App\Models\CustomRoute", "source", "id");
-  }
-
-  public function routes_destination()
-  {
-    return $this->hasMany("App\Models\CustomRoute", "destination", "id");
-  }
 }
