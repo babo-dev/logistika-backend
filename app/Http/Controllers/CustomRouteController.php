@@ -46,7 +46,7 @@ class CustomRouteController extends Controller
   {
     // $routes = auth('companies')->user()->routes()->paginate(20);
       if (auth("companies")->user()->type == "company") {
-        $routes = RequestResource::collection(
+        $routes = RouteResource::collection(
          auth('companies')->user()->routes() 
             ->orWhere("company_id", null)
             ->where('car_body', '!=', '')
@@ -54,7 +54,7 @@ class CustomRouteController extends Controller
         )->response()->getData(True);
       } 
       else {
-        $routes = RequestResource::collection(
+        $routes = RouteResource::collection(
          auth('companies')->user()->routes() 
             ->where("car_body", '')
             ->orderBy('id', 'desc')->paginate(20)
