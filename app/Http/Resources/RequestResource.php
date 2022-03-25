@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Nette\Utils\DateTime;
 
 class RequestResource extends JsonResource
 {
@@ -10,8 +11,8 @@ class RequestResource extends JsonResource
 
   // public function __construct()
   // {
-    // $this->wrap("requests");
-    // $this->response()->getData(True);
+  // $this->wrap("requests");
+  // $this->response()->getData(True);
   // }
 
   /**
@@ -31,8 +32,8 @@ class RequestResource extends JsonResource
       'id' => $this->id,
       'user' => new UserResource($this->user),
       'title' => $this->title,
-      'date1' => $this->date1,
-      'date2' => $this->date2,
+      'date1' => date_format(new DateTime($this->date1), "d.m.Y"),
+      'date2' => date_format(new DateTime($this->date2), "d.m.Y"),
       'weight_min' => $this->weight_min,
       'weight_max' => $this->weight_max,
       'cubm_min' => $this->cubm_min,
@@ -50,9 +51,9 @@ class RequestResource extends JsonResource
     ];
 
     if (auth('users')->check()) {
-      $result['request_answers'] = $this->offers()->where('status',0)->count();
-    }   
-    
+      $result['request_answers'] = $this->offers()->where('status', 0)->count();
+    }
+
     return $result;
   }
 
