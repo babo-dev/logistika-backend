@@ -100,7 +100,14 @@ class TechniqueTypeController extends Controller
     if ($technique_type->exists()) {
       return response()->json([
         'success' => 'true',
-        'data' => TechniqueResource::collection($technique_type->first()->techniques),
+        'data' => TechniqueResource::collection(
+          $technique_type
+          ->first()
+          ->techniques()
+          ->where("accepted", '1')
+          ->orderBy('id', 'desc')
+          ->paginate(20)
+        )->response()->getData(True),
         'message' => null,
       ]);
     } else {
