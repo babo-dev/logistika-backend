@@ -23,6 +23,7 @@ services:
     tty: true
     environment:
       MYSQL_DATABASE: logistika
+      MYSQL_USER: root 
       MYSQL_ROOT_PASSWORD: password
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
