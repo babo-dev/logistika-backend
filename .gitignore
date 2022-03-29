@@ -18,4 +18,4 @@ logistike.exvim
 todo
 public/images
 server_info.txt
-database/seeders/AdminSeeder.php
+./database/seeders/AdminSeeder.php
