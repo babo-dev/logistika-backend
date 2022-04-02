@@ -30,7 +30,7 @@ class HomeController extends Controller
     $sliders = SliderResource::collection(Slider::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     // $states = StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $countries = CountryResource::collection(Country::orderBy('title')->get())->response()->getData(True);
-    $companies = CompanyResource::collection(Company::orderBy('id', 'desc')->where('type', 'company')->paginate(20))->response()->getData(True);
+    $companies = CompanyResource::collection(Company::orderBy('id', 'desc')->where('type', 'company')->where('accepted', true)->paginate(20))->response()->getData(True);
     $techniquetype = TechniqueType::orderBy('id', 'desc')->paginate(20);
     $pages = Page::orderBy('id', 'desc')->paginate(20);
 
