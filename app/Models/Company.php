@@ -6,14 +6,17 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Translatable\HasTranslations;
 
 class Company extends Authenticatable implements JWTSubject
 {
-  use Notifiable, HasFactory;
+  use Notifiable, HasFactory, HasTranslations;
 
   protected $guard = 'companies';
 
   protected $guarded = [];
+
+  public $translatable = ["short_description", "description"];
 
   /**
    * Get the identifier that will be stored in the subject claim of the JWT.
