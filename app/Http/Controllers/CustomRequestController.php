@@ -7,6 +7,7 @@ use App\Models\CustomRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\RequestResource;
 use App\Models\State;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class CustomRequestController extends Controller
@@ -179,11 +180,12 @@ class CustomRequestController extends Controller
       ], 422);
     } else {
       // store
+
       $customRequest = auth('users')->user()->requests()->create(
         [
           'title' => $request->title,
-          'date1' => $request->date1,
-          'date2' => $request->date2,
+          'date1' => Carbon::createFromFormat('d.m.Y', $request->date1)->format('Y-m-d'),
+          'date2' => Carbon::createFromFormat('d.m.Y', $request->date2)->format('Y-m-d'),
           'type' => $request->type,
           'source' => $request->source,
           'destination' => $request->destination,
