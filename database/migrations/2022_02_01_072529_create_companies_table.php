@@ -23,7 +23,7 @@ class CreateCompaniesTable extends Migration
             $table->string('country');
             $table->string("type")->nullable();
             $table->text("status")->nullable();
-            $table->json("short_description")->nullable();
+            $table->string("short_description")->nullable();
             $table->json("description")->nullable();
             $table->string("avatar")->nullable();
             $table->string("auto_model")->nullable();

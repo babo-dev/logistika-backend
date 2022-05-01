@@ -22,7 +22,7 @@ class CompanyResource extends JsonResource
       'phone' => $this->phone,
       'type' => $this->type,
       'status' => intval($this->status),
-      'short_description' => $this->getTranslations('short_description'),
+      'short_description' => $this->short_description,
       'description' => $this->getTranslations("description"),
       'avatar' => $this->avatar ? url('/storage/images/company/'.$this->avatar) : '',
       'auto_model' => $this->auto_model,

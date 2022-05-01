@@ -16,7 +16,7 @@ class Company extends Authenticatable implements JWTSubject
 
   protected $guarded = [];
 
-  public $translatable = ["short_description", "description"];
+  public $translatable = ["description"];
 
   /**
    * Get the identifier that will be stored in the subject claim of the JWT.

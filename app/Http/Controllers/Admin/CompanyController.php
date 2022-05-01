@@ -68,7 +68,12 @@ class CompanyController extends Controller
     $company->country_id = $request->country_id ? $request->country_id : $company->country_id;
     $company->type = $request->type ? $request->type : $company->type;
     $company->short_description = $request->short_description ? $request->short_description : $company->short_description;
-    $company->description = $request->description ? $request->description : $company->description;
+
+    $company
+      ->setTranslation('description', 'tm', $request->description_tm ? $request->description_tm : $company->description_tm)
+      ->setTranslation('description', 'ru', $request->description_ru ? $request->description_ru : $company->description_ru)
+      ->setTranslation('description', 'en', $request->description_en ? $request->description_en : $company->description_en);
+
     $company->auto_model = $request->auto_model ? $request->auto_model : $company->auto_model;
     if ($request->has('status')) {
       $company->status = $request->status;

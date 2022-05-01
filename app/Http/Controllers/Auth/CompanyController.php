@@ -63,13 +63,10 @@ class CompanyController extends Controller
       $company->status = $request->status;
     }
 
+    $company->short_description = $request->short_description ? $request->short_description : '';
     # make them translatable
-    // $company->short_description = $request->short_description ? $request->short_description : '';
     // $company->description = $request->description ? $request->description : '';
     $company
-      ->setTranslation('short_description', 'tm', $request->short_description ?? '')
-      ->setTranslation('short_description', 'ru', $request->short_description ?? '')
-      ->setTranslation('short_description', 'en', $request->short_description ?? '')
       ->setTranslation('description', 'tm', $request->description_tm ?? '')
       ->setTranslation('description', 'ru', $request->description_ru ?? '')
       ->setTranslation('description', 'en', $request->description_en ?? '');
