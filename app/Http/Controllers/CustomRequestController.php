@@ -199,7 +199,6 @@ class CustomRequestController extends Controller
         ]
       );
 
-      return $customRequest;
       return response()->json([
         'success' => 'true',
         'data' => new RequestResource($customRequest),
