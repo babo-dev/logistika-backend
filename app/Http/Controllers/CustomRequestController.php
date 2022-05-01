@@ -246,8 +246,6 @@ class CustomRequestController extends Controller
     //   ], 422);
     // }
     $custom_requests = auth('users')->user()->requests()->findOrFail($id);
-          'date1' => Carbon::createFromFormat('d.m.Y', $request->date1)->format('Y-m-d'),
-          'date2' => Carbon::createFromFormat('d.m.Y', $request->date2)->format('Y-m-d'),
     $custom_requests->update([
       // $request->all()
       'title' => $request->title ?: $custom_requests->title,
