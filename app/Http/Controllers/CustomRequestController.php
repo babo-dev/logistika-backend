@@ -246,13 +246,15 @@ class CustomRequestController extends Controller
     //   ], 422);
     // }
     $custom_requests = auth('users')->user()->requests()->findOrFail($id);
+          'date1' => Carbon::createFromFormat('d.m.Y', $request->date1)->format('Y-m-d'),
+          'date2' => Carbon::createFromFormat('d.m.Y', $request->date2)->format('Y-m-d'),
     $custom_requests->update([
       // $request->all()
       'title' => $request->title ?: $custom_requests->title,
       'weight_min' => $request->weight_min ?: $custom_requests->weight_min,
       'weight_max' => $request->weight_max ?: $custom_requests->weight_max,
-      'date1' => $request->date1 ?: $custom_requests->date1,
-      'date2' => $request->date2 ?: $custom_requests->date2,
+      'date1' => Carbon::createFromFormat('d.m.Y', $request->date1)->format('Y-m-d') ?: $custom_requests->date1,
+      'date2' => Carbon::createFromFormat('d.m.Y', $request->date2)->format('Y-m-d') ?: $custom_requests->date2,
       'cubm_min' => $request->cubm_min ?: $custom_requests->cubm_min,
       'cubm_max' => $request->cubm_max ?: $custom_requests->cubm_max,
       'budget_min' => $request->budget_min ?: $custom_requests->budget_min,
