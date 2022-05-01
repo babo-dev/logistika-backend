@@ -62,8 +62,15 @@ class CompanyController extends Controller
     if ($request->has('status')) {
       $company->status = $request->status;
     }
+
     $company->short_description = $request->short_description ? $request->short_description : '';
-    $company->description = $request->description ? $request->description : '';
+    # make them translatable
+    // $company->description = $request->description ? $request->description : '';
+    $company
+      ->setTranslation('description', 'tm', $request->description_tm ?? '')
+      ->setTranslation('description', 'ru', $request->description_ru ?? '')
+      ->setTranslation('description', 'en', $request->description_en ?? '');
+   
     $company->car_number = $request->car_number ? $request->car_number : '';
     if ($request->has('avatar')) {
       $file = $request->file('avatar');
