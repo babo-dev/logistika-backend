@@ -62,10 +62,13 @@ class StateController extends Controller
       /* return $request->title; */
       $titles = explode(',', $request->title);
       foreach ($titles as $title) {
-        $state = State::create([
-          'title' => $title,
-          'country_id' => Country::where('title', $request->country)->first()->id
-        ]);
+        $state = new State();
+        $state->title = $title;
+        $state->country_id = Country::where('title', $request->country)->first()->id;
+        if ($request->has('isLocal')) {
+          $state->isLocal = $request->isLocal;
+        }
+        $state->save();
       }
 
       return response()->json([
