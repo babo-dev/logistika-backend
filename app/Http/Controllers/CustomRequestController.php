@@ -25,7 +25,7 @@ class CustomRequestController extends Controller
    */
   public function __construct()
   {
-    $this->middleware(['auth:users', 'jwt.auth'])->except([
+    $this->middleware(['auth:users,companies', 'jwt.auth'])->except([
       'all', 'index', 'show', 'offers', 'statusWaiting', 'statusAnswered'
     ]);
     $this->middleware(['auth:users,companies', 'jwt.auth'])->only(['index', 'statusAnswered']);
@@ -180,8 +180,13 @@ class CustomRequestController extends Controller
       ], 422);
     } else {
       // store
+      if (auth('users')->check()) {
+        $authenticated_user = auth('users')->user();
+      } else {
+        $authenticated_user = auth('companies')->user();
+      }
 
-      $customRequest = auth('users')->user()->requests()->create(
+      $customRequest = $authenticated_user->own_requests()->create(
         [
           'title' => $request->title,
           'date1' => Carbon::createFromFormat('d.m.Y', $request->date1)->format('Y-m-d'),

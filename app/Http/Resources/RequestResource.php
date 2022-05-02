@@ -31,9 +31,7 @@ class RequestResource extends JsonResource
   {
     $result =  [
       'id' => $this->id,
-      'user' => new UserResource($this->user),
       'title' => $this->title,
-      // 'date1' => $this->date1,
       'date1' => date_format(new DateTime($this->date1), "d.m.Y"),
       'date2' => date_format(new DateTime($this->date2), "d.m.Y"),
       'weight_min' => $this->weight_min,
@@ -51,6 +49,12 @@ class RequestResource extends JsonResource
       'source' => $this->source,
       'destination' => $this->destination,
     ];
+
+    if (substr($this->requestable_type , -1) == 'r') {
+      $result['user'] = new UserResource($this->requestable);
+    } else {
+      $result['user'] = new CompanyResource($this->requestable);
+    }
 
     if (count($this->companies) > 0) {
       $result['companies'] = CompanyResource::collection($this->companies);
