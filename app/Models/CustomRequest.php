@@ -36,7 +36,6 @@ class CustomRequest extends Model
     'source',
     'destination',
     'status',
-    'company_id',
     'type',
   ];
 
@@ -47,14 +46,14 @@ class CustomRequest extends Model
     return $this->belongsTo("App\Models\User");
   }
 
+  // public function companies()
+  // {
+  //   return $this->hasManyThrough(Company::class, CompanyRequest::class, 'company_id', 'id', 'id', 'request_id');
+  // }
   public function companies()
   {
-    return $this->hasManyThrough(Company::class, CompanyRequest::class, 'company_id', 'id', 'id', 'request_id');
+    return $this->belongsToMany("App\Models\Company", "company_requests", 'request_id', 'company_id');
   }
-  // public function company()
-  // {
-  //   return $this->belongsTo("App\Models\Company");
-  // }
 
   public function offers()
   {

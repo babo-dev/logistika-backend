@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Company;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Nette\Utils\DateTime;
 
@@ -43,13 +44,19 @@ class RequestResource extends JsonResource
       'budget_max' => $this->budget_max,
       'cargo_type' => $this->cargo_type == "null" ? "" : $this->cargo_type,
       'car_body' => $this->car_body == "null" ? "" : $this->car_body,
-      'company' => $this->company ? new CompanyResource($this->company) : 0,
+      // 'companies' => $this->companies ?  : CompanyResource::collection(Company::get()),
       'note' => $this->note,
       'type' => $this->type,
       'status' => $this->status,
       'source' => $this->source,
       'destination' => $this->destination,
     ];
+
+    if (count($this->companies) > 0) {
+      $result['companies'] = CompanyResource::collection($this->companies);
+    } else {
+      $result['companies'] = CompanyResource::collection(Company::get());
+    }
 
     if (auth('users')->check()) {
       $result['request_answers'] = $this->offers()->where('status', 0)->count();
