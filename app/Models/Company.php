@@ -65,6 +65,6 @@ class Company extends Authenticatable implements JWTSubject
 
   public function requests()
   {
-    return $this->hasMany("App\Models\CustomRequest");
+    return $this->hasManyThrough(CustomRequest::class, CompanyRequest::class, 'request_id', 'id', 'id', 'company_id');
   }
 }

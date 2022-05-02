@@ -47,10 +47,14 @@ class CustomRequest extends Model
     return $this->belongsTo("App\Models\User");
   }
 
-  public function company()
+  public function companies()
   {
-    return $this->belongsTo("App\Models\Company");
+    return $this->hasManyThrough(Company::class, CompanyRequest::class, 'company_id', 'id', 'id', 'request_id');
   }
+  // public function company()
+  // {
+  //   return $this->belongsTo("App\Models\Company");
+  // }
 
   public function offers()
   {
