@@ -21,7 +21,7 @@ class CustomRequestFactory extends Factory
   public function definition()
   {
     return [
-      "user_id" => User::inRandomOrder()->first(), //->create()->id,
+      // "user_id" => User::inRandomOrder()->first(), //->create()->id,
       "date1" => $this->faker->dateTimeThisMonth($max = "now"),
       "date2" => $this->faker->dateTimeThisMonth($max = "now"),
       "title" => $this->faker->word(),
@@ -34,7 +34,7 @@ class CustomRequestFactory extends Factory
       "budget_max" => $this->faker->numerify("#### man"),
       "cargo_type" => $this->faker->word,
       "car_body" => $this->faker->word,
-      "company_id" => Company::inRandomOrder()->first(), //->create()->id,
+      // "company_id" => Company::inRandomOrder()->first(), //->create()->id,
       /* "company_id" => Company::inRandomOrder()->first(),//->create()->id, */
       "note" => $this->faker->sentence(),
       "source" => State::inRandomOrder()->first(),

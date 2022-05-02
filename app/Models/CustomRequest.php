@@ -41,9 +41,9 @@ class CustomRequest extends Model
 
   protected $table = "requests";
 
-  public function user()
+  public function requestable()
   {
-    return $this->belongsTo("App\Models\User");
+    return $this->morphTo();
   }
 
   // public function companies()

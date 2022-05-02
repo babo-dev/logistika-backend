@@ -43,9 +43,10 @@ class User extends Authenticatable implements JWTSubject
     return [];
   }
 
-  public function requests()
+  public function own_requests()
   {
-    return $this->hasMany("App\Models\CustomRequest");
+    return $this->morphMany(CustomRequest::class, 'requestable');
+    // return $this->hasMany("App\Models\CustomRequest");
   }
 
   public function images()

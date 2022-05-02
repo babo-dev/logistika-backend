@@ -25,7 +25,7 @@ class CustomRequestController extends Controller
    */
   public function __construct()
   {
-    $this->middleware(['auth:users', 'jwt.auth'])->except([
+    $this->middleware(['auth:users,companies', 'jwt.auth'])->except([
       'all', 'index', 'show', 'offers', 'statusWaiting', 'statusAnswered'
     ]);
     $this->middleware(['auth:users,companies', 'jwt.auth'])->only(['index', 'statusAnswered']);
@@ -180,8 +180,13 @@ class CustomRequestController extends Controller
       ], 422);
     } else {
       // store
+      if (auth('users')->check()) {
+        $authenticated_user = auth('users')->user();
+      } else {
+        $authenticated_user = auth('companies')->user();
+      }
 
-      $customRequest = auth('users')->user()->requests()->create(
+      $customRequest = $authenticated_user->own_requests()->create(
         [
           'title' => $request->title,
           'date1' => Carbon::createFromFormat('d.m.Y', $request->date1)->format('Y-m-d'),
@@ -226,7 +231,12 @@ class CustomRequestController extends Controller
   public function update(Request $request, $id)
   {
     // return $request->all();
-    $custom_requests = auth('users')->user()->requests()->findOrFail($id);
+    if (auth('users')->check()) {
+      $authenticated_user = auth('users')->user();
+    } else {
+      $authenticated_user = auth('companies')->user();
+    }
+    $custom_requests = $authenticated_user->requests()->findOrFail($id);
     $custom_requests->update([
       // $request->all()
       'title' => $request->title ?: $custom_requests->title,
@@ -310,14 +320,14 @@ class CustomRequestController extends Controller
       ]);
     } elseif (auth("companies")->check()) {
       // company authenticated
-        // authenticated is company type
-        // return those that are car_body!=''
-        $custom_requests = RequestResource::collection(
-          CustomRequest::where("status", 0)
-            ->where('type', auth("companies")->user()->type)
-            ->orderBy('id', 'desc')
-            ->paginate(20)
-        )->response()->getData(True);
+      // authenticated is company type
+      // return those that are car_body!=''
+      $custom_requests = RequestResource::collection(
+        CustomRequest::where("status", 0)
+          ->where('type', auth("companies")->user()->type)
+          ->orderBy('id', 'desc')
+          ->paginate(20)
+      )->response()->getData(True);
     } else {
       $custom_requests = CustomRequest::where("status", "0")->paginate(20);
       $custom_requests = RequestResource::collection($custom_requests)->response()->getData(True);
