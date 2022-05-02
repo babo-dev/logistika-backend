@@ -202,7 +202,7 @@ class CustomRequestController extends Controller
       );
 
       if ($request->company_id == 'all') {
-        // $customRequest->companies()->sync(null);
+        $customRequest->companies()->sync(null);
       } else {
         $customRequest->companies()->sync($request->company_id);
       }
