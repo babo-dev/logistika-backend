@@ -86,7 +86,13 @@ class HomeController extends Controller
     }
 
     if ($request->type == "state") {
-      $data = State::select('title')->orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->pluck('title')->toArray();
+      $data = State::select('title')
+        ->orderBy('id', 'desc')
+        ->where('title', 'LIKE', '%' . $request->q . '%')
+        ->where('isLocal', $request->isLocal ?: 0)
+        ->limit(20)
+        ->pluck('title')
+        ->toArray();
     }
 
     if ($request->type == "technique") {
