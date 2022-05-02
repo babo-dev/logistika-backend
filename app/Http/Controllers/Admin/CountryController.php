@@ -56,11 +56,14 @@ class CountryController extends Controller
         'message' => null
       ], 422);
     } else {
-      // store
-      /* return $request->title; */
-      $country = Country::create([
-        'title' => $request->title
-      ]);
+
+      $country = new Country();
+      $country->title = $request->title;
+      if ($request->has('isLocal')) {
+        $country->isLocal = $request->isLocal;
+      }
+      $country->save();
+
 
       return response()->json([
         'success' => 'true',

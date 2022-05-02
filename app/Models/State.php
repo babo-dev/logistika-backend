@@ -9,7 +9,7 @@ class State extends Model
 {
   use HasFactory;
 
-  protected $fillable = ['title', 'country_id'];
+  protected $fillable = ['title', 'country_id', 'isLocal'];
   public function country()
   {
     return $this->belongsTo("App\Models\Country");

@@ -18,6 +18,7 @@ class StateResource extends JsonResource
       'id' => $this->id,
       'title' => $this->title,
       'country' => $this->country,//->title,
+      'isLocal' => $this->isLocal
     ];
   }
 }
