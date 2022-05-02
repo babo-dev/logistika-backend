@@ -6,7 +6,6 @@ use App\Http\Resources\RequestAnswersResource;
 use App\Models\CustomRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\RequestResource;
-use App\Models\State;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -149,7 +148,7 @@ class CustomRequestController extends Controller
    */
   public function store(Request $request)
   {
-    // return $request->all();
+    // return !is_string(intval($request->company_id[0]));
 
     $rules = array(
       "title" => "required",
@@ -167,6 +166,7 @@ class CustomRequestController extends Controller
       // "note"       => 'required',
       "source"       => 'required',
       "destination"       => 'required',
+      "company_id" => 'required'
     );
 
     $validator = Validator::make($request->all(), $rules);
@@ -201,6 +201,12 @@ class CustomRequestController extends Controller
         ]
       );
 
+      if ($request->company_id == 'all') {
+        // $customRequest->companies()->sync(null);
+      } else {
+        $customRequest->companies()->sync($request->company_id);
+      }
+
       return response()->json([
         'success' => 'true',
         'data' => new RequestResource($customRequest),
@@ -219,40 +225,15 @@ class CustomRequestController extends Controller
    */
   public function update(Request $request, $id)
   {
-    // $rules = array(
-    //   "date1"       => 'required',
-    //   "date2"       => 'required',
-    //   "weight_min"       => 'required',
-    //   "weight_max"       => 'required',
-    //   "cubm_min"       => 'required',
-    //   "cubm_max"       => 'required',
-    //   "budget_min"       => 'required',
-    //   "budget_max"       => 'required',
-    //   "cargo_type"       => 'required',
-    //   "car_body"       => 'required',
-    //   "note"       => 'required',
-    //   "source"       => 'required',
-    //   "destination"       => 'required',
-    //   // "company_id"       => 'required',
-    // );
-
-    // $validator = Validator::make($request->all(), $rules);
-    //
-    // if ($validator->fails()) {
-    //   return response()->json([
-    //     'success' => 'false',
-    //     'data' => $validator->errors(),
-    //     'message' => null
-    //   ], 422);
-    // }
+    // return $request->all();
     $custom_requests = auth('users')->user()->requests()->findOrFail($id);
     $custom_requests->update([
       // $request->all()
       'title' => $request->title ?: $custom_requests->title,
       'weight_min' => $request->weight_min ?: $custom_requests->weight_min,
       'weight_max' => $request->weight_max ?: $custom_requests->weight_max,
-      'date1' => Carbon::createFromFormat('d.m.Y', $request->date1)->format('Y-m-d') ?: $custom_requests->date1,
-      'date2' => Carbon::createFromFormat('d.m.Y', $request->date2)->format('Y-m-d') ?: $custom_requests->date2,
+      'date1' => $request->date1 ? Carbon::createFromFormat('d.m.Y', $request->date1)->format('Y-m-d') : $custom_requests->date1,
+      'date2' => $request->date2 ? Carbon::createFromFormat('d.m.Y', $request->date2)->format('Y-m-d') : $custom_requests->date2,
       'cubm_min' => $request->cubm_min ?: $custom_requests->cubm_min,
       'cubm_max' => $request->cubm_max ?: $custom_requests->cubm_max,
       'budget_min' => $request->budget_min ?: $custom_requests->budget_min,
@@ -265,8 +246,12 @@ class CustomRequestController extends Controller
       'type' => $request->type ?: $custom_requests->type,
     ]);
     if ($request->has('company_id')) {
-      $custom_requests->company_id = $request->company_id;
-    } else $custom_requests->company_id = null; //could not assign it to 0
+      if ($request->company_id == 'all') {
+        $custom_requests->companies()->sync(null);
+      } else {
+        $custom_requests->companies()->sync($request->company_id);
+      }
+    }
     $custom_requests->save();
 
     return response()->json([

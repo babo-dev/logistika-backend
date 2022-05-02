@@ -27,7 +27,6 @@ class CreateCustomRequestsTable extends Migration
             $table->string("budget_max");
             $table->string("cargo_type");            
             $table->string("car_body");
-            $table->foreignId("company_id")->nullable()->constrained()->onDelete("cascade");    
             $table->string("note");   
             $table->foreignId("source")->constrained("states")->onDelete("cascade");
             $table->foreignId("destination")->constrained("states")->onDelete("cascade");
