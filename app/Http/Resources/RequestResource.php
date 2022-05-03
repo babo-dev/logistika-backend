@@ -59,7 +59,7 @@ class RequestResource extends JsonResource
     if (count($this->companies) > 0) {
       $result['companies'] = CompanyResource::collection($this->companies);
     } else {
-      $result['companies'] = CompanyResource::collection(Company::get());
+      $result['companies'] = null;
     }
 
     if (auth('users')->check()) {
