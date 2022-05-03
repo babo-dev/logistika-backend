@@ -6,28 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateStatesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        if(Schema::hasTable('states')) return;
-        Schema::create('states', function (Blueprint $table) {
-            $table->id();
-            $table->text('title');
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::dropIfExists('states');
+    // if (Schema::hasTable('states')) return;
+    Schema::create('states', function (Blueprint $table) {
+      $table->id();
+      $table->text('title');
+      $table->timestamps();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('states');
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('states');
+  }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateCustomRequestsTable extends Migration
@@ -13,7 +14,12 @@ class CreateCustomRequestsTable extends Migration
    */
   public function up()
   {
-    if (Schema::hasTable('requests')) return;
+    // DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+    Schema::dropIfExists('requests');
+    // DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+    // if (Schema::hasTable('states')) return;
+    // if (Schema::hasTable('requests')) return;
+    // return ;
     Schema::create('requests', function (Blueprint $table) {
       $table->id();
       // $table->foreignId("user_id")->constrained("users")->onDelete("cascade");
@@ -43,6 +49,8 @@ class CreateCustomRequestsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('custom_requests');
+    DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+    Schema::dropIfExists('requests');
+    DB::statement('SET FOREIGN_KEY_CHECKS = 1');
   }
 }
