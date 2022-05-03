@@ -21,9 +21,6 @@ class UpdateUsersCompaniesStatesTables extends Migration
       $table->dropColumn('country');
       $table->foreignId("country_id")->constrained("countries")->onDelete("cascade");
     });
-    Schema::table('states', function (Blueprint $table) {
-      $table->foreignId("country_id")->constrained("countries")->onDelete("cascade");
-    });
   }
 
   /**

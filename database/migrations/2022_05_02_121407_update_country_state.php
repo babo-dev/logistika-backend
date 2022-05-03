@@ -16,9 +16,6 @@ class UpdateCountryState extends Migration
     Schema::table('countries', function (Blueprint $table) {
       $table->boolean('isLocal')->default(false);
     });
-    Schema::table('states', function (Blueprint $table) {
-      $table->boolean('isLocal')->default(false);
-    });
   }
 
   /**

@@ -18,6 +18,8 @@ class CreateStatesTable extends Migration
     Schema::create('states', function (Blueprint $table) {
       $table->id();
       $table->text('title');
+      $table->boolean('isLocal')->default(false);
+      $table->foreignId("country_id")->constrained("countries")->onDelete("cascade");
       $table->timestamps();
     });
   }
