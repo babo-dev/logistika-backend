@@ -36,8 +36,10 @@ class HomeController extends Controller
 
     if (auth('companies')->check()) {
       $requests_count = CustomRequest::where('status', "0")
-        ->where("company_id", auth("companies")->user()->id)
-        ->orWhere("company_id", null)
+        ->whereHas('companies', function($query) {
+          $query->where('id', auth("companies")->user()->id);
+        })
+        ->orDoesntHave('companies')
         ->where('type', auth("companies")->user()->type)
         ->count();
 
