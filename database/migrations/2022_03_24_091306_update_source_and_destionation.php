@@ -13,10 +13,10 @@ class UpdateSourceAndDestionation extends Migration
    */
   public function up()
   {
-    Schema::table('requests', function (Blueprint $table) {
-      $table->string("source");
-      $table->string("destination");
-    });
+    // Schema::table('requests', function (Blueprint $table) {
+    //   $table->string("source");
+    //   $table->string("destination");
+    // });
     Schema::table('routes', function (Blueprint $table) {
       $table->string("source");
       $table->string("destination");

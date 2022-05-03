@@ -22,6 +22,8 @@ class CreateCustomRequestsTable extends Migration
     // return ;
     Schema::create('requests', function (Blueprint $table) {
       $table->id();
+      $table->string("title");
+      $table->string("type");
       // $table->foreignId("user_id")->constrained("users")->onDelete("cascade");
       $table->morphs('requestable');
       $table->dateTime("date1");
@@ -35,8 +37,11 @@ class CreateCustomRequestsTable extends Migration
       $table->string("cargo_type");
       $table->string("car_body");
       $table->string("note");
-      $table->foreignId("source")->constrained("states")->onDelete("cascade");
-      $table->foreignId("destination")->constrained("states")->onDelete("cascade");
+      $table->string("source");
+      $table->string("destination");
+
+      // $table->foreignId("source")->constrained("states")->onDelete("cascade");
+      // $table->foreignId("destination")->constrained("states")->onDelete("cascade");
       $table->string("status");
       $table->timestamps();
     });

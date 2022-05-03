@@ -13,12 +13,12 @@ class DropSourceAndDestionation extends Migration
    */
   public function up()
   {
-    Schema::table('requests', function (Blueprint $table) {
-      $table->dropForeign(['source']);
-      $table->dropColumn('source');
-      $table->dropForeign(['destination']);
-      $table->dropColumn('destination');
-    });
+    // Schema::table('requests', function (Blueprint $table) {
+    //   $table->dropForeign(['source']);
+    //   $table->dropColumn('source');
+    //   $table->dropForeign(['destination']);
+    //   $table->dropColumn('destination');
+    // });
     Schema::table('routes', function (Blueprint $table) {
       $table->dropForeign(['source']);
       $table->dropColumn('source');
@@ -34,10 +34,10 @@ class DropSourceAndDestionation extends Migration
    */
   public function down()
   {
-    Schema::table('requests', function (Blueprint $table) {
-      $table->string("source");
-      $table->string("destination");
-    });
+    // Schema::table('requests', function (Blueprint $table) {
+    //   $table->string("source");
+    //   $table->string("destination");
+    // });
     Schema::table('routes', function (Blueprint $table) {
       $table->string("source");
       $table->string("destination");
