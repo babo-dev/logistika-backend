@@ -95,7 +95,7 @@ class CustomRequestController extends Controller
   public function index()
   {
     if (auth('users')->check()) {
-      $custom_requests = RequestResource::collection(auth('users')->user()->requests()->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+      $custom_requests = RequestResource::collection(auth('users')->user()->own_requests()->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     } else {
       // $custom_requests = RequestResource::collection(auth('companies')->user()->requests()->paginate(20));
       if (auth("companies")->user()->type == "company") {
@@ -236,7 +236,7 @@ class CustomRequestController extends Controller
     } else {
       $authenticated_user = auth('companies')->user();
     }
-    $custom_requests = $authenticated_user->requests()->findOrFail($id);
+    $custom_requests = $authenticated_user->own_requests()->findOrFail($id);
     $custom_requests->update([
       // $request->all()
       'title' => $request->title ?: $custom_requests->title,
@@ -279,7 +279,7 @@ class CustomRequestController extends Controller
    */
   public function destroy($id)
   {
-    $custom_requests = auth('users')->user()->requests()->where('id', $id);
+    $custom_requests = auth('users')->user()->own_requests()->where('id', $id);
     if ($custom_requests->count() == 0) {
       return response()->json([
         'success' => 'false',
@@ -308,7 +308,7 @@ class CustomRequestController extends Controller
   public function statusWaiting()
   {
     if (auth('users')->check()) {
-      $custom_requests = auth('users')->user()->requests()->where('status', "0")->orderBy('id', 'desc');
+      $custom_requests = auth('users')->user()->own_requests()->where('status', "0")->orderBy('id', 'desc');
       $custom_requests_count = $custom_requests->count();
       $custom_requests = RequestResource::collection($custom_requests->paginate(20))->response()->getData(True);
 
@@ -345,20 +345,20 @@ class CustomRequestController extends Controller
   {
     // $custom_requests = CustomRequest::where("status", "1")->paginate(20);
     if (auth('users')->check()) {
-      $answers = auth("users")->user()->requests()
+      $answers = auth("users")->user()->own_requests()
         ->where("status", "1")
         ->orderBy('id', 'desc')
         ->paginate(20);
     } else {
       // check if authenticated is company type or driver type
       if (auth("companies")->user()->type == "company") {
-        $answers = auth("companies")->user()->requests()
+        $answers = auth("companies")->user()->own_requests()
           ->where("status", "1")
           ->where('type', 'company')
           ->orderBy('id', 'desc')
           ->paginate(20);
       } else {
-        $answers = auth("companies")->user()->requests()
+        $answers = auth("companies")->user()->own_requests()
           ->where("status", "1")
           ->where('type', 'driver')
           ->orderBy('id', 'desc')
