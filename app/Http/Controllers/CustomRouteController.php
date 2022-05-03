@@ -81,7 +81,6 @@ class CustomRouteController extends Controller
     $rules = array(
       "date1"       => 'required',
       "date2"       => 'required',
-      // "car_body"       => 'required',
       "note"       => 'required',
       "source"       => 'required',
       "destination"       => 'required',
@@ -104,7 +103,6 @@ class CustomRouteController extends Controller
       $customRoute = auth('companies')->user()->routes()->create([
         'date1' => Carbon::create($date1[2], $date1[1], $date1[0], '1'),
         'date2' => Carbon::create($date2[2], $date2[1], $date2[0], '1'),
-        // 'date2' => $request->date2,
         'car_body' => $request->car_body ?: '',
         'note' => $request->note,
         'source' => $request->source,

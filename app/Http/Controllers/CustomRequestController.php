@@ -155,18 +155,9 @@ class CustomRequestController extends Controller
       "date1"       => 'required',
       "date2"       => 'required',
       "type"       => 'required',
-      // "weight_min"       => 'required',
-      // "weight_max"       => 'required',
-      // "cubm_min"       => 'required',
-      // "cubm_max"       => 'required',
-      // "budget_min"       => 'required',
-      // "budget_max"       => 'required',
-      // "cargo_type"       => 'required',
-      // "car_body"       => 'required',
-      // "note"       => 'required',
       "source"       => 'required',
       "destination"       => 'required',
-      "company_id" => 'required'
+      // "company_id" => 'required'
     );
 
     $validator = Validator::make($request->all(), $rules);
@@ -206,10 +197,12 @@ class CustomRequestController extends Controller
         ]
       );
 
-      if ($request->company_id == 'all') {
-        $customRequest->companies()->sync(null);
-      } else {
-        $customRequest->companies()->sync($request->company_id);
+      if ($request->has('company_id')) {
+        if ($request->company_id == 'all') {
+          $customRequest->companies()->sync(null);
+        } else {
+          $customRequest->companies()->sync($request->company_id);
+        }
       }
 
       return response()->json([

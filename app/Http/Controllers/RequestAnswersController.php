@@ -108,7 +108,7 @@ class RequestAnswersController extends Controller
       $answer = $answers->first();
 
       // check if authenticated user is owner of the request
-      if (auth('users')->user()->id != $answer->request->user_id) {
+      if (auth('users')->user()->id != $answer->request->requestable_id) {
         return response()->json([
           'success' => 'false',
           'data' => [],
@@ -119,7 +119,7 @@ class RequestAnswersController extends Controller
       // change request status to '1' 
       $answer->request->status = '1';
       // request's company to that company
-      $answer->request->company_id = $answer->company->id;
+      $answer->request->companies()->sync([$answer->company->id]);
       // change answer's status to 1 tayyarlanyar
       $answer->status = 1;
 
