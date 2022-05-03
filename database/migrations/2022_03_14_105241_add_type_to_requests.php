@@ -13,6 +13,7 @@ class AddTypeToRequests extends Migration
    */
   public function up()
   {
+    if (Schema::hasColumn('requests', 'type')) return;
     Schema::table('requests', function (Blueprint $table) {
       $table->string("type")->after("id");
     });
@@ -25,8 +26,8 @@ class AddTypeToRequests extends Migration
    */
   public function down()
   {
-    Schema::table('requests', function (Blueprint $table) {
-      if (Schema::dropColumns('requests', ['type'])) return;
-    });
+    // Schema::table('requests', function (Blueprint $table) {
+    //   if (Schema::dropColumns('requests', ['type'])) return;
+    // });
   }
 }
