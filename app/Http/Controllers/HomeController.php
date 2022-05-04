@@ -42,6 +42,17 @@ class HomeController extends Controller
         ->orDoesntHave('companies')
         ->where('type', auth("companies")->user()->type)
         ->count();
+      
+      $view = CustomRequest::where('status', "0")
+        ->whereHas('companies', function ($query) {
+          $query->where('id', auth("companies")->user()->id);
+        })
+        ->orDoesntHave('companies')
+        ->whereDoesntHave('views', function ($query) {
+          $query->where('id', auth("companies")->user()->id);
+        })
+        ->where('type', auth("companies")->user()->type)
+        ->count();
 
       return response()->json([
         'success' => "true",
@@ -53,6 +64,7 @@ class HomeController extends Controller
         'techniquetype' => $techniquetype,
         'pages' => $pages,
         'new_requests' => $requests_count,
+        'view' => $view,
         'message' => null
       ]);
     }

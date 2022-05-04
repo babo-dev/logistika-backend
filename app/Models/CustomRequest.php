@@ -55,6 +55,11 @@ class CustomRequest extends Model
     return $this->belongsToMany("App\Models\Company", "company_requests", 'request_id', 'company_id');
   }
 
+  public function views()
+  {
+    return $this->belongsToMany("App\Models\Company", "request_views", 'request_id', 'company_id');
+  }
+
   public function offers()
   {
     return $this->hasMany("App\Models\RequestAnswers", "request_id");
