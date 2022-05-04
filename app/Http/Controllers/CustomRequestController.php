@@ -28,22 +28,7 @@ class CustomRequestController extends Controller
     $this->middleware(['auth:users,companies', 'jwt.auth'])->except([
       'all', 'index', 'show', 'offers', 'statusWaiting', 'statusAnswered'
     ]);
-    $this->middleware(['auth:users,companies', 'jwt.auth'])->only(['index', 'statusAnswered']);
-  }
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function all()
-  {
-    $custom_requests = RequestResource::collection(CustomRequest::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
-
-    return response()->json([
-      'success' => 'true',
-      'data' => $custom_requests,
-      'message' => null
-    ]);
+    $this->middleware(['auth:users,companies', 'jwt.auth'])->only(['statusAnswered']);
   }
 
   public function show($id)
@@ -87,41 +72,55 @@ class CustomRequestController extends Controller
       ]);
     }
   }
+
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
+    // return $request->all();
+
     if (auth('users')->check()) {
-      $custom_requests = RequestResource::collection(auth('users')->user()->own_requests()->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
-    } else {
-      // $custom_requests = RequestResource::collection(auth('companies')->user()->requests()->paginate(20));
+      $custom_requests = auth('users')->user()->own_requests()->when($request->has('status'), function ($custom_requests) use ($request) {
+        return $custom_requests->where('status', $request->status);
+      })
+        ->orderBy('id', 'desc')->paginate(20);
+    } elseif (auth("companies")->check()) {
+      // for company
       if (auth("companies")->user()->type == "company") {
-        $custom_requests = RequestResource::collection(
-          CustomRequest::whereHas('companies', function ($query) {
+        $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {
+          return $custom_requests->where('status', $request->status);
+        })
+          ->whereHas('companies', function ($query) {
             $query->where('id', auth("companies")->user()->id);
           })
-            ->orDoesntHave('companies')
-            ->where('car_body', '!=', '')
-            ->orderBy('id', 'desc')->paginate(20)
-        )->response()->getData(True);
+          ->orDoesntHave('companies')
+          ->where('car_body', '!=', '')
+          ->orderBy('id', 'desc')->paginate(20);
       } else {
-        $custom_requests = RequestResource::collection(
-          CustomRequest::whereHas('companies', function ($query) {
+        // for driver
+        $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {
+          return $custom_requests->where('status', $request->status);
+        })
+          ->whereHas('companies', function ($query) {
             $query->where('id', auth("companies")->user()->id);
           })
-            ->orDoesntHave('companies')
-            ->where("car_body", '')
-            ->orderBy('id', 'desc')->paginate(20)
-        )->response()->getData(True);
+          ->orDoesntHave('companies')
+          // ->when($request->has('status'), function($query) use($request){
+          //   return $query->where('status', $request->status);
+          // })
+          ->where("car_body", '')
+          ->orderBy('id', 'desc')->paginate(20);
       }
+    } else {
+      $custom_requests = CustomRequest::orderBy('id', 'desc')->paginate(20);
     }
 
     return response()->json([
       'success' => 'true',
-      'data' => $custom_requests,
+      'data' => RequestResource::collection($custom_requests)->response()->getData(True),
       'message' => null
     ]);
   }
