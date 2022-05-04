@@ -115,7 +115,9 @@ class CustomRequestController extends Controller
           ->orderBy('id', 'desc')->paginate(20);
       }
     } else {
-      $custom_requests = CustomRequest::orderBy('id', 'desc')->paginate(20);
+      $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {
+        return $custom_requests->where('status', $request->status);
+      })->orderBy('id', 'desc')->paginate(20);
     }
 
     return response()->json([
