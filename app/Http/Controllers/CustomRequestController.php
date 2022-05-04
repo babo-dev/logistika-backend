@@ -100,15 +100,19 @@ class CustomRequestController extends Controller
       // $custom_requests = RequestResource::collection(auth('companies')->user()->requests()->paginate(20));
       if (auth("companies")->user()->type == "company") {
         $custom_requests = RequestResource::collection(
-          CustomRequest::where("company_id", auth("companies")->user()->id)
-            ->orWhere("company_id", null)
+          CustomRequest::whereHas('companies', function ($query) {
+            $query->where('id', auth("companies")->user()->id);
+          })
+            ->orDoesntHave('companies')
             ->where('car_body', '!=', '')
             ->orderBy('id', 'desc')->paginate(20)
         )->response()->getData(True);
       } else {
         $custom_requests = RequestResource::collection(
-          CustomRequest::where("company_id", auth("companies")->user()->id)
-            ->orWhere("company_id", null)
+          CustomRequest::whereHas('companies', function ($query) {
+            $query->where('id', auth("companies")->user()->id);
+          })
+            ->orDoesntHave('companies')
             ->where("car_body", '')
             ->orderBy('id', 'desc')->paginate(20)
         )->response()->getData(True);
