@@ -42,17 +42,20 @@ class HomeController extends Controller
         ->orDoesntHave('companies')
         ->where('type', auth("companies")->user()->type)
         ->count();
-      
+     
+      // return CustomRequest::whereHas('views', function ($query) {
+      //     $query->where('requestable_id', auth("companies")->user()->id);
+      //   })->get();
       $view = CustomRequest::where('status', "0")
         ->whereHas('companies', function ($query) {
           $query->where('id', auth("companies")->user()->id);
         })
         ->orDoesntHave('companies')
         ->whereDoesntHave('views', function ($query) {
-          $query->where('id', auth("companies")->user()->id);
+          $query->where('requestable_id', auth("companies")->user()->id);
         })
         ->where('type', auth("companies")->user()->type)
-        ->count();
+        ->get();
 
       return response()->json([
         'success' => "true",

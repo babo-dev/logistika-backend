@@ -97,7 +97,8 @@ class CustomRequestController extends Controller
             $query->where('id', auth("companies")->user()->id);
           })
           ->orDoesntHave('companies')
-          ->where('car_body', '!=', '')
+          ->where('type', auth("companies")->user()->type)
+          // ->where('car_body', '!=', '')
           ->orderBy('id', 'desc')->paginate(20);
       } else {
         // for driver
@@ -111,7 +112,8 @@ class CustomRequestController extends Controller
           // ->when($request->has('status'), function($query) use($request){
           //   return $query->where('status', $request->status);
           // })
-          ->where("car_body", '')
+          ->where('type', auth("companies")->user()->type)
+          // ->where("car_body", '')
           ->orderBy('id', 'desc')->paginate(20);
       }
     } else {
