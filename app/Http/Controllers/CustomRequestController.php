@@ -89,7 +89,12 @@ class CustomRequestController extends Controller
         ->orderBy('id', 'desc')->paginate(20);
     } elseif (auth("companies")->check()) {
       // for company
-      if (auth("companies")->user()->type == "company") {
+      if ($request->has('user_id')) {
+        $custom_requests = auth('companies')->user()->own_requests()->when($request->has('status'), function ($custom_requests) use ($request) {
+          return $custom_requests->where('status', $request->status);
+        })
+          ->orderBy('id', 'desc')->paginate(20);
+      } elseif (auth("companies")->user()->type == "company") {
         $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {
           return $custom_requests->where('status', $request->status);
         })
