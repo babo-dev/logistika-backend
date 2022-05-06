@@ -68,6 +68,11 @@ class Company extends Authenticatable implements JWTSubject
     return $this->belongsToMany(CustomRequest::class, 'company_requests', 'company_id', 'request_id');
   }
 
+  public function request_views()
+  {
+    return $this->belongsToMany(CustomRequest::class, 'request_views', 'company_id', 'request_id');
+  }
+
   public function own_requests()
   {
     return $this->morphMany(CustomRequest::class, 'requestable');

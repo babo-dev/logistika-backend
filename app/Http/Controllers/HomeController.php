@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CompanyResource;
 use App\Http\Resources\CountryResource;
+use App\Http\Resources\RequestResource;
 use App\Http\Resources\RouteResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\TechniqueResource;
@@ -42,6 +43,21 @@ class HomeController extends Controller
         ->orDoesntHave('companies')
         ->where('type', auth("companies")->user()->type)
         ->count();
+     
+      // return CustomRequest::whereHas('views', function ($query) {
+      //     $query->where('requestable_id', auth("companies")->user()->id);
+      //   })->get();
+      $view = CustomRequest::where([['status', "0"], ['type', auth("companies")->user()->type]])
+      ->where(function ($query){
+        $query->whereHas('companies', function ($query) {
+          $query->where('id', auth("companies")->user()->id);
+        })->orDoesntHave('companies');
+      })
+        ->whereDoesntHave('views', function ($query) {
+          $query->where('id', auth("companies")->user()->id);
+        })
+        ->count();
+      // return RequestResource::collection($view);
 
       return response()->json([
         'success' => "true",
@@ -53,6 +69,7 @@ class HomeController extends Controller
         'techniquetype' => $techniquetype,
         'pages' => $pages,
         'new_requests' => $requests_count,
+        'view_count' => $view,
         'message' => null
       ]);
     }
