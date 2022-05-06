@@ -94,33 +94,18 @@ class CustomRequestController extends Controller
           return $custom_requests->where('status', $request->status);
         })
           ->orderBy('id', 'desc')->paginate(20);
-      } elseif (auth("companies")->user()->type == "company") {
-        $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {
-          return $custom_requests->where('status', $request->status);
-        })
-          ->whereHas('companies', function ($query) {
-            $query->where('id', auth("companies")->user()->id);
-          })
-          ->orDoesntHave('companies')
-          // ->where('type', auth("companies")->user()->type)
-          ->where('car_body', '!=', '')
-          ->orderBy('id', 'desc')->paginate(20);
       } else {
-        // for driver
         $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {
           return $custom_requests->where('status', $request->status);
         })
-          ->whereHas('companies', function ($query) {
-            $query->where('id', auth("companies")->user()->id);
+          ->where('type', auth("companies")->user()->type)
+          ->where(function ($query) {
+            $query->whereHas('companies', function ($query) {
+              $query->where('id', auth("companies")->user()->id);
+            })->orDoesntHave('companies');
           })
-          ->orDoesntHave('companies')
-          // ->when($request->has('status'), function($query) use($request){
-          //   return $query->where('status', $request->status);
-          // })
-          // ->where('type', auth("companies")->user()->type)
-          ->where("car_body", '')
           ->orderBy('id', 'desc')->paginate(20);
-      }
+      } 
     } else {
       $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {
         return $custom_requests->where('status', $request->status);
