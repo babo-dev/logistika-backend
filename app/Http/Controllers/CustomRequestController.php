@@ -6,6 +6,7 @@ use App\Http\Resources\RequestAnswersResource;
 use App\Models\CustomRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\RequestResource;
+use App\Http\Resources\ResourceViewController;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -105,7 +106,13 @@ class CustomRequestController extends Controller
             })->orDoesntHave('companies');
           })
           ->orderBy('id', 'desc')->paginate(20);
-      } 
+
+        // return response()->json([
+        //   'success' => 'true',
+        //   'data' => ResourceViewController::collection($custom_requests)->response()->getData(True),
+        //   'message' => null
+        // ]);
+      }
     } else {
       $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {
         return $custom_requests->where('status', $request->status);

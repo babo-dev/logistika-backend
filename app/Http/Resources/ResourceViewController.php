@@ -5,26 +5,13 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Nette\Utils\DateTime;
 
-class RequestResource extends JsonResource
+class ResourceViewController extends JsonResource
 {
-  public static $wrap = 'requests';
-
-  // public function __construct()
-  // {
-  // $this->wrap("requests");
-  // $this->response()->getData(True);
-  // }
-
   /**
    * Transform the resource into an array.
    *
    * @param  \Illuminate\Http\Request  $request
    * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-   *
-   * if you have an international project, it does make sense to save time in UTC. Strategy is quite simple – store all timestamps  in UTC, and if you need it to be shown in specific case with a different timezone (for example, for a user who lives in different country), you convert it to that particular timezone on-thy-fly with Carbon library, which is  inside of Laravel already – you don’t need to add or install any packages.
-      Like this:
-
-      $user->created_at->timezone('Europe/London')->format('H:i');
    */
   public function toArray($request)
   {
@@ -49,7 +36,18 @@ class RequestResource extends JsonResource
       'destination' => $this->destination,
     ];
 
-    if (substr($this->requestable_type , -1) == 'r') {
+    $sert = $this->where(function ($query) {
+      $query->whereHas('views', function ($query) {
+        $query->where('id', auth("companies")->user()->id);
+      });
+    })->where('id', auth("companies")->user()->id)->get();
+    if ($sert) {
+      $result['viewed'] = $sert;
+    } else {
+      $result['viewed'] = $sert;
+    }
+
+    if (substr($this->requestable_type, -1) == 'r') {
       $result['user'] = new UserResource($this->requestable);
     } else {
       $result['user'] = new CompanyResource($this->requestable);
@@ -67,9 +65,4 @@ class RequestResource extends JsonResource
 
     return $result;
   }
-
-  // public function toResponse($request)
-  // {
-  //   return JsonResource::toResponse($request);
-  // }
 }
