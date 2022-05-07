@@ -109,11 +109,11 @@ class CustomRequestController extends Controller
 
         $custom_requests = $custom_requests->diff(auth("companies")->user()->own_requests);
 
-        // return response()->json([
-        //   'success' => 'true',
-        //   'data' => ResourceViewController::collection($custom_requests)->response()->getData(True),
-        //   'message' => null
-        // ]);
+        return response()->json([
+          'success' => 'true',
+          'data' => ResourceViewController::collection($custom_requests)->response()->getData(True),
+          'message' => null
+        ]);
       }
     } else {
       $custom_requests = CustomRequest::when($request->has('status'), function ($custom_requests) use ($request) {

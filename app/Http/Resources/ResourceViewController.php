@@ -36,15 +36,11 @@ class ResourceViewController extends JsonResource
       'destination' => $this->destination,
     ];
 
-    $sert = $this->where(function ($query) {
-      $query->whereHas('views', function ($query) {
-        $query->where('id', auth("companies")->user()->id);
-      });
-    })->where('id', auth("companies")->user()->id)->get();
+    $sert = $this->views->where('id', auth("companies")->user()->id)->count();
     if ($sert) {
-      $result['viewed'] = $sert;
+      $result['viewed'] = 1;
     } else {
-      $result['viewed'] = $sert;
+      $result['viewed'] = 0;
     }
 
     if (substr($this->requestable_type, -1) == 'r') {
