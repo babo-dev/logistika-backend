@@ -4,7 +4,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CompanyController;
 use App\Http\Controllers\CustomRouteController;
-use App\Http\Controllers\Notification\CompanyController as NotificationCompanyController;
 use App\Http\Controllers\RequestAnswersController;
 use App\Http\Controllers\TechniqueController;
 
@@ -16,9 +15,6 @@ Route::get('techniques/{id}', [TechniqueController::class, 'show'])->name('techn
 Route::delete('techniques/{id}', [TechniqueController::class, 'destroy'])->name('techniques.destroy');
 Route::post('techniques/{id}', [TechniqueController::class, 'update'])->name('techniques.update');
 Route::get('techniques/{id}/images/', [TechniqueController::class, 'images'])->name('techniques.images');
-
-
-Route::get('requests/{id}/read', [NotificationCompanyController::class, 'read'])->name('requests.read');
 
 /* Route::apiResource('routes', CustomRouteController::class); */
 // Routes routes for company

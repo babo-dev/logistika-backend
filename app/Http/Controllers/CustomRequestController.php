@@ -34,17 +34,19 @@ class CustomRequestController extends Controller
 
   public function show($id)
   {
-    $custom_request = CustomRequest::where('id', $id);
-    if ($custom_request->count()) {
+    $custom_requests = CustomRequest::where('id', $id);
+    if ($custom_requests->count()) {
+      $custom_request = $custom_requests->first();
+      $custom_request->views()->sync(auth('companies')->user()->id);
       return response()->json([
         'success' => 'true',
-        'data' => new RequestResource($custom_request->first()),
+        'data' => new RequestResource($custom_request),
         'message' => null,
       ]);
     } else {
       return response()->json([
         'success' => 'false',
-        'data' => $custom_request,
+        'data' => null,
         'message' => "Not found"
       ]);
     }
