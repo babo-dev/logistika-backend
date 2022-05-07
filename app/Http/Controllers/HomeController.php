@@ -56,6 +56,8 @@ class HomeController extends Controller
           $query->where('id', auth("companies")->user()->id);
         })
         ->get();
+      $view = $view->diff(auth("companies")->user()->own_requests);
+      $view = $view->count();
       // return RequestResource::collection($view);
 
       return response()->json([
