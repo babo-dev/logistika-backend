@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CollectionHelper;
 use App\Http\Resources\RequestAnswersResource;
 use App\Models\CustomRequest;
 use Illuminate\Http\Request;
@@ -110,6 +111,7 @@ class CustomRequestController extends Controller
           ->orderBy('id', 'desc')->paginate(20);
 
         $custom_requests = $custom_requests->diff(auth("companies")->user()->own_requests);
+        $custom_requests = CollectionHelper::paginate($custom_requests, 20);
 
         return response()->json([
           'success' => 'true',
