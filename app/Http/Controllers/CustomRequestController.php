@@ -107,6 +107,8 @@ class CustomRequestController extends Controller
           })
           ->orderBy('id', 'desc')->paginate(20);
 
+        $custom_requests = $custom_requests->diff(auth("companies")->user()->own_requests);
+
         // return response()->json([
         //   'success' => 'true',
         //   'data' => ResourceViewController::collection($custom_requests)->response()->getData(True),
