@@ -55,7 +55,7 @@ class HomeController extends Controller
         ->whereDoesntHave('views', function ($query) {
           $query->where('id', auth("companies")->user()->id);
         })
-        ->count();
+        ->get();
       // return RequestResource::collection($view);
 
       return response()->json([
