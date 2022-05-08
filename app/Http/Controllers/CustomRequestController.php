@@ -38,7 +38,9 @@ class CustomRequestController extends Controller
     $custom_requests = CustomRequest::where('id', $id);
     if ($custom_requests->count()) {
       $custom_request = $custom_requests->first();
-      $custom_request->views()->sync(auth('companies')->user()->id);
+      if (auth('companies')->check()) {
+        $custom_request->views()->sync(auth('companies')->user()->id);
+      }
       return response()->json([
         'success' => 'true',
         'data' => new RequestResource($custom_request),
