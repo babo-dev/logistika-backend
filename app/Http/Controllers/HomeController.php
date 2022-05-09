@@ -78,7 +78,7 @@ class HomeController extends Controller
       'routes' => $routes,
       'sliders' => $sliders,
       // 'states' => $states,
-      'countries' => $countries,
+      // 'countries' => $countries,
       'companies' => $companies,
       'techniquetype' => $techniquetype,
       'pages' => $pages,
