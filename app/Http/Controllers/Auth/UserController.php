@@ -15,6 +15,11 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+/**
+ * @group User management
+ *
+ * APIs for managing users
+ */
 class UserController extends Controller
 {
   /**
@@ -91,6 +96,7 @@ class UserController extends Controller
 
   /**
    * Register a User.
+   * @bodyParam country string required A title of a country. Example: Tongo
    *
    * @return \Illuminate\Http\JsonResponse
    */
@@ -99,7 +105,7 @@ class UserController extends Controller
     $validator = Validator::make($request->all(), [
       'name' => 'required|string|between:2,100',
       'email' => 'required|string|email|max:100|unique:users|unique:companies',
-      'password' => 'required|string|min:6', //|confirmed',
+      'password' => 'required|string|min:6',
       'phone' => 'required',
       'country' => 'required',
     ]);
@@ -146,6 +152,14 @@ class UserController extends Controller
     ], 201);
   }
 
+  /**
+   * Update a User.
+   * @authenticated
+   * @bodyParam name string required A title of a country. Example: Mergen
+   * @bodyParam country string A title of a country. Example: Tongo
+   *
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function update(Request $request)
   {
     // return $request->all();
