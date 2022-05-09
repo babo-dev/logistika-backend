@@ -52,6 +52,7 @@ class CompanyController extends Controller
     $company = new Company();
     $company->name = $request->name;
     $company->email = $request->email;
+    $company->order_id = Company::max('order_id') + 1;
     $company->password = Hash::make($request->password);
     $company->phone = $request->phone;
     $company->country_id = Country::where('title', $request->country)->first()->id;

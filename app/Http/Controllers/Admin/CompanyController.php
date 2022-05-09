@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
@@ -20,7 +21,7 @@ class CompanyController extends Controller
   }
   public function index()
   {
-    $companies = Company::where('type', 'company')->orderBy('id', 'desc')->paginate(20);
+    $companies = Company::where('type', 'company')->orderBy('order_id', 'asc')->paginate(20);
 
     $companies = CompanyResource::collection($companies)->response()->getData(True);
 
@@ -52,6 +53,31 @@ class CompanyController extends Controller
         'message' => "Not found"
       ]);
     }
+  }
+
+
+  public function changeOrder(Request $request)
+  {
+    $company = Company::find($request->company_id);
+    $order_id = $request->order_id;
+
+    $tapawut = $company->order_id - $order_id;
+
+    if ($tapawut > 0) {
+      Company::where([['order_id', '>=', $order_id], ['order_id', '<=', $company->order_id]])->update(['order_id' => DB::Raw('order_id + 1')]);
+      $company->order_id = $order_id;
+      $company->save();
+    } elseif ($tapawut < 0) {
+      Company::where([['order_id', '<=', $order_id], ['order_id', '>=', $company->order_id]])->update(['order_id' => DB::Raw('order_id - 1')]);
+      $company->order_id = $order_id;
+      $company->save();
+    }
+
+    return response()->json([
+      'success' => 'true',
+      'data' => CompanyResource::collection(Company::orderBy('order_id', 'asc')->paginate(20)),
+      'message' => null,
+    ]);
   }
   /**
    * Register a User.
@@ -131,8 +157,10 @@ class CompanyController extends Controller
     $companies = Company::where('id', $id);
     if ($companies->exists()) {
       $company = $companies->first();
+      $order_id = $company->order_id;
       if ($company->avatar) unlink(storage_path() . "/app/public/images/company/" . $company->avatar);
       $company->delete();
+      Company::where('order_id', '>=', $order_id)->update(['order_id' => DB::Raw('order_id - 1')]);
       return response()->json([
         'success' => 'true',
         'data' => [],

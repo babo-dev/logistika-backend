@@ -34,6 +34,7 @@ Route::get('/drivers', [DriverController::class, 'index']);
 
 // Admin company routes start
 Route::get('/companies', [AdminCompanyController::class, 'index']);
+Route::post('/companies/order', [AdminCompanyController::class, 'changeOrder']);
 Route::get('/companies/{id}', [AdminCompanyController::class, 'show']);
 Route::get('/companies/company-accept/{id}', [AdminCompanyController::class, 'company_accept']);
 Route::get('/techniques/technique-accept/{id}', [TechniqueController::class, 'technique_accept']);
