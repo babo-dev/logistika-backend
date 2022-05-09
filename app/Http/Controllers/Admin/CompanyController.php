@@ -21,7 +21,7 @@ class CompanyController extends Controller
   }
   public function index()
   {
-    $companies = Company::where('type', 'company')->orderBy('id', 'desc')->paginate(20);
+    $companies = Company::where('type', 'company')->orderBy('order_id', 'asc')->paginate(20);
 
     $companies = CompanyResource::collection($companies)->response()->getData(True);
 
@@ -157,8 +157,10 @@ class CompanyController extends Controller
     $companies = Company::where('id', $id);
     if ($companies->exists()) {
       $company = $companies->first();
+      $order_id = $company->order_id;
       if ($company->avatar) unlink(storage_path() . "/app/public/images/company/" . $company->avatar);
       $company->delete();
+      Company::where('order_id', '>=', $order_id)->update(['order_id' => DB::Raw('order_id - 1')]);
       return response()->json([
         'success' => 'true',
         'data' => [],
