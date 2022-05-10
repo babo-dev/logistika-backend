@@ -25,11 +25,19 @@ class CountryController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
+    // return $request->pagination;
+    if ($request->has('pagination') && $request->pagination == 1) {
+      return response()->json([
+        'success' => 'true',
+        'data' => CountryResource::collection(Country::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
+        'message' => null
+      ]);
+    }
     return response()->json([
       'success' => 'true',
-      'data' => CountryResource::collection(Country::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
+      'data' => CountryResource::collection(Country::orderBy('id', 'desc')->get()),
       'message' => null
     ]);
   }
