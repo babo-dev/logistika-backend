@@ -83,7 +83,7 @@ class CompanyController extends Controller
 
     return response()->json([
       'success' => 'true',
-      'data' => CompanyResource::collection(Company::orderBy('order_id', 'asc')->paginate(20)),
+      'data' => CompanyResource::collection(Company::where('type', 'company')->orderBy('order_id', 'asc')->paginate(20)),
       'message' => null,
     ]);
   }
