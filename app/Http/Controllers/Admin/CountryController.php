@@ -31,13 +31,13 @@ class CountryController extends Controller
     if ($request->has('pagination') && $request->pagination == 1) {
       return response()->json([
         'success' => 'true',
-        'data' => CountryResource::collection(Country::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
+        'data' => CountryResource::collection(Country::orderBy('title', 'asc')->paginate(20))->response()->getData(True),
         'message' => null
       ]);
     }
     return response()->json([
       'success' => 'true',
-      'data' => CountryResource::collection(Country::orderBy('id', 'desc')->get()),
+      'data' => CountryResource::collection(Country::orderBy('title', 'asc')->get()),
       'message' => null
     ]);
   }
@@ -51,21 +51,6 @@ class CountryController extends Controller
    */
   public function store(Request $request)
   {
-    if ($request->has('pagination')) {
-      if ($request->pagination) {
-        return response()->json([
-          'success' => 'true',
-          'data' => CountryResource::collection(Country::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
-          'message' => ""
-        ]);
-      } else {
-        return response()->json([
-          'success' => 'true',
-          'data' => CountryResource::collection(Country::orderBy('id', 'desc')->get()),
-          'message' => ""
-        ]);
-      }
-    }
     $rules = array(
       "title"     => 'required',
     );
