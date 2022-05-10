@@ -28,16 +28,20 @@ class CountryController extends Controller
   public function index(Request $request)
   {
     // return $request->pagination;
+    $order_by = 'asc';
+    if ($request->sort == 'id') {
+      $order_by = 'desc';
+    }
     if ($request->has('pagination') && $request->pagination == 1) {
       return response()->json([
         'success' => 'true',
-        'data' => CountryResource::collection(Country::orderBy($request->sort, 'asc')->paginate(20))->response()->getData(True),
+        'data' => CountryResource::collection(Country::orderBy($request->sort, $order_by)->paginate(20))->response()->getData(True),
         'message' => null
       ]);
     }
     return response()->json([
       'success' => 'true',
-      'data' => CountryResource::collection(Country::orderBy($request->sort, 'asc')->get()),
+      'data' => CountryResource::collection(Country::orderBy($request->sort, $order_by)->get()),
       'message' => null
     ]);
   }
