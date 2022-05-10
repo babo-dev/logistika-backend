@@ -31,13 +31,13 @@ class CountryController extends Controller
     if ($request->has('pagination') && $request->pagination == 1) {
       return response()->json([
         'success' => 'true',
-        'data' => CountryResource::collection(Country::orderBy('title', 'asc')->paginate(20))->response()->getData(True),
+        'data' => CountryResource::collection(Country::orderBy($request->sort, 'asc')->paginate(20))->response()->getData(True),
         'message' => null
       ]);
     }
     return response()->json([
       'success' => 'true',
-      'data' => CountryResource::collection(Country::orderBy('title', 'asc')->get()),
+      'data' => CountryResource::collection(Country::orderBy($request->sort, 'asc')->get()),
       'message' => null
     ]);
   }
