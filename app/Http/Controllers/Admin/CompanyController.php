@@ -64,11 +64,19 @@ class CompanyController extends Controller
     $tapawut = $company->order_id - $order_id;
 
     if ($tapawut > 0) {
-      Company::where([['order_id', '>=', $order_id], ['order_id', '<=', $company->order_id]])->update(['order_id' => DB::Raw('order_id + 1')]);
+      Company::where([
+        ['type', 'company'],
+        ['order_id', '>=', $order_id],
+        ['order_id', '<=', $company->order_id]
+      ])->update(['order_id' => DB::Raw('order_id + 1')]);
       $company->order_id = $order_id;
       $company->save();
     } elseif ($tapawut < 0) {
-      Company::where([['order_id', '<=', $order_id], ['order_id', '>=', $company->order_id]])->update(['order_id' => DB::Raw('order_id - 1')]);
+      Company::where([
+        ['type', 'company'],
+        ['order_id', '<=', $order_id],
+        ['order_id', '>=', $company->order_id]
+      ])->update(['order_id' => DB::Raw('order_id - 1')]);
       $company->order_id = $order_id;
       $company->save();
     }
@@ -160,7 +168,10 @@ class CompanyController extends Controller
       $order_id = $company->order_id;
       if ($company->avatar) unlink(storage_path() . "/app/public/images/company/" . $company->avatar);
       $company->delete();
-      Company::where('order_id', '>=', $order_id)->update(['order_id' => DB::Raw('order_id - 1')]);
+      Company::where([
+        ['type', 'company'],
+        ['order_id', '>=', $order_id]
+      ])->update(['order_id' => DB::Raw('order_id - 1')]);
       return response()->json([
         'success' => 'true',
         'data' => [],

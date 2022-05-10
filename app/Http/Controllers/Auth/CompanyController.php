@@ -52,7 +52,6 @@ class CompanyController extends Controller
     $company = new Company();
     $company->name = $request->name;
     $company->email = $request->email;
-    $company->order_id = Company::max('order_id') + 1;
     $company->password = Hash::make($request->password);
     $company->phone = $request->phone;
     $company->country_id = Country::where('title', $request->country)->first()->id;
@@ -60,6 +59,9 @@ class CompanyController extends Controller
     $company->car_year = $request->car_year ? $request->car_year : '';
     $company->owner = $request->owner ? $request->owner : '';
     $company->type = $request->type ? $request->type : '';
+    if ($company->type == 'company') {
+      $company->order_id = Company::max('order_id') + 1;
+    }
     if ($request->has('status')) {
       $company->status = $request->status;
     }
@@ -71,7 +73,7 @@ class CompanyController extends Controller
       ->setTranslation('description', 'tm', $request->description_tm ?? '')
       ->setTranslation('description', 'ru', $request->description_ru ?? '')
       ->setTranslation('description', 'en', $request->description_en ?? '');
-   
+
     $company->car_number = $request->car_number ? $request->car_number : '';
     if ($request->has('avatar')) {
       $file = $request->file('avatar');
