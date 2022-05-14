@@ -19,9 +19,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*', 'https://iber.biz', 'http://iber.biz'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ['/https?:\/\/iber\.iber\/?\z/'],
 
     'allowed_headers' => ['*'],
 
