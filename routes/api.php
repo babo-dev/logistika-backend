@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NewPasswordContoller;
 
+header('Access-Control-Allow-Origin:  *');
 // Auth for company and user and for admin)
 Route::post("/login", [UserController::class, "login"])->name("login");
 

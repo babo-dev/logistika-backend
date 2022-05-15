@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\TechniqueController;
 /* use Illuminate\Http\Request; */
 use Illuminate\Support\Facades\Route;
+header('Access-Control-Allow-Origin:  *');
 
 Route::group(['prefix' => 'admin'], function () {
   // Route::post('/login', [AdminController::class, 'login']);

@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomRouteController;
 use App\Http\Controllers\RequestAnswersController;
 use App\Http\Controllers\TechniqueController;
 
+header('Access-Control-Allow-Origin:  *');
 // Technique routes for company
 Route::get('techniques/', [TechniqueController::class, 'index'])->name('techniques.index');
 Route::get('techniques/all', [TechniqueController::class, 'all'])->name('techniques.all');
