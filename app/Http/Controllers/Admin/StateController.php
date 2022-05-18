@@ -28,7 +28,7 @@ class StateController extends Controller
    */
   public function index(Request $request)
   {
-    if ($request->has('isLocal') && $request->isLocal == 'true') {
+    if ($request->has('isLocal') && $request->isLocal) {
     return response()->json([
       'success' => 'true',
       'data' => StateResource::collection(State::where('isLocal', 1)->orderBy('id', 'desc')->paginate(20))->response()->getData(True),
