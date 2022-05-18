@@ -26,8 +26,15 @@ class StateController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
+    if ($request->has('isLocal') && $request->isLocal == 'true') {
+    return response()->json([
+      'success' => 'true',
+      'data' => StateResource::collection(State::where('isLocal', 1)->orderBy('id', 'desc')->paginate(20))->response()->getData(True),
+      'message' => null
+    ]);
+    }
     return response()->json([
       'success' => 'true',
       'data' => StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True),
