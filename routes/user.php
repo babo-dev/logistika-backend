@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\CustomRequestController;
 
-header('Access-Control-Allow-Origin:  *');
 // Auth for company and user and for admin)
 Route::post('/login', [UserController::class, 'login'])->name('login');
 
