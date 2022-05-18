@@ -53,10 +53,36 @@ class UserController extends Controller
     }
 
     if ($token = Auth::guard('users')->attempt($validator->validated())) {
-      return $this->createNewToken($token, 'user');
+      $user = Auth::guard('users')->user();
+
+      return response()->json([
+        'success' => 'true',
+        'data' => [
+          'access_token' => $token,
+          'token_type' => 'bearer',
+          'expires_in' => auth()->factory()->getTTL() * 60,
+          'data' => new UserResource($user),
+          'account_type' => 'user',
+          'mail_confirmed' => $user->email_verified_at ? 1 : 0
+        ],
+        'message' => null
+      ]);
     }
     if ($token = Auth::guard('companies')->attempt($validator->validated())) {
-      return $this->createNewToken($token, 'company');
+      $company = Auth::guard('companies')->user();
+
+      return response()->json([
+        'success' => 'true',
+        'data' => [
+          'access_token' => $token,
+          'token_type' => 'bearer',
+          'expires_in' => auth()->factory()->getTTL() * 60,
+          'data' => new CompanyResource($company),
+          'account_type' => 'company',
+          'mail_confirmed' => $company->email_verified_at ? 1 : 0
+        ],
+        'message' => null
+      ]);
     }
     if (!$token = Auth::guard('admins')->attempt($validator->validated())) {
       $user = User::where('email', $request->email)->first() || Company::where('email', $request->email)->first() || Admin::where('email', $request->email)->first();
@@ -87,7 +113,7 @@ class UserController extends Controller
           'token_type' => 'bearer',
           'expires_in' => auth()->factory()->getTTL() * 60,
           'admin' => Auth::guard('admins')->user(),
-          'account_type' => 'admin'
+          'account_type' => 'admin',
         ],
         'message' => null
       ]);
