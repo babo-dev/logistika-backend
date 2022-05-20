@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -10,7 +11,7 @@ class EmailVerificationController extends Controller
 {
   public function __construct()
   {
-    $this->middleware(['auth:users', 'jwt.auth']);
+    $this->middleware(['auth:users', 'jwt.auth'])->except('verify');
   }
 
   public function sendVerificationEmail(Request $request)
@@ -32,9 +33,11 @@ class EmailVerificationController extends Controller
     ]);
   }
 
-  public function verify(EmailVerificationRequest $request)
+  public function verify($id)
   {
-    if ($request->user()->hasVerifiedEmail()) {
+    // return $id;
+    $user = User::find($id);
+    if ($user->hasVerifiedEmail()) {
       return response()->json([
         'success' => 'false',
         'data' => null,
@@ -42,8 +45,8 @@ class EmailVerificationController extends Controller
       ]);
     }
 
-    if ($request->user()->markEmailAsVerified()) {
-      event(new Verified($request->user()));
+    if ($user->markEmailAsVerified()) {
+      event(new Verified($user));
     }
 
     return response()->json([
