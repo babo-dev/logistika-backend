@@ -28,10 +28,11 @@ class AuthServiceProvider extends ServiceProvider
     $this->registerPolicies();
 
     VerifyEmail::toMailUsing(function ($notifiable, $url) {
+      $spaUrl = "https://iber.biz/verify?token=" . sha1($notifiable->getEmailForVerification());
       return (new MailMessage)
-        ->subject('Email Confirmation tkm')
-        ->line('Asaky duwma bas')
-        ->action('Ine', $url);
+        ->subject('Verify Email Address')
+        ->line('Click the button below to verify your email address.')
+        ->action('Verify Email Address', $spaUrl);
     });
   }
 }
