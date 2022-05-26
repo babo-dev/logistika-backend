@@ -167,7 +167,7 @@ class UserController extends Controller
       'password' => $request->password
     ]);
 
-    $user()->sendEmailVerificationNotification();
+    $user->sendEmailVerificationNotification();
 
     return response()->json([
       'success' => 'true',
