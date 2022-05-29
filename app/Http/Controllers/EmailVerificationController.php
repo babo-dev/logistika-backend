@@ -10,7 +10,7 @@ class EmailVerificationController extends Controller
 {
   public function __construct()
   {
-    $this->middleware(['auth:users', 'jwt.auth']);
+    $this->middleware(['auth:users', 'jwt.auth'])->except('verify');
   }
 
   public function sendVerificationEmail(Request $request)
