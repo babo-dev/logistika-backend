@@ -7,8 +7,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class Company extends Authenticatable implements JWTSubject
+class Company extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
   use Notifiable, HasFactory, HasTranslations;
 

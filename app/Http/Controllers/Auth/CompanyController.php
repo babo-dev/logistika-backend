@@ -89,6 +89,8 @@ class CompanyController extends Controller
       'password' => $request->password
     ]);
 
+    $company->sendEmailVerificationNotification();
+
     return response()->json([
       'success' => 'true',
       'data' => [
