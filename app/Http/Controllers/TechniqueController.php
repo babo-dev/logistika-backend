@@ -7,7 +7,6 @@ use App\Models\Technique;
 use Illuminate\Http\Request;
 use App\Http\Resources\TechniqueResource;
 use App\Models\Image;
-use App\Models\State;
 use Illuminate\Support\Facades\Validator;
 
 class TechniqueController extends Controller
@@ -27,9 +26,13 @@ class TechniqueController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function all()
+  public function all(Request $request)
   {
-    $techniques = TechniqueResource::collection(Technique::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    if ($request->has('accepted') && $request->accepted) {
+      $techniques = TechniqueResource::collection(Technique::where('accepted',1)->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    } else {
+      $techniques = TechniqueResource::collection(Technique::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    }
     return response()->json([
       'success' => 'true',
       'data' => $techniques,
