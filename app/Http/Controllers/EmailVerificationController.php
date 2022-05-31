@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class EmailVerificationController extends Controller
 {
@@ -32,14 +34,25 @@ class EmailVerificationController extends Controller
     ]);
   }
 
-  public function verify($id)
+  public function verify($type, $id, $hash)
   {
-    $user = User::find($id);
+    if ($type == 'user') {
+      $user = User::find($id);
+    } else {
+      $user = Company::find($id);
+    }
     if ($user->hasVerifiedEmail()) {
       return response()->json([
         'success' => 'false',
         'data' => null,
         'message' => 'Already Verified'
+      ]);
+    }
+    if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+      return response()->json([
+        'success' => 'false',
+        'data' => null,
+        'message' => 'Hash is not valid'
       ]);
     }
 

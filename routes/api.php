@@ -22,7 +22,7 @@ Route::get("home", [HomeController::class, "index"]);
 Route::post("search", [HomeController::class, "search"]);
 
 Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail']);
-Route::get('verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
+Route::get('verify-email/{type}/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
 
 Route::post('forgot-password', [NewPasswordContoller::class, 'forgotPassword']);
 Route::post('reset-password', [NewPasswordContoller::class, 'reset'])->name('password.reset');
