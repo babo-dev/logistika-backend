@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class EmailVerificationController extends Controller
 {
@@ -32,9 +32,10 @@ class EmailVerificationController extends Controller
     ]);
   }
 
-  public function verify(EmailVerificationRequest $request)
+  public function verify($id)
   {
-    if ($request->user()->hasVerifiedEmail()) {
+    $user = User::find($id);
+    if ($user->hasVerifiedEmail()) {
       return response()->json([
         'success' => 'false',
         'data' => null,
@@ -42,8 +43,8 @@ class EmailVerificationController extends Controller
       ]);
     }
 
-    if ($request->user()->markEmailAsVerified()) {
-      event(new Verified($request->user()));
+    if ($user->markEmailAsVerified()) {
+      event(new Verified($user));
     }
 
     return response()->json([
