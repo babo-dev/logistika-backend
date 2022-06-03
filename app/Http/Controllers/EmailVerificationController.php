@@ -7,12 +7,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EmailVerificationController extends Controller
 {
   public function __construct()
   {
-    $this->middleware(['auth:users', 'jwt.auth'])->except('verify');
+    $this->middleware(['auth:users,companies', 'jwt.auth'])->except('verify');
   }
 
   public function sendVerificationEmail(Request $request)
@@ -62,7 +63,9 @@ class EmailVerificationController extends Controller
 
     return response()->json([
       'success' => 'true',
-      'data' => null,
+      'data' => [
+        'access_token' => auth()->login($user)
+      ],
       'message' => 'Email has been verified'
     ]);
   }
