@@ -37,13 +37,29 @@ class EmailVerificationController extends Controller
     ]);
   }
 
-  public function verify($type, $id, $hash)
+  public function verify($type, $id, $hash=null)
   {
     if ($type == 'user') {
       $user = User::find($id);
     } else {
       $user = Company::find($id);
     }
+
+    if (!$hash && $user->hasVerifiedEmail()) {
+      return response()->json([
+        'success' => 'true',
+        'data' => [
+          'access_token' => auth()->login($user),
+          'token_type' => 'bearer',
+          'expires_in' => auth()->factory()->getTTL() * 60,
+          'data' => $type == 'user' ? new UserResource($user) : new CompanyResource($user),
+          'account_type' => $type,
+          'mail_confirmed' => $user->email_verified_at ? 1 : 0
+        ],
+        'message' => 'Email has been verified'
+      ]);
+    }
+
     if ($user->hasVerifiedEmail()) {
       return response()->json([
         'success' => 'true',
