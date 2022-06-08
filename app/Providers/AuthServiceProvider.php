@@ -29,7 +29,8 @@ class AuthServiceProvider extends ServiceProvider
     $this->registerPolicies();
 
     VerifyEmail::toMailUsing(function ($notifiable, $url) {
-      $spaUrl = "https://iber.biz/verify?token=" . sha1($notifiable->getEmailForVerification()) . '&' . 'id=' . $notifiable->id;
+      $type = $notifiable->type ? 'company' : 'user';
+      $spaUrl = "https://iber.biz/verify?token=" . sha1($notifiable->getEmailForVerification()) . '&' . 'id=' . $notifiable->id . '&' . 'type=' . $type;
       return (new MailMessage)
         ->subject('Verify Email Address')
         ->line('Click the button below to verify your email address.')
