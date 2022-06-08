@@ -45,7 +45,7 @@ class EmailVerificationController extends Controller
       $user = Company::find($id);
     }
 
-    if (!$hash && $user->hasVerifiedEmail()) {
+    if (!$hash) {
       return response()->json([
         'success' => 'true',
         'data' => [
