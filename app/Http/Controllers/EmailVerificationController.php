@@ -56,7 +56,7 @@ class EmailVerificationController extends Controller
           'account_type' => $type,
           'mail_confirmed' => $user->email_verified_at ? 1 : 0
         ],
-        'message' => 'Email has been verified'
+        'message' => null
       ]);
     }
 
