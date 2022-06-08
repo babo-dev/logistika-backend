@@ -26,7 +26,6 @@ class EmailVerificationController extends Controller
         'data' => null,
         'message' => 'Already Verified'
       ]);
-      ]);
     }
 
     $request->user()->sendEmailVerificationNotification();
