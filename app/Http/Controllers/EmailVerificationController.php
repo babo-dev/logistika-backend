@@ -22,9 +22,10 @@ class EmailVerificationController extends Controller
   {
     if ($request->user()->hasVerifiedEmail()) {
       return response()->json([
-        'success' => 'false',
+        'success' => 'true',
         'data' => null,
         'message' => 'Already Verified'
+      ]);
       ]);
     }
 
