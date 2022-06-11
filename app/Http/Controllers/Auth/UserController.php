@@ -176,11 +176,11 @@ class UserController extends Controller
 
     // start sending verification email
     if ($request->verification_lang == 'tm') {
-      $this->subject = 'Email Addresiňizi tassyklaň';
+      $this->subject = 'Email poçtaňyzy tassyklaň';
       $this->greeting = 'Salam';
-      $this->line = 'Email Addresiňizi tassyklamak üçin aşaky düwmä basyň';
+      $this->line = 'Email poçtaňyzy tassyklamak üçin aşaky düwmä basyň';
       $this->salutation = 'Iber';
-      $this->actionText = 'Email Addresi tassyklamak';
+      $this->actionText = 'Email poçtany tassyklamak';
     } elseif ($request->verification_lang == 'ru') {
       $this->subject = 'Подтвердите адрес электронной почты';
       $this->greeting = 'Здравствуйте!';
