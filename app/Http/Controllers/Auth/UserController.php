@@ -141,7 +141,6 @@ class UserController extends Controller
       'password' => 'required|string|min:6',
       'phone' => 'required',
       'country' => 'required',
-      'verification_lang' => 'required'
     ]);
 
     if ($validator->fails()) {
