@@ -8,17 +8,25 @@ use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Auth;
 
 class EmailVerificationController extends Controller
 {
+  public $subject = 'Verify Email Address';
+  public $greeting = "Hello";
+  public $line = 'Click the button below to verify your email address.';
+  public $salutation = 'From Iber';
+  public $actionText = 'Verify Email Address';
+
   public function __construct()
   {
     $this->middleware(['auth:users,companies', 'jwt.auth'])->except('verify');
   }
 
-  public function sendVerificationEmail(Request $request)
+  public function sendVerificationEmail(Request $request, $lang)
   {
     if ($request->user()->hasVerifiedEmail()) {
       return response()->json([
@@ -27,8 +35,34 @@ class EmailVerificationController extends Controller
         'message' => 'Already Verified'
       ]);
     }
+    
+    if ($lang == 'tm') {
+      $this->subject = 'Email Addresiňizi tassyklaň';
+      $this->greeting = 'Salam';
+      $this->line = 'Email Addresiňizi tassyklamak üçin aşaky düwmä basyň';
+      $this->salutation = 'Iber';
+      $this->actionText = 'Email Addresi tassyklamak';
+    } elseif ($lang == 'ru'){
+      $this->subject = 'Подтвердите адрес электронной почты';
+      $this->greeting = 'Здравствуйте!';
+      $this->line = 'Нажмите кнопку ниже, чтобы подтвердить свой адрес электронной почты.';
+      $this->salutation = 'Iber';
+      $this->actionText = 'Подтвердить адрес электронной почты';
+    }
 
-    $request->user()->sendEmailVerificationNotification();
+    VerifyEmail::toMailUsing(function ($notifiable, $url) {
+      $type = $notifiable->type ? 'company' : 'user';
+      $spaUrl = "https://iber.biz/verify?token=" . sha1($notifiable->getEmailForVerification()) . '&' . 'id=' . $notifiable->id . '&' . 'type=' . $type;
+      return (new MailMessage)
+        ->subject($this->subject)
+        ->greeting($this->greeting)
+        ->line($this->line)
+        ->salutation($this->salutation)
+        ->action($this->actionText, $spaUrl);
+    });
+    $request->user()->notify(new VerifyEmail);
+    // it's the same thing
+    // $request->user()->sendEmailVerificationNotification('tm');
 
     return response()->json([
       'success' => 'true',
@@ -37,7 +71,7 @@ class EmailVerificationController extends Controller
     ]);
   }
 
-  public function verify($type, $id, $hash=null)
+  public function verify($type, $id, $hash = null)
   {
     if ($type == 'user') {
       $user = User::find($id);
