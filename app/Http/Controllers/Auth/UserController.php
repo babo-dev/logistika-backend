@@ -199,7 +199,7 @@ class UserController extends Controller
         ->salutation($this->salutation)
         ->action($this->actionText, $spaUrl);
     });
-    $request->user()->notify(new VerifyEmail);
+    $user()->notify(new VerifyEmail);
     // $user->sendEmailVerificationNotification();
     // end sending verification email
 
