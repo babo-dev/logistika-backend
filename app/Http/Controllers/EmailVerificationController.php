@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 class EmailVerificationController extends Controller
 {
+  public $lang;
   public $subject = 'Verify Email Address';
   public $greeting = "Hello";
   public $line = 'Click the button below to verify your email address.';
@@ -35,14 +36,16 @@ class EmailVerificationController extends Controller
         'message' => 'Already Verified'
       ]);
     }
-    
-    if ($lang == 'tm') {
+
+    $this->lang = $lang;
+
+    if ($this->lang == 'tm') {
       $this->subject = 'Email poçtaňyzy tassyklaň';
       $this->greeting = 'Salam';
       $this->line = 'Email poçtaňyzy tassyklamak üçin aşaky düwmä basyň';
       $this->salutation = 'Iber';
       $this->actionText = 'Email poçtany tassyklamak';
-    } elseif ($lang == 'ru'){
+    } elseif ($this->lang == 'ru') {
       $this->subject = 'Подтвердите адрес электронной почты';
       $this->greeting = 'Здравствуйте!';
       $this->line = 'Нажмите кнопку ниже, чтобы подтвердить свой адрес электронной почты.';
@@ -52,7 +55,11 @@ class EmailVerificationController extends Controller
 
     VerifyEmail::toMailUsing(function ($notifiable, $url) {
       $type = $notifiable->type ? 'company' : 'user';
-      $spaUrl = "https://iber.biz/verify?token=" . sha1($notifiable->getEmailForVerification()) . '&' . 'id=' . $notifiable->id . '&' . 'type=' . $type;
+      if ($this->lang != 'tm') {
+        $spaUrl = "https://iber.biz/" . $this->lang . "/verify?token=" . sha1($notifiable->getEmailForVerification()) . '&' . 'id=' . $notifiable->id . '&' . 'type=' . $type;
+      } else {
+        $spaUrl = "https://iber.biz/verify?token=" . sha1($notifiable->getEmailForVerification()) . '&' . 'id=' . $notifiable->id . '&' . 'type=' . $type;
+      }
       return (new MailMessage)
         ->subject($this->subject)
         ->greeting($this->greeting)
