@@ -44,12 +44,6 @@ class SliderController extends Controller
   {
     // return $request->url->getClientOriginalName();
     $rules = array(
-      "title_tm"     => 'required',
-      "title_ru"     => 'required',
-      "title_en"     => 'required',
-      "description_tm"     => 'required',
-      "description_ru"     => 'required',
-      "description_en"     => 'required',
       "url"     => 'required',
     );
 
@@ -66,12 +60,12 @@ class SliderController extends Controller
     // store
     $slider = new Slider();
     $slider
-      ->setTranslation('title', 'tm', $request->title_tm)
-      ->setTranslation('title', 'ru', $request->title_ru)
-      ->setTranslation('title', 'en', $request->title_en)
-      ->setTranslation('description', 'tm', $request->description_tm)
-      ->setTranslation('description', 'ru', $request->description_ru)
-      ->setTranslation('description', 'en', $request->description_en);
+      ->setTranslation('title', 'tm', $request->title_tm ? $request->title_tm : '')
+      ->setTranslation('title', 'ru', $request->title_ru ? $request->title_ru : '')
+      ->setTranslation('title', 'en', $request->title_en ? $request->title_en : '')
+      ->setTranslation('description', 'tm', $request->description_tm ? $request->description_tm : '')
+      ->setTranslation('description', 'ru', $request->description_ru ? $request->description_ru : '')
+      ->setTranslation('description', 'en', $request->description_en ? $request->description_en : '');
     
     if ($request->has('url_redirect')) $slider->url_redirect = $request->url_redirect;
 
