@@ -21,7 +21,7 @@ class CompanyController extends Controller
   }
   public function index()
   {
-    $companies = Company::select('id', 'order_id', 'name', 'email', 'country_id', 'type', 'accepted')
+    $companies = Company::select('id', 'order_id', 'name', 'email', 'country_id', 'type', 'accepted', 'avatar', 'email_verified_at')
       ->where('type', 'company')
       ->orderBy('order_id', 'asc')
       ->paginate(20);
