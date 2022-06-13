@@ -26,9 +26,8 @@ class HomeController extends Controller
     $now = Carbon::now();
     $routes = RouteResource::collection(CustomRoute::whereDate('date1', '>', $now)->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $sliders = SliderResource::collection(Slider::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
-    // $states = StateResource::collection(State::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
-    // $countries = CountryResource::collection(Country::orderBy('title')->get())->response()->getData(True);
-    $companies = CompanyResource::collection(Company::orderBy('order_id', 'asc')->where('type', 'company')->where('accepted', true)->paginate(20))->response()->getData(True);
+    $companies = CompanyResource::collection(Company::select('id', 'order_id', 'name', 'email', 'country_id', 'type', 'accepted', 'avatar', 'email_verified_at', 'status')
+      ->orderBy('order_id', 'asc')->where('type', 'company')->where('accepted', true)->paginate(20))->response()->getData(True);
     $techniquetype = TechniqueType::orderBy('id', 'desc')->paginate(20);
     $pages = Page::orderBy('id', 'desc')->paginate(20);
 
