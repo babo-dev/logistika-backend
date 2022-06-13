@@ -21,7 +21,10 @@ class CompanyController extends Controller
   }
   public function index()
   {
-    $companies = Company::where('type', 'company')->orderBy('order_id', 'asc')->paginate(20);
+    $companies = Company::select('id', 'order_id', 'name', 'email', 'country_id', 'type', 'accepted')
+      ->where('type', 'company')
+      ->orderBy('order_id', 'asc')
+      ->paginate(20);
 
     $companies = CompanyResource::collection($companies)->response()->getData(True);
 
