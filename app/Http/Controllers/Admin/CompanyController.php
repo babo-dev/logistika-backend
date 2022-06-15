@@ -19,10 +19,15 @@ class CompanyController extends Controller
   {
     $this->middleware(['auth:admins', 'jwt.auth'])->except(['index', 'show']);
   }
-  public function index()
+  public function index(Request $request)
   {
     $companies = Company::select('id', 'order_id', 'name', 'email', 'country_id', 'type', 'accepted', 'avatar', 'email_verified_at', 'status')
-      ->where('type', 'company')->orderBy('order_id', 'asc')->paginate(20);
+      ->when($request->has('accepted'), function ($query) use ($request) {
+        $query->where('accepted', $request->accepted);
+      })
+      ->where('type', 'company')
+      ->orderBy('order_id', 'asc')
+      ->paginate(20);
 
     $companies = CompanyResource::collection($companies)->response()->getData(True);
 
