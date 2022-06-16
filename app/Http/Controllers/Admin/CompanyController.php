@@ -29,6 +29,16 @@ class CompanyController extends Controller
       ->orderBy('order_id', 'asc')
       ->paginate(20);
 
+    // $page=234 or wrong page number
+    // give an error
+    if ($request->page > $companies->lastPage()) {
+      return response()->json([
+        'success' => 'false',
+        'data' => null,
+        'message' => "Wrong page number"
+      ]);
+    }
+
     $companies = CompanyResource::collection($companies)->response()->getData(True);
 
     return response()->json([
