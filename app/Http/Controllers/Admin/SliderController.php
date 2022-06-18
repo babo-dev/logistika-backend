@@ -89,12 +89,12 @@ class SliderController extends Controller
     $slider = Slider::where('id', $id)->first();
 
     $slider
-      ->setTranslation('title', 'tm', $request->title_tm ?: $slider->getTranslation('title', 'tm'))
-      ->setTranslation('title', 'ru', $request->title_ru ?: $slider->getTranslation('title', 'ru'))
-      ->setTranslation('title', 'en', $request->title_en ?:  $slider->getTranslation('title', 'en'))
-      ->setTranslation('description', 'tm', $request->description_tm ?: $slider->getTranslation('description', 'tm'))
-      ->setTranslation('description', 'ru', $request->description_ru ?: $slider->getTranslation('description', 'ru'))
-      ->setTranslation('description', 'en', $request->description_en ?: $slider->getTranslation('description', 'en'));
+      ->setTranslation('title', 'tm', $request->has('title_tm') ? $request->title_tm : $slider->getTranslation('title', 'tm'))
+      ->setTranslation('title', 'ru', $request->has('title_ru') ? $request->title_ru : $slider->getTranslation('title', 'ru'))
+      ->setTranslation('title', 'en', $request->has('title_en') ? $request->title_en : $slider->getTranslation('title', 'en'))
+      ->setTranslation('description', 'tm', $request->has('description_tm') ? $request->description_tm : $slider->getTranslation('description', 'tm'))
+      ->setTranslation('description', 'ru', $request->has('description_ru') ? $request->description_ru : $slider->getTranslation('description', 'ru'))
+      ->setTranslation('description', 'en', $request->has('description_en') ? $request->description_en : $slider->getTranslation('description', 'en'));
     
     if ($request->has('url_redirect')) $slider->url_redirect = $request->url_redirect;
     if ($request->has('url')) {
