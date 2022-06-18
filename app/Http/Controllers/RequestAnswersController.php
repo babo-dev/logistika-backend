@@ -157,7 +157,7 @@ class RequestAnswersController extends Controller
       $answer = $answers->first();
 
       // check if authenticated user is owner of the request
-      if (auth('users')->user()->id != $answer->request->user_id) {
+      if (auth('users')->user()->id != $answer->request->requestable_id) {
         return response()->json([
           'success' => 'false',
           'data' => [],
