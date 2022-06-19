@@ -129,7 +129,8 @@ class HomeController extends Controller
 
     if ($request->type == "company") {
       $data = CompanyResource::collection(
-        Company::orderBy('id', 'desc')->where('name', 'LIKE', '%' . $request->q . '%')->limit(20)->get()
+        Company::select('id', 'order_id', 'name', 'email', 'country_id', 'type', 'accepted', 'avatar', 'email_verified_at', 'status')
+          ->orderBy('id', 'desc')->where('name', 'LIKE', '%' . $request->q . '%')->limit(20)->get()
       );
     }
 

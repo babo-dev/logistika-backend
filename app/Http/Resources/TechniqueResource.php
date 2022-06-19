@@ -24,7 +24,7 @@ class TechniqueResource extends JsonResource
     /* return parent::toArray($request); */
     return [
       'id' => $this->id,
-      'company' => $this->company,
+      'company' => $this->company->id,
       'owner' => $this->company->owner,
       'state' => $this->state,
       'technique_type' => $this->technique_type->title,
