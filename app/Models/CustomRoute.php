@@ -25,7 +25,7 @@ class CustomRoute extends Model
   public function company()
   {
     return $this->belongsTo("App\Models\Company")->select(
-      ['id','name', 'email', 'phone', 'type', 'status', 'country_id', 'order_id', 'email_verified_at']
+      ['id','name', 'email', 'phone', 'type', 'status', 'country_id', 'order_id', 'email_verified_at', 'avatar']
     );
   }
 }
