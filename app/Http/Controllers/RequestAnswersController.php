@@ -19,7 +19,7 @@ class RequestAnswersController extends Controller
   public function __construct()
   {
     $this->middleware(['auth:companies'])->except(['all', 'show', 'accept', 'cancel']);
-    $this->middleware(['auth:users'])->only(['accept', 'cancel']);
+    $this->middleware(['auth:users,companies'])->only(['accept', 'cancel']);
   }
 
   /**
@@ -108,7 +108,7 @@ class RequestAnswersController extends Controller
       $answer = $answers->first();
 
       // check if authenticated user is owner of the request
-      if (auth('users')->user()->id != $answer->request->requestable_id) {
+      if (auth()->user()->id != $answer->request->requestable_id) {
         return response()->json([
           'success' => 'false',
           'data' => [],
@@ -157,7 +157,7 @@ class RequestAnswersController extends Controller
       $answer = $answers->first();
 
       // check if authenticated user is owner of the request
-      if (auth('users')->user()->id != $answer->request->requestable_id) {
+      if (auth()->user()->id != $answer->request->requestable_id) {
         return response()->json([
           'success' => 'false',
           'data' => [],
