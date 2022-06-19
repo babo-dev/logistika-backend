@@ -137,7 +137,7 @@ class TechniqueController extends Controller
         'success' => 'true',
         'data' => new TechniqueResource($technique),
         'similars' => TechniqueResource::collection(
-          Technique::select('id', 'company_id', 'technique_type_id', 'accepted')
+          Technique::select('id', 'company_id', 'technique_type_id', 'accepted', 'title', 'price', 'owner')
             ->whereNotIn('id', [$technique->id])
             ->where('accepted', 1)
             ->inRandomOrder()
