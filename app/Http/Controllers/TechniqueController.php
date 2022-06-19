@@ -69,9 +69,9 @@ class TechniqueController extends Controller
       "technique_type_id"     => 'required',
       "state"     => 'required',
       "title"     => 'required',
-      "owner"     => 'required',
-      "price"     => 'required',
-      "description"     => 'required',
+      // "owner"     => 'required',
+      // "price"     => 'required',
+      // "description"     => 'required',
       "photos.*" => 'required'
     );
 
@@ -98,6 +98,7 @@ class TechniqueController extends Controller
       ]);
 
       foreach ($request['photos'] as $file) {
+        return $file;
         $image = new Image();
         $image->type = 'technique';
         $image->owner_id = $technique->id;
