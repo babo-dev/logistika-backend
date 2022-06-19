@@ -29,9 +29,9 @@ class TechniqueController extends Controller
   public function all(Request $request)
   {
     if ($request->has('accepted') && $request->accepted) {
-      $techniques = TechniqueResource::collection(Technique::select('id', 'company_id', 'technique_type_id')->where('accepted', 1)->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+      $techniques = TechniqueResource::collection(Technique::select('id', 'company_id', 'technique_type_id', 'accepted')->where('accepted', 1)->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     } else {
-      $techniques = TechniqueResource::collection(Technique::select('id', 'company_id', 'technique_type_id')->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+      $techniques = TechniqueResource::collection(Technique::select('id', 'company_id', 'technique_type_id', 'accepted')->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     }
     return response()->json([
       'success' => 'true',
@@ -48,7 +48,7 @@ class TechniqueController extends Controller
   public function index()
   {
     $techniques = TechniqueResource::collection(
-      auth('companies')->user()->techniques()->select('id', 'company_id', 'technique_type_id')->orderBy('id', 'desc')->paginate(20)
+      auth('companies')->user()->techniques()->select('id', 'company_id', 'technique_type_id', 'accepted')->orderBy('id', 'desc')->paginate(20)
     )->response()->getData(True);
     return response()->json([
       'success' => 'true',
