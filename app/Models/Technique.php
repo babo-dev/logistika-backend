@@ -22,7 +22,7 @@ class Technique extends Model
 
   public function company()
   {
-    return $this->belongsTo("App\Models\Company");
+    return $this->belongsTo("App\Models\Company")->select(['id', 'name', 'type']);
   }
 
   public function technique_type()
