@@ -112,9 +112,8 @@ class CustomRequestController extends Controller
           })
           ->orderBy('id', 'desc')->paginate(20);
 
-        return auth("companies")->user()->own_requests;
-        $custom_requests = $custom_requests->diff(auth("companies")->user()->own_requests);
         return $custom_requests;
+        $custom_requests = $custom_requests->diff(auth("companies")->user()->own_requests);
         $custom_requests = CollectionHelper::paginate($custom_requests, 20);
 
         return response()->json([
