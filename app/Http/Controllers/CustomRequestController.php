@@ -112,7 +112,7 @@ class CustomRequestController extends Controller
           })
           ->orderBy('id', 'desc')->paginate(20);
 
-        return $reqs = CustomRequest::select('id', 'type', 'requestable_id', 'requestable_type')->where('type', 'company')->where(function ($query) {$query->whereHas('companies', function ($query) {$query->where('id', 14);})->orDoesntHave('companies');})->get();
+        return $reqs = CustomRequest::select('id', 'type', 'requestable_id', 'requestable_type')->where('type', auth("companies")->user()->type)->where(function ($query) {$query->whereHas('companies', function ($query) {$query->where('id', auth("companies")->user()->id);})->orDoesntHave('companies');})->get();
         $custom_requests = $custom_requests->diff(auth("companies")->user()->own_requests);
         $custom_requests = CollectionHelper::paginate($custom_requests, 20);
 
