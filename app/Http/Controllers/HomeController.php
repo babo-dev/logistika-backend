@@ -44,11 +44,11 @@ class HomeController extends Controller
       //     $query->where('requestable_id', auth("companies")->user()->id);
       //   })->get();
       $view = CustomRequest::where([['status', "0"], ['type', auth("companies")->user()->type]])
-        ->where(function ($query) {
-          $query->whereHas('companies', function ($query) {
-            $query->where('id', auth("companies")->user()->id);
-          })->orDoesntHave('companies');
-        })
+          ->where(function ($query) {
+            $query->whereHas('companies', function ($query) {
+              $query->where('id', auth("companies")->user()->id);
+            })->orDoesntHave('companies');
+          })
         ->whereDoesntHave('views', function ($query) {
           $query->where('id', auth("companies")->user()->id);
         })
