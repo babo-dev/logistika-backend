@@ -10,9 +10,9 @@ use Illuminate\Support\Collection;
 
 class CollectionHelper
 {
-    public static function paginate(Collection $results, $pageSize)
+    public static function paginate(Collection $results, $pageSize, $page)
     {
-        $page = Paginator::resolveCurrentPage('page');
+        // $page = Paginator::resolveCurrentPage('page');
         
         $total = $results->count();
 
