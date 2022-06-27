@@ -68,6 +68,7 @@ class EmailVerificationController extends Controller
         ->action($this->actionText, $spaUrl);
     });
     $request->user()->notify(new VerifyEmail);
+    return $request->user();
     // it's the same thing
     // $request->user()->sendEmailVerificationNotification('tm');
 
