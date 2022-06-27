@@ -128,11 +128,9 @@ class CompanyController extends Controller
         ->salutation($this->salutation)
         ->action($this->actionText, $spaUrl);
     });
-
     $company->notify(new VerifyEmail);
     // $user->sendEmailVerificationNotification();
     // end sending verification email
-    // $company->sendEmailVerificationNotification();
 
     return response()->json([
       'success' => 'true',
