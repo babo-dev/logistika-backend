@@ -101,7 +101,6 @@ class TechniqueController extends Controller
       ]);
 
       foreach ($request['photos'] as $file) {
-        return $file;
         $image = new Image();
         $image->type = 'technique';
         $image->owner_id = $technique->id;
