@@ -11,9 +11,17 @@ use App\Http\Resources\ImageResource;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Country;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class CompanyController extends Controller
 {
+  public $lang;
+  public $subject = 'Verify Email Address';
+  public $greeting = "Hello";
+  public $line = 'Click the button below to verify your email address.';
+  public $salutation = 'From Iber';
+  public $actionText = 'Verify Email Address';
   /**
    * Create a new AuthController instance.
    *
@@ -89,7 +97,42 @@ class CompanyController extends Controller
       'password' => $request->password
     ]);
 
-    $company->sendEmailVerificationNotification();
+    // start sending verification email
+    $this->lang = $request->verification_lang;
+
+    if ($this->lang == 'tm') {
+      $this->subject = 'Email poçtaňyzy tassyklaň';
+      $this->greeting = 'Salam';
+      $this->line = 'Email poçtaňyzy tassyklamak üçin aşaky düwmä basyň';
+      $this->salutation = 'Iber';
+      $this->actionText = 'Email poçtany tassyklamak';
+    } elseif ($this->lang == 'ru') {
+      $this->subject = 'Подтвердите адрес электронной почты';
+      $this->greeting = 'Здравствуйте!';
+      $this->line = 'Нажмите кнопку ниже, чтобы подтвердить свой адрес электронной почты.';
+      $this->salutation = 'Iber';
+      $this->actionText = 'Подтвердить адрес электронной почты';
+    }
+
+    VerifyEmail::toMailUsing(function ($notifiable, $url) {
+      $type = $notifiable->type ? 'company' : 'user';
+      if ($this->lang != 'tm') {
+        $spaUrl = "https://iber.biz/" . $this->lang . "/verify?token=" . sha1($notifiable->getEmailForVerification()) . '&' . 'id=' . $notifiable->id . '&' . 'type=' . $type;
+      } else {
+        $spaUrl = "https://iber.biz/verify?token=" . sha1($notifiable->getEmailForVerification()) . '&' . 'id=' . $notifiable->id . '&' . 'type=' . $type;
+      }
+      return (new MailMessage)
+        ->subject($this->subject)
+        ->greeting($this->greeting)
+        ->line($this->line)
+        ->salutation($this->salutation)
+        ->action($this->actionText, $spaUrl);
+    });
+
+    $company->notify(new VerifyEmail);
+    // $user->sendEmailVerificationNotification();
+    // end sending verification email
+    // $company->sendEmailVerificationNotification();
 
     return response()->json([
       'success' => 'true',
