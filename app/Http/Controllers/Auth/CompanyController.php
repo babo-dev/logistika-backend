@@ -130,7 +130,6 @@ class CompanyController extends Controller
     });
 
     $company->notify(new VerifyEmail);
-    return $company;
     // $user->sendEmailVerificationNotification();
     // end sending verification email
     // $company->sendEmailVerificationNotification();
