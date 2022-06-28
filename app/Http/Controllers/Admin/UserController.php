@@ -102,12 +102,14 @@ class UserController extends Controller
       if ($user->avatar && file_exists(storage_path() . "/app/public/images/" . $user->avatar)) {
         unlink(storage_path() . "/app/public/images/" . $user->avatar);
       }
-      $user->delete();
-      return response()->json([
-        'success' => 'true',
-        'data' => [],
-        'message' => "Successfully deleted",
-      ]);
+      // $user->own_requests()->delete();
+      // $user->delete();
+      return $user->own_requests();
+      // return response()->json([
+      //   'success' => 'true',
+      //   'data' => [],
+      //   'message' => "Successfully deleted",
+      // ]);
     } else {
       return response()->json([
         'success' => 'false',
