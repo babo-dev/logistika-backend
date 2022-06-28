@@ -108,15 +108,19 @@ class CustomRequestController extends Controller
           ->where(function ($query) use ($request) {
             $query->whereHas('companies', function ($query) {
               $query->where('id', auth("companies")->user()->id);
-            })
-              ->when(!$request->exists('status'), function ($query) {
-                return $query->orDoesntHave('companies');
-              })
-              ->when($request->status == 0, function ($query) {
-                return $query->orDoesntHave('companies');
-              }); //->orDoesntHave('companies');
+            });
+              // ->when(!$request->exists('status'), function ($query) {
+              //   return $query->orDoesntHave('companies');
+              // })
+              // ->when($request->status == 0, function ($query) {
+              //   return $query->orDoesntHave('companies');
+              // }); //->orDoesntHave('companies');
           })
-          ->orderBy('id', 'desc')->get();
+          ->orderBy('id', 'desc');//->get();
+        if ($request->status == 0) {
+          $custom_requests = $custom_requests->orDoesntHave('companies');
+        }
+        $custom_requests = $custom_requests->get();
 
         // return $custom_requests->diff(auth("companies")->user()->own_requests);
         // return $reqs = CustomRequest::select('id', 'type', 'requestable_id', 'requestable_type')->where('type', auth("companies")->user()->type)->where(function ($query) {$query->whereHas('companies', function ($query) {$query->where('id', auth("companies")->user()->id);})->orDoesntHave('companies');})->paginate(20);
