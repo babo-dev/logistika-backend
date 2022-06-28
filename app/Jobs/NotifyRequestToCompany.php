@@ -15,6 +15,8 @@ class NotifyRequestToCompany implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+  protected $companiesToSend;
+  protected $customRequest;
   /**
    * Create a new job instance.
    *
