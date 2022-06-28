@@ -104,7 +104,7 @@ class UserController extends Controller
       }
       // $user->own_requests()->delete();
       // $user->delete();
-      return $user->own_requests();
+      return $user->own_requests;
       // return response()->json([
       //   'success' => 'true',
       //   'data' => [],
