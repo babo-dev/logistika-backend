@@ -5,7 +5,7 @@
     <section class="section_1">
       <div>
         <span> Sene </span> <br>
-        <b> {{$custom_request->date1}} - {{$custom_request->date2}} </b>
+        <b> {{$custom_request->date1->format('Y-m-d')}} - {{$custom_request->date2->format('Y-m-d')}} </b>
       </div>
       <div>
         <span> Nireden </span> <br>
@@ -28,42 +28,42 @@
     <section class="section_2">
       <div>
         <p class="first">Haryt</p>
-        <p> <b> arduino set </b></p>
+        <p> <b> {{$custom_request->title}} </b></p>
       </div>
       <div>
         <p class="first">Agramy</p>
-        <p><b> - </b></p>
+        <p><b> {{$custom_request->weight_min}} - {{$custom_request->weight_max}}</b></p>
       </div>
       <div>
         <p class="first">Kub</p>
-        <p><b> - </b></p>
+        <p><b> {{$custom_request->cubm_min}} - {{$custom_request->cubm_max}}</b></p>
       </div>
       <div>
         <p class="first">Byudjet</p>
-        <p>-</p>
+        <p> {{$custom_request->budget_min}} - {{$custom_request->budget_max}}</p>
       </div>
       <div>
         <p class="first">Awtoulag gornusi</p>
-        <p> <b> - </b> </p>
+        <p> <b> {{$custom_request->car_body}} </b> </p>
       </div>
       <div>
-        <p class="first">Belli</p>
-        <p> <b> - </b> </p>
+        <p class="first">Bellik</p>
+        <p> <b> {{$custom_request->note}} </b> </p>
       </div>
     </section>
 
     <section class="section_3">
       <div>
         <p class="first">Musderi ady</p>
-        <p> <b> Transporter </b> </p>
+        <p> <b> {{$custom_request->requestable->name}} </b> </p>
       </div>
       <div>
         <p class="first">E-mail</p>
-        <p> <b> ss.transporter99@gmail.com </b> </p>
+        <p> <b>{{$custom_request->requestable->email}}</b> </p>
       </div>
       <div>
         <p class="first">Telefon</p>
-        <p> <b> +99363997091 </b> </p>
+        <p> <b>{{$custom_request->requestable->phone}}</b> </p>
       </div>
     </section>
   </div>
