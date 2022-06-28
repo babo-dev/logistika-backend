@@ -108,7 +108,10 @@ class CustomRequestController extends Controller
           ->where(function ($query) use ($request) {
             $query->whereHas('companies', function ($query) {
               $query->where('id', auth("companies")->user()->id);
-            })->when((!$request->has('status') || $request->status == 0), function ($query) {
+            })->when(!$request->has('status'), function ($query) {
+              $query->orDoesntHave('companies');
+            }); //->orDoesntHave('companies');
+            })->when($request->status == 0, function ($query) {
               $query->orDoesntHave('companies');
             }); //->orDoesntHave('companies');
           })
