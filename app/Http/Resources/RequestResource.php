@@ -61,9 +61,9 @@ class RequestResource extends JsonResource
       $result['companies'] = null;
     }
 
-    if (auth('users')->check()) {
+    // if (auth('users')->check()) {
       $result['request_answers'] = $this->offers()->where('status', 0)->count();
-    }
+    // }
 
     return $result;
   }
