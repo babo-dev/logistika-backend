@@ -64,4 +64,9 @@ class CustomRequest extends Model
   {
     return $this->hasMany("App\Models\RequestAnswers", "request_id");
   }
+
+  public function timelines()
+  {
+    return $this->hasMany("App\Models\Timeline", "request_id")->orderBy('status');
+  }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\NewPasswordContoller;
+use App\Http\Controllers\TimeLineController;
 
 // Auth for company and user and for admin)
 Route::post("/login", [UserController::class, "login"])->name("login");
@@ -26,3 +27,5 @@ Route::get('verify-email/{type}/{id}/{hash?}', [EmailVerificationController::cla
 
 Route::post('forgot-password', [NewPasswordContoller::class, 'forgotPassword']);
 Route::post('reset-password', [NewPasswordContoller::class, 'reset'])->name('password.reset');
+
+Route::post('requests/timeline', [TimeLineController::class, 'store']);

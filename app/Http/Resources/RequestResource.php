@@ -47,6 +47,7 @@ class RequestResource extends JsonResource
       'status' => $this->status,
       'source' => $this->source,
       'destination' => $this->destination,
+      'timelines' => $this->timelines
     ];
 
     if (substr($this->requestable_type , -1) == 'r') {
