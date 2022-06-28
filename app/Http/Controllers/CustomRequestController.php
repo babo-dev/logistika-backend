@@ -117,7 +117,7 @@ class CustomRequestController extends Controller
               // }); //->orDoesntHave('companies');
           })
           ->orderBy('id', 'desc');//->get();
-        if ($request->status == 0) {
+        if ($request->status == 0 || !$request->status) {
           $custom_requests = $custom_requests->orDoesntHave('companies');
         }
         $custom_requests = $custom_requests->get();
