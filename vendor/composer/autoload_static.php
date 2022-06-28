@@ -631,6 +631,7 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
         'App\\Http\\Resources\\StateResource' => __DIR__ . '/../..' . '/app/Http/Resources/StateResource.php',
         'App\\Http\\Resources\\TechniqueResource' => __DIR__ . '/../..' . '/app/Http/Resources/TechniqueResource.php',
         'App\\Http\\Resources\\UserResource' => __DIR__ . '/../..' . '/app/Http/Resources/UserResource.php',
+        'App\\Mail\\NotifyRequest' => __DIR__ . '/../..' . '/app/Mail/NotifyRequest.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\Company' => __DIR__ . '/../..' . '/app/Models/Company.php',
         'App\\Models\\CompanyRequest' => __DIR__ . '/../..' . '/app/Models/CompanyRequest.php',

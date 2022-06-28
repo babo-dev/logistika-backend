@@ -54,6 +54,7 @@ return array(
     'App\\Http\\Resources\\StateResource' => $baseDir . '/app/Http/Resources/StateResource.php',
     'App\\Http\\Resources\\TechniqueResource' => $baseDir . '/app/Http/Resources/TechniqueResource.php',
     'App\\Http\\Resources\\UserResource' => $baseDir . '/app/Http/Resources/UserResource.php',
+    'App\\Mail\\NotifyRequest' => $baseDir . '/app/Mail/NotifyRequest.php',
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
     'App\\Models\\Company' => $baseDir . '/app/Models/Company.php',
     'App\\Models\\CompanyRequest' => $baseDir . '/app/Models/CompanyRequest.php',

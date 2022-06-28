@@ -8,7 +8,10 @@ use App\Models\CustomRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\RequestResource;
 use App\Http\Resources\ResourceViewController;
+use App\Mail\NotifyRequest;
+use App\Models\Company;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class CustomRequestController extends Controller
@@ -211,10 +214,24 @@ class CustomRequestController extends Controller
         ]
       );
 
+
       if ($request->has('company_id')) {
         if ($request->company_id == 'all') {
           $customRequest->companies()->sync(null);
+
+          $companiesToSend = Company::where('type', $request->type)->select('id', 'email')->get();
+
+          dispatch(new \App\Jobs\NotifyRequestToCompany($companiesToSend, $customRequest));
+          // foreach ($companiesToSend as $company) {
+          //   Mail::to($company)
+          //     ->send(new NotifyRequest($customRequest));
+          // }
         } else {
+          $companiesToSend = Company::where('id', $request->company_id)->select('id', 'email')->get();
+          dispatch(new \App\Jobs\NotifyRequestToCompany($companiesToSend, $customRequest));
+          // Mail::to(Company::find($request->company_id))
+          //   ->send(new NotifyRequest($customRequest));
+          //
           $customRequest->companies()->sync($request->company_id);
         }
       }
