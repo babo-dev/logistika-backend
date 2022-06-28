@@ -45,6 +45,10 @@ class TimeLineController extends Controller
         ], 422);
       }
 
+      if ($request->has('barcode')) {
+        $customRequest->barcode = $request->barcode;
+        $customRequest->save();
+      }
 
       $customRequest->timelines()->create(
         [

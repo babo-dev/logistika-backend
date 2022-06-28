@@ -34,6 +34,7 @@ class ResourceViewController extends JsonResource
       'status' => $this->status,
       'source' => $this->source,
       'destination' => $this->destination,
+      'barcode' => $this->barcode,
     ];
 
     $sert = $this->views->where('id', auth("companies")->user()->id)->count();

@@ -47,6 +47,7 @@ class RequestResource extends JsonResource
       'status' => $this->status,
       'source' => $this->source,
       'destination' => $this->destination,
+      'barcode' => $this->barcode,
       'timelines' => $this->timelines
     ];
 

@@ -30,6 +30,7 @@ return array(
     'App\\Http\\Controllers\\NewPasswordContoller' => $baseDir . '/app/Http/Controllers/NewPasswordContoller.php',
     'App\\Http\\Controllers\\RequestAnswersController' => $baseDir . '/app/Http/Controllers/RequestAnswersController.php',
     'App\\Http\\Controllers\\TechniqueController' => $baseDir . '/app/Http/Controllers/TechniqueController.php',
+    'App\\Http\\Controllers\\TimeLineController' => $baseDir . '/app/Http/Controllers/TimeLineController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\AssignGuard' => $baseDir . '/app/Http/Middleware/AssignGuard.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

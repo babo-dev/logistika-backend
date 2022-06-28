@@ -607,6 +607,7 @@ class ComposerStaticInit7f6af184099e3fcd0e33b52ecd9f5a0c
         'App\\Http\\Controllers\\NewPasswordContoller' => __DIR__ . '/../..' . '/app/Http/Controllers/NewPasswordContoller.php',
         'App\\Http\\Controllers\\RequestAnswersController' => __DIR__ . '/../..' . '/app/Http/Controllers/RequestAnswersController.php',
         'App\\Http\\Controllers\\TechniqueController' => __DIR__ . '/../..' . '/app/Http/Controllers/TechniqueController.php',
+        'App\\Http\\Controllers\\TimeLineController' => __DIR__ . '/../..' . '/app/Http/Controllers/TimeLineController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AssignGuard' => __DIR__ . '/../..' . '/app/Http/Middleware/AssignGuard.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
