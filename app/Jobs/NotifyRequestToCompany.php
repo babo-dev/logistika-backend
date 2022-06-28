@@ -20,10 +20,10 @@ class NotifyRequestToCompany implements ShouldQueue
    *
    * @return void
    */
-  public function __construct($companies, $custom_request)
+  public function __construct($companiesToSend, $customRequest)
   {
-    $this->companies = $companies;
-    $this->custom_request = $custom_request;
+    $this->companiesToSend = $companiesToSend;
+    $this->customRequest = $customRequest;
   }
 
   /**
@@ -33,7 +33,7 @@ class NotifyRequestToCompany implements ShouldQueue
    */
   public function handle()
   {
-    foreach ($this->companies as $company) {
+    foreach($this->companiesToSend as $company) {
       Mail::to($company)
         ->send(new NotifyRequest($this->customRequest));
     }

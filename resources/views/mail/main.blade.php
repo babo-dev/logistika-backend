@@ -5,15 +5,15 @@
     <section class="section_1">
       <div>
         <span> Sene </span> <br>
-        <b> {{$custom_request->date1}} - {{$custom_request->date2}} </b>
+        <b> {{$customRequest->date1}} - {{$customRequest->date2}} </b>
       </div>
       <div>
         <span> Nireden </span> <br>
-        <b> {{$custom_request->source}} </b>
+        <b> {{$customRequest->source}} </b>
       </div>
       <div>
         <span> Nira </span> <br>
-        <b> {{$custom_request->destination}} </b>
+        <b> {{$customRequest->destination}} </b>
       </div>
       <div>
         <span> Hususy Karhana </span> <br>
