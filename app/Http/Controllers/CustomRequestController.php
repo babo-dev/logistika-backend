@@ -218,14 +218,20 @@ class CustomRequestController extends Controller
       if ($request->has('company_id')) {
         if ($request->company_id == 'all') {
           $customRequest->companies()->sync(null);
+
           $companiesToSend = Company::where('type', $request->type)->select('id', 'email')->get();
-          foreach ($companiesToSend as $company) {
-            Mail::to($company)
-              ->send(new NotifyRequest($customRequest));
-          }
+
+          dispatch(new \App\Jobs\NotifyRequestToCompany($companiesToSend, $customRequest));
+          // foreach ($companiesToSend as $company) {
+          //   Mail::to($company)
+          //     ->send(new NotifyRequest($customRequest));
+          // }
         } else {
-          Mail::to(Company::find($request->company_id))
-            ->send(new NotifyRequest($customRequest));
+          $companiesToSend = Company::where('id', $request->company_id)->select('id', 'email')->get();
+          dispatch(new \App\Jobs\NotifyRequestToCompany($companiesToSend, $customRequest));
+          // Mail::to(Company::find($request->company_id))
+          //   ->send(new NotifyRequest($customRequest));
+          //
           $customRequest->companies()->sync($request->company_id);
         }
       }

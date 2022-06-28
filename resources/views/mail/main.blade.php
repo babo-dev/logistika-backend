@@ -5,15 +5,15 @@
     <section class="section_1">
       <div>
         <span> Sene </span> <br>
-        <b> 11.07.2022 - 14.07.2022 </b>
+        <b> {{$custom_request->date1}} - {{$custom_request->date2}} </b>
       </div>
       <div>
         <span> Nireden </span> <br>
-        <b>Ahal</b>
+        <b> {{$custom_request->source}} </b>
       </div>
       <div>
         <span> Nira </span> <br>
-        <b>Lebap</b>
+        <b> {{$custom_request->destination}} </b>
       </div>
       <div>
         <span> Hususy Karhana </span> <br>
