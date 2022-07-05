@@ -5,7 +5,7 @@
     <section class="section_1">
       <div>
         <span> Sene </span> <br>
-        <b> {{$custom_request->date1->format('Y-m-d')}} - {{$custom_request->date2->format('Y-m-d')}} </b>
+        <b> {{ \Carbon\Carbon::parse($custom_request->date1)->format('Y-m-d') }} - {{\Carbon\Carbon::parse($custom_request->date2)->format('Y-m-d')}} </b>
       </div>
       <div>
         <span> Nireden </span> <br>
