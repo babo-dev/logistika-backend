@@ -30,6 +30,6 @@ class NotifyRequest extends Mailable
     public function build()
     {
         return $this->subject("Täze ýüzlenme!")
-                    ->view('mail.main');
+                    ->markdown('mail.main');
     }
 }
