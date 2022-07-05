@@ -1,6 +1,57 @@
 <html>
-
 <body>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+      font-size: 16px;
+      color: #837e7e;
+    }
+
+    .main_container {
+      padding: 20px 30px;
+      margin: 0 auto;
+      height: 90%;
+      width: 90%;
+      border: 1px solid #d9d9d9;
+    }
+
+    .section_1 {
+      line-height: 1.5rem;
+      border-bottom: 1px solid #d9d9d9;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+    }
+
+    .section_2 {
+      border-bottom: 1px solid #d9d9d9;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 0;
+    }
+
+    .section_2 div {
+      display: flex;
+    }
+
+    .section_2 div .first {
+      width: 14rem;
+    }
+
+    .section_3 {
+      display: flex;
+      flex-direction: column;
+      padding: 10px 0;
+    }
+
+    .section_3 div {
+      display: flex;
+    }
+
+    .section_3 div .first {
+      width: 14rem;
+    }
+  </style>
   <div class="main_container">
     <section class="section_1">
       <div>
@@ -68,58 +119,6 @@
     </section>
   </div>
 
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-      font-size: 16px;
-      color: #837e7e;
-    }
-
-    .main_container {
-      padding: 20px 30px;
-      margin: 0 auto;
-      height: 90%;
-      width: 90%;
-      border: 1px solid #d9d9d9;
-    }
-
-    .section_1 {
-      line-height: 1.5rem;
-      border-bottom: 1px solid #d9d9d9;
-      display: flex;
-      justify-content: space-between;
-      padding-bottom: 10px;
-    }
-
-    .section_2 {
-      border-bottom: 1px solid #d9d9d9;
-      display: flex;
-      flex-direction: column;
-      padding: 10px 0;
-    }
-
-    .section_2 div {
-      display: flex;
-    }
-
-    .section_2 div .first {
-      width: 14rem;
-    }
-
-    .section_3 {
-      display: flex;
-      flex-direction: column;
-      padding: 10px 0;
-    }
-
-    .section_3 div {
-      display: flex;
-    }
-
-    .section_3 div .first {
-      width: 14rem;
-    }
-  </style>
 </body>
 
 </html>
