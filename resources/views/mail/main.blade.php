@@ -99,7 +99,7 @@
       </tbody>
     </table>
 
-    <p style="text-align:center">© 2022 {{$all_rights}}.</p>
+    <p style="text-align:center;margin-top: 25px;">© 2022 {{$all_rights}}.</p>
   </section>
 </body>
 
