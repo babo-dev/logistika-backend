@@ -25,7 +25,7 @@ class NotifyRequest extends Mailable
   public function __construct($custom_request, $lang)
   {
     $this->custom_request = $custom_request;
-    $this->button = $lang;
+    $this->title = $lang;
     if ($lang == "Russia") {
       $this->title = "Новый запрос";
       $this->date = "Дата";
@@ -81,7 +81,6 @@ class NotifyRequest extends Mailable
    */
   public function build()
   {
-    // return $this->subject("Täze ýüzlenme!")
     return $this->subject($this->title)
       ->view('mail.main');
   }
