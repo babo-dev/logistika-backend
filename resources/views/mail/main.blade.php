@@ -31,8 +31,8 @@
                 </td>
             </tr>
             <tr style="border-bottom:1px solid gainsboro">
-                <td style="padding:10px 10px 5px">Ýagdaýy</td>
-                <td style="padding:10px 10px 5px;text-align:right;font-weight:bold">Garaşylýar</td>
+                <td style="padding:5px 10px 10px">Ýagdaýy</td>
+                <td style="padding:5px 10px 10px;text-align:right;font-weight:bold">Garaşylýar</td>
             </tr>
             <tr>
                 <td style="padding:5px 10px">Haryt</td>
