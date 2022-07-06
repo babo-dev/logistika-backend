@@ -15,7 +15,7 @@ class NotifyRequest extends Mailable
   public $cargo="Haryt", $weight="Agramy", $cub="Kub", $budget="Býudjet", $car_type="Awtoulag görnüşi", $note="Bellik";
   public $client_name="Müşderi ady", $phone = "Telefon";
   public $all_rights = "Ähli Hukuklary Goralan";
-  public $button="Görmek";
+  public $button="hehe";
 
   /**
    * Create a new message instance.
@@ -25,7 +25,6 @@ class NotifyRequest extends Mailable
   public function __construct($custom_request, $lang)
   {
     $this->custom_request = $custom_request;
-    $this->title = $lang;
     if ($lang == "Russia") {
       $this->title = "Новый запрос";
       $this->date = "Дата";
