@@ -9,27 +9,74 @@ use Illuminate\Queue\SerializesModels;
 
 class NotifyRequest extends Mailable
 {
-    use Queueable, SerializesModels;
-    public $custom_request;
+  use Queueable, SerializesModels;
+  public $custom_request;
+  public $title='Täze ýüzlenme!', $date = "Sene", $custom_from = "Nireden", $custom_to = "Nirä", $company = "Hususy Kärhana", $status = "Ýagdaýy", $waiting = "Garaşylýar";
+  public $cargo="Haryt", $weight="Agramy", $cub="Kub", $budget="Býudjet", $car_type="Awtoulag görnüşi", $note="Bellik";
+  public $client_name="Müşderi ady", $phone = "Telefon";
+  public $all_rights = "Ähli Hukuklary Goralan";
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($custom_request)
-    {
-        $this->custom_request = $custom_request;
-    }
+  /**
+   * Create a new message instance.
+   *
+   * @return void
+   */
+  public function __construct($custom_request)
+  {
+    $this->custom_request = $custom_request;
+    if ($this->custom_request->requestable->country->title == "Russia") {
+      $this->title = "Новый запрос";
+      $this->date = "Дата";
+      $this->custom_from = "откуда";
+      $this->custom_to = "куда";
+      $this->company = "Компания";
+      $this->status = "Статус";
+      $this->waiting = "Ожидание";
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->subject("Täze ýüzlenme!")
-                    ->view('mail.main');
+      $this->cargo = "Груз";
+      $this->weight = "Вес";
+      $this->cub = "Куб";
+      $this->budget = "Бюджет";
+      $this->car_type = "Тип автомобиля";
+      $this->note = "Заметка";
+
+      $this->client_name = "Имя клиента";
+      $this->phone = "Телефон";
+
+      $this->all_rights = "Все права защищены.";
+    } elseif ($this->custom_request->requestable->country->title != "Turkmenistan") {
+      $this->title = "New Request";
+      $this->date = "Date";
+      $this->custom_from = "From";
+      $this->custom_to = "To";
+      $this->company = "Company";
+      $this->status = "Status";
+      $this->waiting = "Waiting";
+
+      $this->cargo = "Cargo";
+      $this->weight = "Weight";
+      $this->cub = "Cub";
+      $this->budget = "Budget";
+      $this->car_type = "Car type";
+      $this->note = "Note";
+
+      $this->client_name = "Client name";
+      $this->phone = "Phone";
+
+      $this->all_rights = "All Rights Reserved.";
     }
+      
+  }
+
+  /**
+   * Build the message.
+   *
+   * @return $this
+   */
+  public function build()
+  {
+    // return $this->subject("Täze ýüzlenme!")
+    return $this->subject($this->title)
+      ->view('mail.main');
+  }
 }
