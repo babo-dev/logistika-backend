@@ -218,7 +218,7 @@ class CustomRequestController extends Controller
       if ($request->has('company_id')) {
         if ($request->company_id == 'all') {
           $customRequest->companies()->sync(null);
-          $companiesToSend = Company::where('type', $request->type)->select('id', 'email')->get();
+          $companiesToSend = Company::where([['type', $request->type], ['accepted', 1]])->select('id', 'email')->get();
 
           dispatch(new \App\Jobs\NotifyRequestToCompany($companiesToSend, $customRequest));
         } else {
