@@ -96,7 +96,7 @@
       </tbody>
     </table>
 
-    <p style="text-align:center;padding-top:50px">© 2022 {{$all_rights}}.</p>
+    <p style="text-align:center">© 2022 {{$all_rights}}.</p>
   </section>
 </body>
 
