@@ -93,8 +93,8 @@
         </tr>
       </tbody>
     </table>
-    <h1 style="text-align:center;padding-bottom:30px"><a href="https://iber.biz/account/requests/{{ $custom_request->id }}" style=" font: bold 16px Arial; text-decoration: none; background-color: #2daf71; color: white;
-  padding: 8px 10px 8px 10px;
+    <h1 style="text-align:center;margin-top:30px;"><a href="https://iber.biz/account/requests/{{ $custom_request->id }}" style=" font: 15px Arial; text-decoration: none; background-color: #2daf71; color: white;
+  padding: 8px 14px;
   border-radius: 4px;" target="_blank">Görmek</a></h1>
 
     <p style="text-align:center;padding-top:50px">© 2022 Ähli Hukuklary Goralan.</p>
