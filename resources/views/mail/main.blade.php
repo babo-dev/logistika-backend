@@ -88,8 +88,8 @@
           <td style="padding:5px 10px;text-align:right;font-weight:bold">{{$custom_request->requestable->email}}</td>
         </tr>
         <tr>
-          <td style="padding:5px 10px">Telefon</td>
-          <td style="padding:5px 10px;text-align:right;font-weight:bold">{{$custom_request->requestable->phone}}</td>
+          <td style="padding:5px 10px 10px">Telefon</td>
+          <td style="padding:5px 10px 10px;text-align:right;font-weight:bold">{{$custom_request->requestable->phone}}</td>
         </tr>
       </tbody>
     </table>
