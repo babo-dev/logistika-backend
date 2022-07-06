@@ -22,10 +22,10 @@ class NotifyRequest extends Mailable
    *
    * @return void
    */
-  public function __construct($custom_request)
+  public function __construct($custom_request, $lang)
   {
     $this->custom_request = $custom_request;
-    if ($this->custom_request->requestable->country->title == "Russia") {
+    if ($lang == "Russia") {
       $this->title = "Новый запрос";
       $this->date = "Дата";
       $this->custom_from = "откуда";
@@ -47,7 +47,7 @@ class NotifyRequest extends Mailable
       $this->all_rights = "Все права защищены";
 
       $this->button = "Посмотреть";
-    } elseif ($this->custom_request->requestable->country->title != "Turkmenistan") {
+    } elseif ($lang != "Turkmenistan") {
       $this->title = "New Request";
       $this->date = "Date";
       $this->custom_from = "From";

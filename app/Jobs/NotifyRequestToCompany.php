@@ -37,7 +37,7 @@ class NotifyRequestToCompany implements ShouldQueue
   {
     foreach($this->companiesToSend as $company) {
       Mail::to($company)
-        ->send(new NotifyRequest($this->customRequest));
+        ->send(new NotifyRequest($this->customRequest, $company->country->title));
       sleep(1);
     }
   }
