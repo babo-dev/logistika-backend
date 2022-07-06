@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"><style></style></head><body><section style="font-family:Nunito Sans,Helvetica,Arial,sans-serif;color:#51545e;max-width:1000px;min-width:90%;width:100%;background-color:#fafbfc;padding:30px">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"><style></style></head><body><section style="font-family:Nunito Sans,Helvetica,Arial,sans-serif;color:#51545e;max-width:1000px;min-width:90%;width:70%;background-color:#fafbfc;padding:30px">
     <h1 style="text-align:center;padding-bottom:30px">Täze ýüzlenme!</h1>
     <table style="width:100%;border-collapse:collapse;border:1px solid gainsboro;background-color:white">
         <tbody>
