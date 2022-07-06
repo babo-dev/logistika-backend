@@ -33,43 +33,43 @@
     </section>
 
     <section style="border-bottom: 1px solid #d9d9d9; display: flex; flex-direction: column; padding: 10px 0;">
-      <div style="display: flex;width: 14rem;">
-        <p class="first">Haryt</p>
+      <div style="display: flex;">
+        <p style="width: 14rem;">Haryt</p>
         <p> <b> {{$custom_request->title}} </b></p>
       </div>
       <div style="display: flex;">
-        <p class="first">Agramy</p>
+        <p style="width: 14rem;">Agramy</p>
         <p><b> {{$custom_request->weight_min}} - {{$custom_request->weight_max}}</b></p>
       </div>
       <div style="display: flex;">
-        <p class="first">Kub</p>
+        <p style="width: 14rem;">Kub</p>
         <p><b> {{$custom_request->cubm_min}} - {{$custom_request->cubm_max}}</b></p>
       </div>
       <div style="display: flex;">
-        <p class="first">Byudjet</p>
+        <p style="width: 14rem;">Byudjet</p>
         <p> {{$custom_request->budget_min}} - {{$custom_request->budget_max}}</p>
       </div>
       <div style="display: flex;">
-        <p class="first">Awtoulag gornusi</p>
+        <p style="width: 14rem;">Awtoulag gornusi</p>
         <p> <b> {{$custom_request->car_body}} </b> </p>
       </div>
       <div style="display: flex;">
-        <p class="first">Bellik</p>
+        <p style="width: 14rem;">Bellik</p>
         <p> <b> {{$custom_request->note}} </b> </p>
       </div>
     </section>
 
     <section style="display: flex; flex-direction: column; padding: 10px 0;">
       <div style="display: flex;width: 14rem;">
-        <p class="first">Musderi ady</p>
+        <p style="width: 14rem;">Musderi ady</p>
         <p> <b> {{$custom_request->requestable->name}} </b> </p>
       </div>
       <div style="display: flex;">
-        <p class="first">E-mail</p>
+        <p style="width: 14rem;">E-mail</p>
         <p> <b>{{$custom_request->requestable->email}}</b> </p>
       </div>
       <div style="display: flex;">
-        <p class="first">Telefon</p>
+        <p style="width: 14rem;">Telefon</p>
         <p> <b>{{$custom_request->requestable->phone}}</b> </p>
       </div>
     </section>
