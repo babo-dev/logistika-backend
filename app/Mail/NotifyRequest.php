@@ -11,7 +11,7 @@ class NotifyRequest extends Mailable
 {
   use Queueable, SerializesModels;
   public $custom_request;
-  public $title='Täze ýüzlenme!', $date = "Date", $custom_from = "Nireden", $custom_to = "Nirä", $company = "Hususy Kärhana", $status = "Ýagdaýy", $waiting = "Garaşylýar";
+  public $title='Täze ýüzlenme!', $date = "Sene", $custom_from = "Nireden", $custom_to = "Nirä", $company = "Hususy Kärhana", $status = "Ýagdaýy", $waiting = "Garaşylýar";
   public $cargo="Haryt", $weight="Agramy", $cub="Kub", $budget="Býudjet", $car_type="Awtoulag görnüşi", $note="Bellik";
   public $client_name="Müşderi ady", $phone = "Telefon";
   public $all_rights = "Ähli Hukuklary Goralan";
