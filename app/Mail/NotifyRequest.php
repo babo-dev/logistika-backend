@@ -11,11 +11,21 @@ class NotifyRequest extends Mailable
 {
   use Queueable, SerializesModels;
   public $custom_request;
-  public $title='Täze ýüzlenme!', $date = "Sene", $custom_from = "Nireden", $custom_to = "Nirä", $company = "Hususy Kärhana", $status = "Ýagdaýy", $waiting = "Garaşylýar";
-  public $cargo="Haryt", $weight="Agramy", $cub="Kub", $budget="Býudjet", $car_type="Awtoulag görnüşi", $note="Bellik";
-  public $client_name="Müşderi ady", $phone = "Telefon";
+  public $title = 'Täze ýüzlenme', $date = "Sene", $custom_from = "Nireden", $custom_to = "Nirä", $company = "Hususy Kärhana", $status = "Ýagdaýy", $waiting = "Garaşylýar";
+  public $cargo = "Haryt", $weight = "Agramy", $cub = "Kub", $budget = "Býudjet", $car_type = "Awtoulag görnüşi", $note = "Bellik";
+  public $client_name = "Müşderi ady", $phone = "Telefon";
   public $all_rights = "Ähli Hukuklary Goralan";
-  public $button="Görmek";
+  public $button = "Görmek";
+  public $cargo_type;
+  public $cargo_type_tm = [
+    'Adaty ýük', 'Konteýner ýük', 'Bölek ýük', 'Suwuk ýük', 'Beýlekiler'
+  ];
+  public $cargo_type_ru = [
+    'Обычный груз', 'Контейнерный груз', 'Частичный груз', 'Жидкий груз', 'Другое'
+  ];
+  public $cargo_type_en = [
+    'Regular cargo', 'Container cargo', 'Partial cargo', 'Liquid cargo', 'Other'
+  ];
 
   /**
    * Create a new message instance.
@@ -25,6 +35,7 @@ class NotifyRequest extends Mailable
   public function __construct($custom_request, $lang)
   {
     $this->custom_request = $custom_request;
+    $this->cargo_type = $this->cargo_type_tm[intval($custom_request->car_type)];
     if ($lang == "Russia") {
       $this->title = "Новый запрос";
       $this->date = "Дата";
@@ -47,6 +58,8 @@ class NotifyRequest extends Mailable
       $this->all_rights = "Все права защищены";
 
       $this->button = "Посмотреть";
+
+      $this->cargo_type = $this->cargo_type_ru[intval($custom_request->car_type)];
     } elseif ($lang != "Turkmenistan") {
       $this->title = "New Request";
       $this->date = "Date";
@@ -69,8 +82,9 @@ class NotifyRequest extends Mailable
       $this->all_rights = "All Rights Reserved";
 
       $this->button = "Take a look";
+
+      $this->cargo_type = $this->cargo_type_en[intval($custom_request->car_type)];
     }
-      
   }
 
   /**

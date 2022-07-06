@@ -7,8 +7,8 @@
 </head>
 
 <body>
-  <section style="font-family:Nunito Sans,Helvetica,Arial,sans-serif;color:#51545e;max-width:1000px;min-width:90%;width:80%;background-color:#fafbfc;padding:25px">
-    <h1 style="text-align:center;padding-bottom:30px"> {{$title}} </h1>
+  <section style="font-family:Nunito Sans,Helvetica,Arial,sans-serif;color:#51545e;max-width:700px;min-width:90%;width:80%;background-color:#fafbfc;padding:25px">
+    <h1 style="display:flex;justify-content:space-between;padding-bottom:30px"> {{$title}} </h1>
     <table style="width:100%;border-collapse:collapse;border:1px solid gainsboro;background-color:white">
       <tbody>
         <tr>
@@ -65,7 +65,7 @@
             @if($custom_request->car_body == '')
             -
             @else
-            {{$custom_request->car_body}}
+            {{$cargo_type}}
             @endif
           </td>
         </tr>
