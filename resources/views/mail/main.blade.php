@@ -95,7 +95,7 @@
     </table>
     <h1 style="text-align:center;margin-top:30px;"><a href="https://iber.biz/account/requests/{{ $custom_request->id }}" style=" font: 15px Arial; text-decoration: none; background-color: #2daf71; color: white;
   padding: 8px 14px;
-  border-radius: 4px;" target="_blank">Görmek</a></h1>
+  border-radius: 4px;" target="_blank">{{$button}}</a></h1>
 
     <p style="text-align:center;padding-top:50px">© 2022 {{$all_rights}}.</p>
   </section>

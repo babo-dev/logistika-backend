@@ -15,6 +15,7 @@ class NotifyRequest extends Mailable
   public $cargo="Haryt", $weight="Agramy", $cub="Kub", $budget="Býudjet", $car_type="Awtoulag görnüşi", $note="Bellik";
   public $client_name="Müşderi ady", $phone = "Telefon";
   public $all_rights = "Ähli Hukuklary Goralan";
+  public $button="Görmek";
 
   /**
    * Create a new message instance.
@@ -43,7 +44,9 @@ class NotifyRequest extends Mailable
       $this->client_name = "Имя клиента";
       $this->phone = "Телефон";
 
-      $this->all_rights = "Все права защищены.";
+      $this->all_rights = "Все права защищены";
+
+      $this->button = "Посмотреть";
     } elseif ($this->custom_request->requestable->country->title != "Turkmenistan") {
       $this->title = "New Request";
       $this->date = "Date";
@@ -63,7 +66,9 @@ class NotifyRequest extends Mailable
       $this->client_name = "Client name";
       $this->phone = "Phone";
 
-      $this->all_rights = "All Rights Reserved.";
+      $this->all_rights = "All Rights Reserved";
+
+      $this->button = "Take a look";
     }
       
   }
