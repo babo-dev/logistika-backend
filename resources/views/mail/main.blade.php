@@ -8,12 +8,19 @@
 
 <body>
   <section style="font-family:Nunito Sans,Helvetica,Arial,sans-serif;color:#51545e;max-width:700px;min-width:90%;width:80%;background-color:#fafbfc;padding:25px">
-    <section style="justify-content:space-between;align-items:center;display:flex;">
-     <h1> {{$title}} </h1>
-      <a href="https://iber.biz/account/requests/{{ $custom_request->id }}" style=" font: 15px Arial; text-decoration: none; background-color: #2daf71; color: white;
-  padding: 8px 14px;
-  border-radius: 4px;" target="_blank">{{$button}}</a>
-    </section>
+    <table style="width:100%">
+      <tr>
+        <td>
+          <h1> {{$title}} </h1>
+        </td>
+        <td>
+          <a href="https://iber.biz/account/requests/{{ $custom_request->id }}" style=" font: 15px Arial; text-decoration: none; background-color: #2daf71; color: white;
+        padding: 8px 14px;
+        border-radius: 4px;" target="_blank">{{$button}}
+          </a>
+        </td>
+      </tr>
+    </table>
     <table style="width:100%;border-collapse:collapse;border:1px solid gainsboro;background-color:white">
       <tbody>
         <tr>
