@@ -13,7 +13,7 @@
         <td>
           <h1> {{$title}} </h1>
         </td>
-        <td>
+        <td style="text-align: right;">
           <a href="https://iber.biz/account/requests/{{ $custom_request->id }}" style=" font: 15px Arial; text-decoration: none; background-color: #2daf71; color: white;
         padding: 8px 14px;
         border-radius: 4px;" target="_blank">{{$button}}
