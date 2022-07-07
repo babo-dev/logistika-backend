@@ -8,8 +8,11 @@
 
 <body>
   <section style="font-family:Nunito Sans,Helvetica,Arial,sans-serif;color:#51545e;max-width:700px;min-width:90%;width:80%;background-color:#fafbfc;padding:25px">
-    <div style="display:flex;justify-content:space-between;">
+    <div style="display:flex;justify-content:space-between;align-items:center">
      <h1> {{$title}} </h1>
+      <a href="https://iber.biz/account/requests/{{ $custom_request->id }}" style=" font: 15px Arial; text-decoration: none; background-color: #2daf71; color: white;
+  padding: 8px 14px;
+  border-radius: 4px;" target="_blank">{{$button}}</a>
     </div>
     <table style="width:100%;border-collapse:collapse;border:1px solid gainsboro;background-color:white">
       <tbody>
@@ -95,10 +98,7 @@
         </tr>
       </tbody>
     </table>
-    
-      <a href="https://iber.biz/account/requests/{{ $custom_request->id }}" style=" font: 15px Arial; text-decoration: none; background-color: #2daf71; color: white;
-  padding: 8px 14px;
-  border-radius: 4px;" target="_blank">{{$button}}</a>
+
     <p style="text-align:center;margin-top: 25px;">© 2022 {{$all_rights}}.</p>
   </section>
 </body>
