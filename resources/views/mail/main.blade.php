@@ -91,18 +91,7 @@
             @endif
           </td>
         </tr>
-        <tr>
-          <td style="padding:10px 10px 5px">{{$client_name}}</td>
-          <td style="padding:10px 10px 5px;text-align:right;font-weight:bold">{{$custom_request->requestable->name}}</td>
-        </tr>
-        <tr>
-          <td style="padding:5px 10px">E-mail</td>
-          <td style="padding:5px 10px;text-align:right;font-weight:bold">{{$custom_request->requestable->email}}</td>
-        </tr>
-        <tr>
-          <td style="padding:5px 10px 10px">{{$phone}}</td>
-          <td style="padding:5px 10px 10px;text-align:right;font-weight:bold">{{$custom_request->requestable->phone}}</td>
-        </tr>
+
       </tbody>
     </table>
 

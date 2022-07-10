@@ -13,7 +13,6 @@ class NotifyRequest extends Mailable
   public $custom_request;
   public $title = 'Täze ýüzlenme', $date = "Sene", $custom_from = "Nireden", $custom_to = "Nirä", $company = "Hususy Kärhana", $status = "Ýagdaýy", $waiting = "Garaşylýar";
   public $cargo = "Haryt", $weight = "Agramy", $cub = "Kub", $budget = "Býudjet", $car_type = "Awtoulag görnüşi", $note = "Bellik";
-  public $client_name = "Müşderi ady", $phone = "Telefon";
   public $all_rights = "Ähli Hukuklary Goralan";
   public $button = "Görmek";
   public $cargo_type;
@@ -52,9 +51,6 @@ class NotifyRequest extends Mailable
       $this->car_type = "Тип автомобиля";
       $this->note = "Заметка";
 
-      $this->client_name = "Имя клиента";
-      $this->phone = "Телефон";
-
       $this->all_rights = "Все права защищены";
 
       $this->button = "Посмотреть";
@@ -75,9 +71,6 @@ class NotifyRequest extends Mailable
       $this->budget = "Budget";
       $this->car_type = "Car type";
       $this->note = "Note";
-
-      $this->client_name = "Client name";
-      $this->phone = "Phone";
 
       $this->all_rights = "All Rights Reserved";
 
