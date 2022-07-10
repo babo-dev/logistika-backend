@@ -26,7 +26,7 @@ class CompanyResource extends JsonResource
       'short_description' => $this->short_description,
       'description' => $this->getTranslations("description")!=[] ? $this->getTranslations("description") : null,
       // 'description' => $this->getTranslations("description"),
-      'avatar' => $this->avatar!=null ? url('/storage/images/company/' . $this->avatar) : '',
+      'avatar' => $this->avatar!='' ? url('/storage/images/company/' . $this->avatar) : '',
       'auto_model' => $this->auto_model,
       'accepted' => intval($this->accepted),
       'car_year' => $this->car_year,
