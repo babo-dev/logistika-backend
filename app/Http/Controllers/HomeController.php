@@ -24,7 +24,7 @@ class HomeController extends Controller
   public function index()
   {
     $now = Carbon::now();
-    $routes = RouteResource::collection(CustomRoute::whereDate('date1', '>', $now)->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
+    $routes = RouteResource::collection(CustomRoute::whereDate('date2', '>', $now)->orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $sliders = SliderResource::collection(Slider::orderBy('id', 'desc')->paginate(20))->response()->getData(True);
     $companies = CompanyResource::collection(Company::select('id', 'order_id', 'name', 'email', 'country_id', 'type', 'accepted', 'avatar', 'email_verified_at', 'status')
       ->orderBy('order_id', 'asc')->where('type', 'company')->where('accepted', true)->paginate(20))->response()->getData(True);
@@ -44,11 +44,11 @@ class HomeController extends Controller
       //     $query->where('requestable_id', auth("companies")->user()->id);
       //   })->get();
       $view = CustomRequest::where([['status', "0"], ['type', auth("companies")->user()->type]])
-          ->where(function ($query) {
-            $query->whereHas('companies', function ($query) {
-              $query->where('id', auth("companies")->user()->id);
-            })->orDoesntHave('companies');
-          })
+        ->where(function ($query) {
+          $query->whereHas('companies', function ($query) {
+            $query->where('id', auth("companies")->user()->id);
+          })->orDoesntHave('companies');
+        })
         ->whereDoesntHave('views', function ($query) {
           $query->where('id', auth("companies")->user()->id);
         })
@@ -137,7 +137,9 @@ class HomeController extends Controller
     if ($request->type == "route") {
       // get all states
       // $states = State::orderBy('id', 'desc')->where('title', 'LIKE', '%' . $request->q . '%')->limit(20)->get();
+      $now = Carbon::now();
       $states = CustomRoute::orderBy('id', 'desc')
+        ->whereDate('date2', '>', $now)
         ->where('source', 'LIKE', '%' . $request->q . '%')
         ->orWhere('destination', 'LIKE', '%' . $request->q . '%')->limit(20)->get();
       // return $states;
