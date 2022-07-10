@@ -35,6 +35,6 @@ class RequestAnswers extends Model
 
   public function company()
   {
-    return $this->belongsTo("App\Models\Company")->select('id', 'name', 'email', 'type', 'status', 'accepted');
+    return $this->belongsTo("App\Models\Company")->select('id', 'name', 'email', 'type', 'status', 'accepted', 'avatar');
   }
 }
