@@ -304,7 +304,7 @@ guard:users  POST /api/requests
 | `cargo_type` | `string` | **Optional** |
 | `car_body` | `string` | **Optional** |
 | `note` | `string` | **Optional** |
-| `company_id` | `all` or `id` or `ids` | **Optional** if not provided, it means access to all companies |
+| `company_id` | `all` or `id` or `ids` | **Required** |
 
 Update a request of authenticated user 
 ```http
