@@ -17,7 +17,7 @@ class CustomRouteController extends Controller
    */
   public function __construct()
   {
-    $this->middleware(['auth:companies'])->except(['all','show']);
+    $this->middleware(['auth:companies'])->except(['all', 'show']);
     // $this->middleware(['auth:admins','jwt.auth'])->except(['all']);
   }
 
@@ -26,10 +26,17 @@ class CustomRouteController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function all()
+  public function all(Request $request)
   {
     $routes = CustomRoute::orderBy('id', 'desc')->paginate(20);
 
+    if ($request->page > $routes->lastPage()) {
+      return response()->json([
+        'success' => 'false',
+        'data' => null,
+        'message' => "Invalid page number"
+      ], 404);
+    }
     return response()->json([
       'success' => 'true',
       'data' => RouteResource::collection($routes)->response()->getData(True),
@@ -45,21 +52,20 @@ class CustomRouteController extends Controller
   public function index()
   {
     // $routes = auth('companies')->user()->routes()->paginate(20);
-      if (auth("companies")->user()->type == "company") {
-        $routes = RouteResource::collection(
-         auth('companies')->user()->routes() 
-            ->orWhere("company_id", null)
-            ->where('car_body', '!=', '')
-            ->orderBy('id', 'desc')->paginate(20)
-        )->response()->getData(True);
-      } 
-      else {
-        $routes = RouteResource::collection(
-         auth('companies')->user()->routes() 
-            ->where("car_body", '')
-            ->orderBy('id', 'desc')->paginate(20)
-        )->response()->getData(True);
-      }
+    if (auth("companies")->user()->type == "company") {
+      $routes = RouteResource::collection(
+        auth('companies')->user()->routes()
+          ->orWhere("company_id", null)
+          ->where('car_body', '!=', '')
+          ->orderBy('id', 'desc')->paginate(20)
+      )->response()->getData(True);
+    } else {
+      $routes = RouteResource::collection(
+        auth('companies')->user()->routes()
+          ->where("car_body", '')
+          ->orderBy('id', 'desc')->paginate(20)
+      )->response()->getData(True);
+    }
     return response()->json([
       'success' => 'true',
       'data' => $routes,
