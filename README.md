@@ -289,20 +289,22 @@ guard:users  POST /api/requests
 ```
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
+| `title` | `string` | **Required** |
 | `date1` | `datetime` | **Required** |
 | `date2` | `datetime` | **Required** |
-| `weight_min` | `string` | **Required** |
-| `weight_max` | `string` | **Required** |
-| `cubm_min` | `string` | **Required** |
-| `cubm_max` | `string` | **Required** |
-| `budget_min` | `string` | **Required** |
-| `budget_max` | `string` | **Required** |
-| `cargo_type` | `string` | **Required** |
-| `car_body` | `string` | **Required** |
-| `note` | `string` | **Required** |
-| `source` | `foreing_id` | **Required**|
-| `destination` | `foreing_id` | **Required** |
-| `company_id` | `foreing_id` | **Optional** if not provided, it means access to all companies |
+| `type` | `string` | **Required**|
+| `source` | `string` | **Required**|
+| `destination` | `string` | **Required** |
+| `weight_min` | `string` | **Optional** |
+| `weight_max` | `string` | **Optional** |
+| `cubm_min` | `string` | **Optional** |
+| `cubm_max` | `string` | **Optional** |
+| `budget_min` | `string` | **Optional** |
+| `budget_max` | `string` | **Optional** |
+| `cargo_type` | `string` | **Optional** |
+| `car_body` | `string` | **Optional** |
+| `note` | `string` | **Optional** |
+| `company_id` | `all` or `id` or `ids` | **Optional** if not provided, it means access to all companies |
 
 Update a request of authenticated user 
 ```http
