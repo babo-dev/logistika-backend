@@ -28,7 +28,8 @@ class CustomRouteController extends Controller
    */
   public function all(Request $request)
   {
-    $routes = CustomRoute::orderBy('id', 'desc')->paginate(20);
+    $now = Carbon::now();
+    $routes = CustomRoute::whereDate('date2', '>', $now)->orderBy('id', 'desc')->paginate(20);
 
     if ($request->page > $routes->lastPage()) {
       return response()->json([
