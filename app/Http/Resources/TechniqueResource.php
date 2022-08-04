@@ -25,7 +25,7 @@ class TechniqueResource extends JsonResource
     return [
       'id' => $this->id,
       // 'company' => $this->company,
-      'company' => new CompanyResource($this->company),
+      'company' => new CustomRequestResource($this->company),
       'owner' => $this->company->owner,
       'state' => $this->state,
       'technique_type' => $this->technique_type->title,
