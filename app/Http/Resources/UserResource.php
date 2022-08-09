@@ -25,7 +25,7 @@ class UserResource extends JsonResource
       // 'avatar' => $this->avatar!=null ? url('/storage/images/'.$this->avatar) : null,
     ];
 
-    if ($this->avatar != "######") {
+    if ($this->avatar != "#######") {
       $result['avatar'] = url('/storage/images/' . $this->avatar);
     } else{
       $result['avatar'] = null;
