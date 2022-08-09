@@ -22,14 +22,15 @@ class UserResource extends JsonResource
       'phone' => $this->phone,
       'address' => $this->address,
       'passport_no' => $this->passport_no,
+      'avatar' => $this->avatar,
       // 'avatar' => $this->avatar!=null ? url('/storage/images/'.$this->avatar) : null,
     ];
 
-    if ($this->avatar != "#######") {
-      $result['avatar'] = url('/storage/images/' . $this->avatar);
-    } else{
-      $result['avatar'] = null;
-    }
+    // if ($this->avatar != "#######") {
+    //   $result['avatar'] = url('/storage/images/' . $this->avatar);
+    // } else{
+    //   $result['avatar'] = null;
+    // }
 
     return $result;
   }
