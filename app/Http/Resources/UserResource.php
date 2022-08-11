@@ -24,6 +24,7 @@ class UserResource extends JsonResource
       'passport_no' => $this->passport_no,
       // 'avatar' => $this->avatar,
       'avatar' => $this->avatar!=null ? url('/storage/images/'.$this->avatar) : null,
+      'mail_confirmed' => $this->email_verified_at ? 1 : 0
     ];
 
     // if ($this->avatar != "#######") {
